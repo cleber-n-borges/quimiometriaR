@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>&#8474;&#8477; 6 PCA - Análise de Componentes Principais | Caderno de Quimiometria com R</title>
+  <meta name="description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="&#8474;&#8477; 6 PCA - Análise de Componentes Principais | Caderno de Quimiometria com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+  <meta property="og:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="github-repo" content="cleber-n-borges/quimiometriaR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="&#8474;&#8477; 6 PCA - Análise de Componentes Principais | Caderno de Quimiometria com R" />
+  
+  <meta name="twitter:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="twitter:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+<link rel="prev" href="parte-iii---análise-exploratória-de-dados.html"/>
+<link rel="next" href="hca---análise-de-agrupamento-hierárquico.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJVXYW1C58"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YJVXYW1C58');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">&#8474;&#8477; Quimiometria com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bem-vindos!</a></li>
+<li class="chapter" data-level="" data-path="útil-para-você.html"><a href="útil-para-você.html"><i class="fa fa-check"></i>Útil para Você!</a></li>
+<li class="chapter" data-level="" data-path="pergunte-ao-chatgpt.html"><a href="pergunte-ao-chatgpt.html"><i class="fa fa-check"></i>Pergunte ao ChatGPT</a></li>
+<li class="chapter" data-level="" data-path="estrutura-do-caderno.html"><a href="estrutura-do-caderno.html"><i class="fa fa-check"></i>Estrutura do Caderno</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html"><i class="fa fa-check"></i>PARTE I - Ponto de Partida</a>
+<ul>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#primeiro-passo"><i class="fa fa-check"></i>Primeiro Passo</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#o-que-é-quimiometria"><i class="fa fa-check"></i>O que é Quimiometria?</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#aplicações-do-r-na-quimiometria"><i class="fa fa-check"></i>Aplicações do R na Quimiometria</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#contribuições-do-chatgpt"><i class="fa fa-check"></i>Contribuições do ChatGPT</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html"><i class="fa fa-check"></i><b>1</b> Comece a Usar o R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-o-r-e-rstudio"><i class="fa fa-check"></i><b>1.1</b> Instale o R e RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conheça-o-básico-do-r"><i class="fa fa-check"></i><b>1.2</b> Conheça o Básico do R</a></li>
+<li class="chapter" data-level="1.3" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#realize-análises-simples"><i class="fa fa-check"></i><b>1.3</b> Realize Análises Simples</a></li>
+<li class="chapter" data-level="1.4" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#a-conveniência-do-help"><i class="fa fa-check"></i><b>1.4</b> A Conveniência do <code>help()</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#como-usar-o-comando-help"><i class="fa fa-check"></i>Como Usar o Comando <code>help()</code>:</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conveniência-da-prática"><i class="fa fa-check"></i>Conveniência da Prática</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#exemplo-de-uso"><i class="fa fa-check"></i>Exemplo de Uso</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#manuseie-arquivos"><i class="fa fa-check"></i><b>1.5</b> Manuseie Arquivos</a></li>
+<li class="chapter" data-level="1.6" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#salve-e-restaure-seu-workspace"><i class="fa fa-check"></i><b>1.6</b> Salve e Restaure seu <i>Workspace</i></a></li>
+<li class="chapter" data-level="1.7" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-pacotes-r"><i class="fa fa-check"></i><b>1.7</b> Instale Pacotes R</a></li>
+<li class="chapter" data-level="1.8" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#aprenda-mais-e-pratique"><i class="fa fa-check"></i><b>1.8</b> Aprenda Mais e Pratique</a></li>
+<li class="chapter" data-level="1.9" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#participar-de-comunidades"><i class="fa fa-check"></i><b>1.9</b> Participar de Comunidades</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html"><i class="fa fa-check"></i><b>2</b> Conjunto de Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#organização-e-notação"><i class="fa fa-check"></i><b>2.1</b> Organização e Notação</a></li>
+<li class="chapter" data-level="2.2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#valores-faltantes-na"><i class="fa fa-check"></i><b>2.2</b> Valores faltantes: <code>NA</code></a></li>
+<li class="chapter" data-level="2.3" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#dados-disponíveis"><i class="fa fa-check"></i><b>2.3</b> Dados Disponíveis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html"><i class="fa fa-check"></i><b>3</b> Visualização de Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#gráficos-com-o-r"><i class="fa fa-check"></i><b>3.1</b> Gráficos com o R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#funções-nativas"><i class="fa fa-check"></i><b>3.1.1</b> Funções nativas</a></li>
+<li class="chapter" data-level="3.1.2" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-animation"><i class="fa fa-check"></i><b>3.1.2</b> Pacote <code>animation</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-ggplot2"><i class="fa fa-check"></i><b>3.1.3</b> Pacote <code>ggplot2</code></a></li>
+<li class="chapter" data-level="3.1.4" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-plotly"><i class="fa fa-check"></i><b>3.1.4</b> Pacote <code>plotly</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-ii---tratamento-dos-dados.html"><a href="parte-ii---tratamento-dos-dados.html"><i class="fa fa-check"></i>PARTE II - Tratamento dos Dados</a></li>
+<li class="chapter" data-level="4" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html"><i class="fa fa-check"></i><b>4</b> Pré-Processamento de Variáveis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#autoescalamento"><i class="fa fa-check"></i><b>4.1</b> Autoescalamento</a></li>
+<li class="chapter" data-level="4.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#normalização-min-max"><i class="fa fa-check"></i><b>4.2</b> Normalização Min-Max:</a></li>
+<li class="chapter" data-level="4.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformações"><i class="fa fa-check"></i><b>4.3</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logarítmica-e-raiz-quadrada"><i class="fa fa-check"></i><b>4.3.1</b> Logarítmica e Raiz Quadrada</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformação-box-cox"><i class="fa fa-check"></i><b>4.3.2</b> Transformação Box-Cox</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logística-e-logit"><i class="fa fa-check"></i><b>4.3.3</b> Logística e <em>Logit</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html"><i class="fa fa-check"></i><b>5</b> Pré-Processamento de Amostras</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html#todo"><i class="fa fa-check"></i><b>5.1</b> TODO</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-iii---análise-exploratória-de-dados.html"><a href="parte-iii---análise-exploratória-de-dados.html"><i class="fa fa-check"></i>PARTE III - Análise Exploratória de Dados</a></li>
+<li class="chapter" data-level="6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html"><i class="fa fa-check"></i><b>6</b> PCA - Análise de Componentes Principais</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#desenvolvimento-histórico"><i class="fa fa-check"></i><b>6.1</b> Desenvolvimento histórico</a></li>
+<li class="chapter" data-level="6.2" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#definição"><i class="fa fa-check"></i><b>6.2</b> Definição</a></li>
+<li class="chapter" data-level="6.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#interpretação-geométrica"><i class="fa fa-check"></i><b>6.3</b> Interpretação Geométrica</a></li>
+<li class="chapter" data-level="6.4" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#objetivo"><i class="fa fa-check"></i><b>6.4</b> Objetivo</a></li>
+<li class="chapter" data-level="6.5" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#pca-como-decomposição-matricial"><i class="fa fa-check"></i><b>6.5</b> PCA como Decomposição Matricial</a></li>
+<li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#principais-algoritmos"><i class="fa fa-check"></i><b>6.6</b> Principais Algoritmos</a></li>
+<li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.7</b> Variância por PC</a></li>
+<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.8</b> Aplicação Típica</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>7</b> HCA - Análise de Agrupamento Hierárquico</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/cleber-n-borges/quimiometriaR" target="blank">&#8474;&#8477; Repositório GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Caderno de Quimiometria com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pca---análise-de-componentes-principais" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">&#8474;&#8477; 6</span> PCA - Análise de Componentes Principais<a href="pca---análise-de-componentes-principais.html#pca---análise-de-componentes-principais" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>A <strong>Análise de Componentes Principais (PCA)</strong><a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a> é uma técnica estatística multivariada amplamente utilizada para reduzir a dimensionalidade de conjuntos de dados, preservando a maior quantidade possível de variabilidade presente nos dados originais. Essa abordagem transforma um grande número de variáveis correlacionadas em um conjunto menor de variáveis não correlacionadas, chamadas de componentes principais. Os componentes principais são combinações lineares das variáveis originais e são ordenados de forma que o primeiro componente captura a maior parte da variabilidade dos dados, seguido pelo segundo, e assim por diante.</p>
+<div id="desenvolvimento-histórico" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Desenvolvimento histórico<a href="pca---análise-de-componentes-principais.html#desenvolvimento-histórico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A Análise de Componentes Principais tem seu histórico que remonta ao início do século XX. Aqui estão os principais marcos na evolução dessa técnica:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Princípios Iniciais</strong>:
+<ul>
+<li>Os princípios da PCA podem ser traçados até o trabalho de <strong>Karl Pearson</strong><a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a>, um estatístico britânico. Em 1901, ele publicou um artigo intitulado “On Lines and Planes of Closest Fit to Systems of Points in Space”<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a>, onde apresentou o conceito de “análise de fatores” e a ideia de encontrar uma linha de melhor ajuste para um conjunto de pontos em um espaço multidimensional. Este trabalho é considerado uma das primeiras referências à ideia subjacente da PCA.</li>
+</ul></li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Desenvolvimentos Posteriores</strong>:
+<ul>
+<li>Em 1933, <strong>Harold Hotelling</strong><a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a>, um estatístico americano, expandiu as ideias de Pearson e formalizou a técnica da PCA em seu trabalho <em>“Analysis of a Complex of Statistical Variables into Principal Components”</em><a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a>. Neste artigo, Hotelling descreveu um método para reduzir a dimensionalidade de dados multivariados, mantendo a maior parte da variabilidade nos dados originais. Ele introduziu a terminologia e as fórmulas que são fundamentais para a PCA moderna.</li>
+</ul></li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Adoção e Popularização</strong>:
+<ul>
+<li>Ao longo do século XX, a PCA começou a ser adotada em várias disciplinas, incluindo psicologia, biologia, e, mais tarde, em áreas como ciências sociais e, mais recentemente, em ciências de dados e quimiometria. O conceito foi utilizado para análises de dados complexos, onde a visualização e a interpretação de múltiplas variáveis se tornaram essenciais.</li>
+</ul></li>
+<li><strong>Avanços Computacionais</strong>:
+<ul>
+<li>Com o advento dos computadores e o aumento do poder computacional nas décadas de 1970 e 1980, a PCA tornou-se ainda mais acessível e prática. Softwares estatísticos começaram a incorporar a PCA como uma ferramenta padrão para análise de dados, permitindo que pesquisadores e profissionais realizassem análises multivariadas com maior facilidade.</li>
+</ul></li>
+<li><strong>Aplicações Modernas</strong>:
+<ul>
+<li>Nos anos 2000 e além, a PCA passou a ser uma técnica fundamental na análise de grandes volumes de dados, especialmente na era do <em>Big Data</em>. Sua aplicação se estendeu para áreas como aprendizado de máquina <em>etc</em>, onde a redução de dimensionalidade e a identificação de padrões são cruciais.</li>
+</ul></li>
+</ol>
+<p>Em síntese, o método PCA evoluiu de um conceito inicial apresentado por Pearson para uma técnica robusta e amplamente utilizada, graças ao trabalho de Hotelling e ao avanço da computacão. Sua relevância na análise de dados contemporâneos atesta sua eficácia na extração de informações significativas, contexto do qual a quimiometria está inserida.</p>
+</div>
+<div id="definição" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Definição<a href="pca---análise-de-componentes-principais.html#definição" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A explicação apresentada anteriormente pode ainda não ser satisfatória e suficiente para um entendimento completo do PCA, especialmente para aqueles que estão iniciando seus estudos. Assim, vamos retomar e destacar alguns pontos-chave de forma mais direta para esclarecer o conceito de maneira mais eficaz. Vamos analisar cada ponto com atenção e com melhores definições:</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li>O que são essas <strong>Componentes Principais</strong>?</li>
+</ol>
+<ul>
+<li>São <strong>novas variáveis</strong> produzidas a partir das variáveis originais</li>
+</ul>
+<p> </p>
+<ol start="2" style="list-style-type: decimal">
+<li>Como são criadas essas <strong>novas variáveis</strong> chamadas de Componentes Principais?</li>
+</ol>
+<ul>
+<li>São <strong>combinações lineares</strong> das variáveis originais.</li>
+</ul>
+<p> </p>
+<p>Considerando que as combinações lineares desempenham um papel crucial para a definição do PCA, vamos explorar esse aspecto em mais detalhes e compreender como elas geram as componentes principais.</p>
+<p><strong>Combinações Lineares</strong></p>
+<p>Considere que temos nossos dados numa matrix <span class="math inline">\(\mathbf{X}\)</span> com <span class="math inline">\(n\)</span> amostras (linhas) e <span class="math inline">\(m\)</span> variáveis (colunas). Podemos combinar linearmente as <span class="math inline">\(m\)</span> variáveis para formar <span class="math inline">\(k\)</span> componentes principais da seguinte forma:</p>
+<p><span class="math display">\[
+\mathbf{t}_1 = p_{1,1} \cdot \mathbf{x}_{\cdot,1} + p_{1,2} \cdot \mathbf{x}_{\cdot,2} + p_{1,3} \cdot \mathbf{x}_{\cdot,3} + \ldots + p_{1,m} \cdot \mathbf{x}_{\cdot, m} \\
+\\
+\mathbf{t}_2 = p_{2,1} \cdot \mathbf{x}_{\cdot,1} + p_{2,2} \cdot \mathbf{x}_{\cdot,2} + p_{2,3} \cdot \mathbf{x}_{\cdot,3} + \ldots + p_{2,m} \cdot \mathbf{x}_{\cdot, m} \\
+\\
+\mathbf{t}_3 = p_{3,1} \cdot \mathbf{x}_{\cdot,1} + p_{3,2} \cdot \mathbf{x}_{\cdot,2} + p_{3,3} \cdot \mathbf{x}_{\cdot,3} + \ldots + p_{3,m} \cdot \mathbf{x}_{\cdot, m} \\
+\\
+\vdots \\
+\\
+\mathbf{t}_k = p_{k,1} \cdot \mathbf{x}_{\cdot,1} + p_{k,2} \cdot \mathbf{x}_{\cdot,2} + p_{k,3} \cdot \mathbf{x}_{\cdot,3} + \ldots + p_{k,m} \cdot \mathbf{x}_{\cdot, m}
+\]</span></p>
+<p>       onde:</p>
+<ul>
+<ul>
+<li>
+<p><span class="math inline">\(\mathbf{t}_1\)</span>, <span class="math inline">\(\mathbf{t}_2\)</span>, <span class="math inline">\(\mathbf{t}_3\)</span>, …, <span class="math inline">\(\mathbf{t}_k\)</span> são vetores. São chamados de <em>scores</em>.</p>
+<li>
+<p><span class="math inline">\(p_{1,1}\)</span>, <span class="math inline">\(p_{1,2}\)</span>, <span class="math inline">\(p_{1,3}\)</span>, …, <span class="math inline">\(p_{k,m}\)</span> são valores escalares e são chamados de pesos para cada variável. São chamados de <em>loadings</em>.</p>
+<li>
+<p><span class="math inline">\(\mathbf{x}_{\cdot,1}\)</span>, <span class="math inline">\(\mathbf{x}_{\cdot,2}\)</span>, <span class="math inline">\(\mathbf{x}_{\cdot,3}\)</span>, …, <span class="math inline">\(\mathbf{x}_{\cdot,m}\)</span> são as colunas da matriz <span class="math inline">\(\mathbf{X}\)</span>.</p>
+<li>
+<p><span class="math inline">\(k\)</span> pode variar de 1 até <span class="math inline">\(w=min(n,m)\)</span> (o menor valor entre <span class="math inline">\(n\)</span> e <span class="math inline">\(m\)</span>).</p>
+</ul>
+</ul>
+<p>Uma notação mais compacta para as equações pode ser expressa como:</p>
+<p><span class="math display">\[
+\mathbf{t}_k = \sum_{k=1}^{w} \sum_{j=1}^{m} p_{k,j} \cdot \mathbf{x}_{\cdot,j}
+\]</span></p>
+<p>Essa notação resume e deixa explicíto as combinações lineares que resultam em cada vetor <span class="math inline">\(\mathbf{t}_k\)</span> em termos dos coeficientes <span class="math inline">\(p_{k,j}\)</span> e dos vetores <span class="math inline">\(\mathbf{x}_{\cdot,j}\)</span>.</p>
+<p> </p>
+<p>É fundamental destacar que as combinações lineares apresentadas até agora permitem infinitas possibilidades, pois ainda não impusemos restrições quanto à variabilidade dos dados que elas devem descrever. Para que as combinações lineares se tornem as componentes principais, como mencionamos no início, é essencial e necessário definir um critério que as caracterize. Esse critério se refere à forma como será a representação da variabilidade dos dados. O próximo ponto abordará essa condição específica.</p>
+<p> </p>
+<ol start="3" style="list-style-type: decimal">
+<li>Então como são feitas essas <strong>combinações lineares</strong> considerando a descrição da variabilidade dos dados?</li>
+</ol>
+<ul>
+<li><p>A primeira componente principal captura, obrigatoriamente, a maior parte de informação possível contida dos dados.</p></li>
+<li><p>Cada outra nova componente principal, ao ser definida, deve ser obrigatoriamente ortogonal às anteriores e capturar a maior variação possível dos dados que ainda não foi explicada.</p></li>
+</ul>
+<p> </p>
+<p>Por ortogonalidade entenda-se que não há correlação entre eles, ou seja, cada componente principal representa uma direção distinta na variabilidade dos dados. Em termos estritamente matemáticos, duas componentes principais (vetores, direções <em>etc</em>) são ortogonais se o produto interno entre elas é zero.</p>
+<p>No sentido sobre capturar informações dos dados, diz-se que as componentes são independentes entre si. Essa independência é crucial no PCA, pois permite que cada componente capture informações únicas sobre a variação nos dados, sem redundância. Em outras palavras, a primeira componente principal explica a maior parte da variância dos dados, a segunda componente, que é ortogonal à primeira, explica a maior parte da variância restante (que necessariamente não foi capturada na primeira), e assim por diante.</p>
+<p>A intenção dos três pontos abordados é esclarecer as condições necessárias para a definição completa de PCA. Compreendendo esses aspectos, teremos uma base sólida sobre o que é PCA, em termos formais. No entanto, é igualmente importante explorar mais dois outros pontos, que são, a interpretação geométrica do PCA e os objetivos para os quais o PCA é utilizado.</p>
+</div>
+<div id="interpretação-geométrica" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Interpretação Geométrica<a href="pca---análise-de-componentes-principais.html#interpretação-geométrica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A explicação anterior tratou do PCA sob uma perspectiva algébrica. No entanto, também podemos compreendê-lo geometricamente, destacando que a transformação resultante da combinação linear pode ser vista como uma rotação dos eixos originais. Essa rotação é realizada de forma a maximizar a captura da variabilidade dos dados, mantendo a ortogonalidade das novas direções, conforme já definido. No caso de duas variáveis, essa rotação se torna facilmente visualizável e imediatamente reconhecível, permitindo uma compreensão intuitiva do processo.</p>
+<p>Para facilitar a ilustração e a visualização, consideraremos uma matriz <span class="math inline">\(\mathbf{X}_{100,2}\)</span>​ composta por duas variáveis, <span class="math inline">\(\mathbf{x}_1\)</span>​ e <span class="math inline">\(\mathbf{x}_{2}\)</span>​, contendo 100 linhas de valores aleatórios. O processo de transformar as variáveis originais em duas novas componentes principais pode ser ilustrado no gráfico a seguir:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-rot"></span>
+<img src="img/parte03/pca_interpreta_Geo_Rot.png" alt="PCA como rotação dos dados" width="95%" />
+<p class="caption">
+Figure 6.1: PCA como rotação dos dados
+</p>
+</div>
+<details>
+<summary>
+😈
+</summary>
+<p><br><strong>Suplemento: Mais detalhes sobre a matriz X[100,2]</strong><br><br></p>
+<pre><code># correlação
+&gt; cor( X )
+          x1        x2
+x1 1.0000000 0.8303746
+x2 0.8303746 1.0000000
+&gt;
+# PCA
+&gt; summary( prcomp( X ) )
+Importance of components:
+                          PC1     PC2
+Standard deviation     1.3529 0.41186
+Proportion of Variance 0.9152 0.08481
+Cumulative Proportion  0.9152 1.00000
+&gt;
+# Dados Originais
+&gt; round(as.numeric( X[,1]),3)
+  [1]  0.305  0.416 -0.318 -0.627  0.324 -1.851  0.345 -0.468 -0.475 -1.045
+ [11] -0.324  1.410  0.113  0.247 -0.893  0.513 -1.015 -0.517  0.785  0.048
+ [21]  0.479  1.086 -0.798 -1.613 -1.653  1.399 -0.652  0.337  0.329 -0.366
+ [31]  0.508  1.751  1.618  1.244  0.008  0.221 -0.511 -1.711  1.366 -0.197
+ [41]  0.792 -2.355 -1.171  0.621  0.547  1.090 -1.488  0.289  0.303 -1.392
+ [51] -0.705  1.527 -0.172  0.096 -0.822  0.029  0.400  0.519  1.704 -2.325
+ [61] -0.086 -1.424  0.276  1.206 -0.746 -1.864  0.577  1.210  0.244 -1.382
+ [71] -0.171 -0.924 -1.161  1.871  1.038  0.626  0.521 -0.948  0.207  0.696
+ [81]  0.359  0.716 -0.493  2.002  0.651  1.455  0.383 -0.496  0.261  0.520
+ [91] -1.085 -0.987  1.473 -0.571 -1.100  0.397 -0.673  1.716 -0.758 -0.843
+&gt;
+&gt; round(as.numeric( X[,2]),3)
+  [1]  0.335 -0.344 -0.037 -1.243  0.303 -1.751  0.069  0.476 -0.640 -0.654
+ [11] -0.957  0.330  0.761  0.896 -0.759  0.091 -0.838 -0.076  1.789 -0.026
+ [21]  1.201  1.545 -0.463 -0.422 -1.535  0.413 -1.551  0.876 -0.947 -0.970
+ [31]  1.277  1.816  1.515  0.279  1.453 -0.435 -0.980 -0.975  1.101 -0.411
+ [41] -0.045 -2.560 -1.259 -0.377  0.406  1.116 -2.031  0.669  0.705 -1.023
+ [51] -1.466  1.458 -0.050 -0.398 -0.720 -0.141  1.225  0.185  1.328 -2.181
+ [61] -0.361 -0.957  0.054  0.639 -1.151 -1.619  0.771  0.222  1.141 -1.105
+ [71] -0.046  0.008 -0.902  1.876 -0.167  0.724  1.753 -0.535  0.254 -0.494
+ [81] -0.253  0.500 -0.630  2.147  0.930  1.141  1.076 -0.201  0.082  0.098
+ [91] -0.561 -1.067  1.548 -0.299 -0.148  0.723 -0.073  1.054 -0.858 -0.668
+&gt; </code></pre>
+<p> </p>
+<p><strong>Gráfico interativo</strong></p>
+<center>
+<iframe src="img/parte03/plotly/pca_rot.html" width="80%" height="400px" data-external="1">
+</iframe>
+</center>
+</details>
+<p> </p>
+<p>A figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> mostra 4 gráficos, com o primeiro mostrando apenas a dispersão dos pontos nas variáveis originais. No segundo, a reta em azul representa a direção da primeira componente principal capturando a maior variabilidade dos dados. Ou seja, está na direção onde há a maior dispersão da informação contida nos dados. A reta vermelha no terceiro gráfico indica a segunda componente principal, que é perpendicular à primeira e por sua vez é a direção que captura a maior parte da dispersão que a primeira componente não consegue representar. O quarto gráfico usa as duas primeiras componentes principais como sistema de coordenadas e assim é possível visualizar e entender que essa transformação consistiu na rotação do sistema dos eixos originais.</p>
+<p>É importante destacar que a relação entre os pontos permanece inalterada, independentemente do sistema de eixos utilizado como mostrado pela figura. Em outras palavras, a distância relativa entre os pontos não muda com a rotação dos eixos. Essa propriedade é fundamental no contexto do PCA, pois significa que, ao aplicar a transformação para encontrar as componentes principais, a estrutura dos dados em termos de proximidade e dispersão é preservada. Assim, mesmo após a rotação, as relações espaciais entre os pontos continuam a refletir a mesma informação sobre a variabilidade dos dados, permitindo que a análise se concentre nas direções de maior variância sem distorcer a interpretação dos dados originais.</p>
+</div>
+<div id="objetivo" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Objetivo<a href="pca---análise-de-componentes-principais.html#objetivo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Após uma apresentação formal da definição de PCA, a pergunta que se levanta é: qual é a motivação para aplicar essa técnica aos dados? O ponto crucial para compreender suas aplicações reside intrinsecamente ligada na interpretação dos dados nas novas variáveis geradas. O objetivo central do PCA é permitir a redução a dimensionalidade de um conjunto de dados, preservando ao máximo a variabilidade e a informação contida neles.</p>
+<p>E como se dá essa redução? A chave está na interpretação: o pesquisador assume que, a partir de certo ponto de acúmulo de informação, o que excede pode ser considerado apenas resíduo ou erro estatístico inerente aos dados. Ou seja, parte da informação pode ser descartada sem comprometer a descrição que os dados propõem.</p>
+<p>Para ser mais claro, a técnica de PCA não reduz a dimensionalidade por si só necessariamente; é o pesquisador que, na maior parte das vezes, por meio de uma interpretação cuidadosa das componentes principais, que decide descartar as de ordem mais alta, levando à redução efetiva da dimensionalidade dos dados.</p>
+<p>A técnica de PCA reduz a dimensionalidade somente em situações de dependência linear entre variáveis. Quando uma variável pode ser expressa como uma combinação linear exata de outras, isso resulta em uma correlação perfeita, com coeficiente igual a 1. Nesses casos, o número de componentes principais gerados será menor que o menor valor entre o número de variáveis (<span class="math inline">\(n\)</span>) e o número de observações (<span class="math inline">\(m\)</span>), pois a redundância das informações é representada em uma única componente. Essa característica permite que o PCA retenha apenas as combinações de variáveis totalmente correlacionadas, simplificando a representação dos dados em termos de número de variáveis. Por exemplo didático, crie uma imagem mental da figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> e reflita sobre a aplicação da PCA nos dados <span class="math inline">\(\mathbf{x}_1 = \{1;2;3\}\)</span> e <span class="math inline">\(\mathbf{x}_2 = \{1;2;3\}\)</span>.</p>
+<p>Nos casos em que a correlação entre as variáveis é inferior a 1, mas ainda assim altamente significativa, a técnica de PCA resulta em <span class="math inline">\(k\)</span> componentes principais, sendo <span class="math inline">\(k\)</span> igual ao menor valor entre o número de variáveis (<span class="math inline">\(n\)</span>) e o número de observações (<span class="math inline">\(m\)</span>). Nesses cenários, algumas das componentes principais podem explicar muito pouca variabilidade, tornando-se candidatas a serem descartadas. Isso acontece porque as informações redundantes são capturadas em uma componente e apenas a informação restante que é independente, é representada em outra componentes mas com baixa descrição de variabilidade. Dessa forma, essas componentes não terá peso substancial para a descrição da variabilidade dos dados. Por exemplo, construa uma imagem mental da figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> e pense na PCA dos dados <span class="math inline">\(\mathbf{x}_1 = \{1;2;3\}\)</span> e <span class="math inline">\(\mathbf{x}_2 = \{1;2;3,3\}\)</span>.</p>
+<p>Para o caso em que as variáveis são inerentemente não correlacionadas, todas as componentes principais terão magnitudes semelhantes, tornando a aplicação do PCA desnecessária. Por exemplo, visualize a figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> e considere a PCA aplicada aos dados <span class="math inline">\(\mathbf{x}_1 = \{1, 0\}\)</span> e <span class="math inline">\(\mathbf{x}_2 = \{0, 1\}\)</span>. Nessa situação, a falta de correlação entre as variáveis implica que a técnica não trará benefícios, já que as informações já estão distribuídas de forma independente.</p>
+<p>É nesses termos que se afirma sobre a possibilidade de <strong>redução de dimensionalidade</strong>: A PCA permite simplificar conjuntos de dados de alta dimensão, ou seja, eliminar colinearidades quando estas estiverem presentes. Assim, permite que analistas visualizem e interpretem as informações de forma mais clara. Ao reduzir a dimensionalidade dos dados, a técnica preserva a maior parte da variabilidade, facilitando a identificação de padrões (caso exista) e a tomada de decisões. Essa representação mais compacta dos dados torna a análise mais acessível e eficiente, podendo revelar tendências que potencialmente passariam despercebidos em um espaço dimensional maior.</p>
+<p>Aproveitando o exemplo já mostrado pela figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> com as variáveis <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>, observamos que a correlação é <span class="math inline">\(\sim 83\%\)</span>. A primeira componente principal retém <span class="math inline">\(\sim 91,5\%\)</span>, da variância dos dados, enquanto a segunda componente retém apenas <span class="math inline">\(\sim 8,5\%\)</span>. Se considerarmos que uma retenção de variância acima de <span class="math inline">\(90\%\)</span> é satisfatória, podemos concluir que a segunda componente é dispensável. Isso nos permite simplificar os dados, mantendo a essência das informações. Ao descartar a segunda componente, assumimos que ela representa principalmente ruído. Dessa forma, estamos utilizando a análise de forma mais eficiente, interpretando os dados com o emprego da análise de PCA servindo como um filtro, destacando as características mais relevantes e eliminando variações indesejadas.</p>
+<p><strong>Mais alguns Detalhes</strong></p>
+<p>A consequência da redução de dimensionalidade em dados altamente correlacionados, como os obtidos em várias técnicas espectroscópicas, resulta em que a variância acumulada nas duas primeiras componentes principais geralmente representa uma parte significativa da variância total. Isso permite a criação de gráficos bidimensionais, que facilitam a exploração visual das componentes e se há identificação de padrões e tendências no comportamento dos dados. Essa ferramenta se torna muito útil para análises e interpretações.</p>
+<p>Outro aspecto está relacionado quanto a decisão que precisamos tomar de quantas componentes principais devemos manter. No entanto, não existe uma regra fixa ou um número mágico para isso. A razão é que a escolha do <span class="math inline">\(k\)</span> depende de vários fatores, como o objetivo da análise e a natureza dos dados. Por exemplo, se queremos uma representação menos rigorosa dos dados, podemos optar por menos componentes. Mas se buscamos capturar a maior parte da variação nos dados, talvez precisemos de mais componentes.</p>
+<p>Além disso, cada conjunto de dados é único, então o que funciona bem para um conjunto pode não ser adequado para outro. É por isso que, em geral, utilizamos a variação explicada por cada componente, mostrada em gráfico, ou soma acumulada da variância para nos ajudar a decidir quantas componentes manter, mas no final, a escolha sempre envolve um certo grau de julgamento e análise do contexto.</p>
+<p>Outra característica intrínseca ao uso do PCA é que conseguir uma interpretação fácil e direta das componentes principais em termos físicos pode ser desafiador. Especialmente quando os dados têm muitas variáveis, a interpretação física é praticamente impossível e é melhor não tentar fazê-la. Isso acontece porque as componentes principais são combinações lineares das variáveis originais, e essas combinações podem não ter um significado físico claro.</p>
+<p>Em vez disso, é muito mais eficaz focar nas variáveis com maior influência nas componentes, e assim sendo, é possível obter alguma interpretação ao analisar os coeficientes (ou pesos) que cada variável tem nas componentes. Se uma variável tem um peso alto em uma componente principal, isso indica que ela é importante para essa nova dimensão. Assim, você pode olhar para essas variáveis mais influentes e tentar entender como elas se relacionam com a variação dos dados.</p>
+<p>Por fim, ter entendimento sobre PCA é importante também pois ela serve de base e suporte para outros métodos, como PCR (Regressão em Componentes Principais) e o método de classificação SIMCA (<em>Soft Independent Modeling of Class Analogy</em>). Além disso, a Análise Discriminante e vários métodos de agrupamento (<em>clustering</em>) podem ter um desempenho melhor quando aplicam a PCA para eliminar ruídos nos dados. Para qualquer outro método que enfrente desafios relacionados à multicolinearidade nas variáveis, a aplicação da PCA como etapa prévia se torna conveniente, pois permite eliminar redundâncias. Assim, a PCA atua como uma técnica de pré-processamento que aprimora a eficácia e a precisão desses métodos.</p>
+<p> </p>
+<p><strong>Resumindo:</strong></p>
+<p>A PCA serve a vários propósitos no contexto da quimiometria e da análise multivariada de dados:</p>
+<ul>
+<li><p><strong>Redução de Dimensionalidade</strong>: Ao simplificar conjuntos de dados de alta dimensão, a PCA permite que os analistas visualizem e interpretem os dados mais facilmente.</p></li>
+<li><p><strong>Identificação de Padrões</strong>: A técnica ajuda a revelar padrões ocultos, tendências e estruturas nos dados, facilitando a identificação de grupos ou clusters de amostras.</p></li>
+<li><p><strong>Eliminação de Redundância</strong>: A PCA pode ajudar a eliminar variáveis redundantes, concentrando-se nas variáveis que mais contribuem para a variabilidade dos dados.</p></li>
+<li><p><strong>Pré-processamento para Modelagem</strong>: A PCA é frequentemente utilizada como um passo de pré-processamento antes de aplicar modelos de regressão, classificação ou outras análises multivariadas, melhorando a eficiência e a precisão dos resultados.</p></li>
+</ul>
+<p> </p>
+<p><strong>Recomendação para quando usar</strong>:</p>
+<p>A PCA é recomendada em várias situações dentro da quimiometria, especialmente quando:</p>
+<ul>
+<li><p><strong>Dados de Alta Dimensionalidade</strong>: Quando se trabalha com conjuntos de dados que contêm um grande número de variáveis em relação ao número de amostras, a PCA é útil para reduzir a complexidade.</p></li>
+<li><p><strong>Correlações Entre Variáveis</strong>: A PCA é especialmente eficaz quando há alta correlação entre as variáveis, pois a técnica ajuda a identificar as direções principais da variação nos dados.</p></li>
+<li><p><strong>Visualização de Dados</strong>: Quando é necessário visualizar a estrutura dos dados, a PCA pode ser utilizada para criar gráficos bidimensionais ou tridimensionais que facilitam a interpretação e a comunicação dos resultados.</p></li>
+<li><p><strong>Detecção de Outliers</strong>: A PCA pode ajudar a identificar pontos de dados que se afastam do padrão esperado, facilitando a detecção de outliers.</p></li>
+<li><p><strong>Modelos Previstos</strong>: A PCA é útil como etapa inicial na modelagem, onde as variáveis transformadas em componentes principais podem ser usadas como entradas para modelos de regressão ou classificação, garantindo que a variabilidade significativa dos dados seja capturada.</p></li>
+</ul>
+</div>
+<div id="pca-como-decomposição-matricial" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> PCA como Decomposição Matricial<a href="pca---análise-de-componentes-principais.html#pca-como-decomposição-matricial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As combinações lineares das quais discutimos anteriormente podem ser reestruturadas em formato matricial, tornando a notação mais compacta.</p>
+<p><span class="math display">\[
+\mathbf{T} = \mathbf{X} \cdot \mathbf{P}
+\]</span></p>
+<p>       onde:</p>
+<ul>
+<ul>
+<li>
+<span class="math inline">\(\mathbf{T}\)</span> é a matriz de <em>scores</em>
+</li>
+<li>
+<span class="math inline">\(\mathbf{X}\)</span> é a matriz de dados
+</li>
+<li>
+<span class="math inline">\(\mathbf{P}\)</span> é a matriz de <em>loadings</em>
+</li>
+</ul>
+</ul>
+<p> </p>
+<p>E decorre, após manipulações, que PCA pode igualmente ser entendido e abordado como uma decomposição da matriz <span class="math inline">\(\mathbf{X}\)</span> nessas outras duas novas matrizes:</p>
+<p> </p>
+<p><span class="math display">\[
+\mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}
+\]</span></p>
+<p> </p>
+<ul>
+<li><p>Os <em>scores</em> referem-se às coordenadas das observações nos novos eixos criados pelos componentes principais. Em outras palavras, eles representam a projeção das observações originais na nova base de componentes principais. Cada <em>score</em> indica como uma observação se posiciona em relação aos novos eixos.</p></li>
+<li><p>Os <em>loadings</em>, por outro lado, representam a contribuição de cada variável original para os componentes principais. Eles indicam a correlação entre as variáveis originais e os componentes principais. Os <em>loadings</em> ajudam a entender como as variáveis influenciam a formação dos novos eixos e, consequentemente, os <em>scores</em>. Em geral, um <em>loading</em> alto (positivo ou negativo) para uma variável em um componente principal sugere que essa variável tem uma forte influência nesse componente.</p></li>
+</ul>
+<p> </p>
+<p><strong>Equivalência de Notação</strong></p>
+<p>As duas formas são equivalentes, pois podemos demonstrar que <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{P}\)</span> pode ser expresso como <span class="math inline">\(\mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}\)</span>. Só precisamos manipular as equações de forma a isolarmos <span class="math inline">\(\mathbf{X}\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Começamos com a equação original:</li>
+</ol>
+<p><span class="math display">\[
+\mathbf{T} = \mathbf{X} \cdot \mathbf{P}
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Multiplicamos ambos os lados pela inversa de <span class="math inline">\(\mathbf{P}\)</span> à direita. Como <span class="math inline">\(\mathbf{P}\)</span> é ortogonal, usamos a relação <span class="math inline">\(\mathbf{P^{-1}} = \mathbf{P^T}\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+\mathbf{T} \cdot \mathbf{P^{-1}} = ( \mathbf{X} \cdot \mathbf{P} ) \cdot \mathbf{P^{-1}}
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>O lado direito simplifica-se como:</li>
+</ol>
+<p><span class="math display">\[
+\mathbf{T} \cdot \mathbf{P^T} = \mathbf{X} \cdot \mathbf{I} = \mathbf{X}
+\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Portanto, podemos reescrever a equação como:</li>
+</ol>
+<p><span class="math display">\[
+\mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}
+\]</span></p>
+<p>Assim, está demonstrado que, sob a condição de que <span class="math inline">\(\mathbf{P}\)</span> sendo uma matriz ortogonal, a relação <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{P}\)</span> implica em <span class="math inline">\(\mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}\)</span> e que o ponto de vista sobre PCA ser uma decomposição matricial é factível.</p>
+</div>
+<div id="principais-algoritmos" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Principais Algoritmos<a href="pca---análise-de-componentes-principais.html#principais-algoritmos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Adotando a perpectiva da decomposição matricial, conseguimos estabelecer uma conexão natural para explorar outras decomposições matriciais já existentes e suas interconexões metodológicas. Um exemplo claro disso são os diversos algoritmos utilizados para realizar a PCA, que aproveitam abordagens matemáticas distintas já consolidadas. Cada um desses métodos é uma readaptação que oferece suas particularidades e aplicações específicas, proporcionando vantagens em diferentes contextos e tamanhos de conjuntos de dados.</p>
+<p>Esses algoritmos são, via implementação de:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Decomposição de Autovetores e Autovalores</strong></li>
+</ol>
+<p>O algoritmo da implementação de PCA via autovetores e autovalores se constrói como:</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Decomposição em Valores Singulares (SVD)</strong></li>
+</ol>
+<p>O algoritmo da implementação de PCA via SVD se constrói como:</p>
+<ol start="3" style="list-style-type: decimal">
+<li>o método <strong>NIPALS - Non-linear Iterative Partial Least Squares</strong></li>
+</ol>
+<p>E para um bônus e exibição de domínio técnico! ;-p</p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>PCoA - Principal Coordinates Analysis</strong></li>
+</ol>
+<p>PCA é PCoA se equivalem quando a distância a ser preservada é a euclidiana.</p>
+<p>XX </p>
+<p>XX </p>
+<p>XX </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p><strong>EXERCÍCIO para entender resolução númerica</strong></p>
+<p>Desenvolvimento das equações de PCA, incluindo como obter <span class="math inline">\(W\)</span> de forma explícita:</p>
+<p>1a. <strong>Centralização dos dados:</strong>
+<span class="math display">\[
+   X&#39; = X - \mu
+   \]</span>
+onde <span class="math inline">\(\mu\)</span> é o vetor das médias de cada coluna de <span class="math inline">\(X\)</span>.</p>
+<p>Passo a passo para extrair os autovetores correspondentes aos autovalores para formar a matriz <span class="math inline">\(W\)</span>:</p>
+<p>1b. <strong>Cálculo da matriz de covariância:</strong>
+<span class="math display">\[
+   C = \frac{1}{n-1} X&#39;^{T} X&#39;
+   \]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Resolução da equação característica:</strong>
+<ul>
+<li>Calcule os autovalores <span class="math inline">\(\lambda\)</span> resolvendo:
+<span class="math display">\[
+\text{det}(C - \lambda I) = 0
+\]</span>
+Isso lhe dará uma lista de autovalores.</li>
+</ul></li>
+<li><strong>Cálculo dos autovetores:</strong>
+<ul>
+<li>Para cada autovalor <span class="math inline">\(\lambda_i\)</span>, resolva o sistema:
+<span class="math display">\[
+(C - \lambda_i I) \mathbf{v}_i = 0
+\]</span>
+onde <span class="math inline">\(\mathbf{v}_i\)</span> é o autovetor correspondente a <span class="math inline">\(\lambda_i\)</span>.</li>
+<li>Este sistema pode ser resolvido usando métodos como eliminação gaussiana ou decomposição de valores singulares (SVD).</li>
+</ul></li>
+<li><strong>Formação da matriz <span class="math inline">\(W\)</span>:</strong>
+<ul>
+<li>Organize os autovalores <span class="math inline">\(\lambda_i\)</span> em ordem decrescente.</li>
+<li>Extraia os autovetores correspondentes a esses autovalores e os coloque em colunas para formar a matriz <span class="math inline">\(W\)</span>:
+<span class="math display">\[
+W = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_k]
+\]</span>
+onde <span class="math inline">\(k\)</span> é o número de componentes principais que você deseja manter.</li>
+</ul></li>
+<li><strong>Projeção dos dados:</strong>
+<span class="math display">\[
+Z = X&#39;W
+\]</span></li>
+</ol>
+<p>Esse processo permite que você extraia os autovetores e construa a matriz <span class="math inline">\(W\)</span> para a Análise de Componentes Principais (PCA).</p>
+</div>
+<div id="variância-por-pc" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Variância por PC<a href="pca---análise-de-componentes-principais.html#variância-por-pc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="aplicação-típica" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<!--
+1) O que é SVD?
+2) Mostre o passo a passo para se fazer essa decomposição - SVD -  de uma matriz 2x2. Exemplifique e explique as etapas.
+3) Resolva o exemplo anterior usando o método de Jacobi.
+4) Do exemplo anterior, resolução de SVD pelo método de Jacobi, faça um função em R puro, para esse exemplo.
+5) Forneça a matrix usada anterior para aplicar a função anterior em código R
+-->
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<details>
+<summary>
+😈Algoritmo para SVD
+</summary>
+<p><br><strong>O algoritmo apresentado abaixo é apenas uma possibilidade dentre vários</strong><br><br></p>
+<p>O método de Jacobi é uma abordagem iterativa que pode ser aplicada à SVD, embora não seja a mais eficiente para matrizes grandes. É apresentado para incentivar o conhecimento de se ter ao menos uma alternativa de resolução do problema com apenas conceitos básicos de álgebra. Ou seja, sem o uso de funções prontas e abordagem <strong>caixa-preta</strong>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="pca---análise-de-componentes-principais.html#cb35-1" tabindex="-1"></a><span class="co"># Função para calcular SVD usando o método de Jacobi</span></span>
+<span id="cb35-2"><a href="pca---análise-de-componentes-principais.html#cb35-2" tabindex="-1"></a>jacobi_svd <span class="ot">&lt;-</span> <span class="cf">function</span>(A, <span class="at">tol =</span> <span class="fl">1e-10</span>, <span class="at">max_iter =</span> <span class="dv">100</span>) {</span>
+<span id="cb35-3"><a href="pca---análise-de-componentes-principais.html#cb35-3" tabindex="-1"></a>  <span class="co"># Inicialização</span></span>
+<span id="cb35-4"><a href="pca---análise-de-componentes-principais.html#cb35-4" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(A)</span>
+<span id="cb35-5"><a href="pca---análise-de-componentes-principais.html#cb35-5" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">ncol</span>(A)</span>
+<span id="cb35-6"><a href="pca---análise-de-componentes-principais.html#cb35-6" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
+<span id="cb35-7"><a href="pca---análise-de-componentes-principais.html#cb35-7" tabindex="-1"></a>  V <span class="ot">&lt;-</span> <span class="fu">diag</span>(m)</span>
+<span id="cb35-8"><a href="pca---análise-de-componentes-principais.html#cb35-8" tabindex="-1"></a>  </span>
+<span id="cb35-9"><a href="pca---análise-de-componentes-principais.html#cb35-9" tabindex="-1"></a>  <span class="co"># Calcular A^T A</span></span>
+<span id="cb35-10"><a href="pca---análise-de-componentes-principais.html#cb35-10" tabindex="-1"></a>  ATA <span class="ot">&lt;-</span> <span class="fu">t</span>(A) <span class="sc">%*%</span> A</span>
+<span id="cb35-11"><a href="pca---análise-de-componentes-principais.html#cb35-11" tabindex="-1"></a>  </span>
+<span id="cb35-12"><a href="pca---análise-de-componentes-principais.html#cb35-12" tabindex="-1"></a>  <span class="co"># Iterações de Jacobi</span></span>
+<span id="cb35-13"><a href="pca---análise-de-componentes-principais.html#cb35-13" tabindex="-1"></a>  <span class="cf">for</span> (iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_iter) {</span>
+<span id="cb35-14"><a href="pca---análise-de-componentes-principais.html#cb35-14" tabindex="-1"></a>    <span class="co"># Encontrar o maior elemento fora da diagonal</span></span>
+<span id="cb35-15"><a href="pca---análise-de-componentes-principais.html#cb35-15" tabindex="-1"></a>    off_diag <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(ATA) <span class="sc">&gt;</span> tol, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-16"><a href="pca---análise-de-componentes-principais.html#cb35-16" tabindex="-1"></a>    off_diag <span class="ot">&lt;-</span> off_diag[off_diag[, <span class="dv">1</span>] <span class="sc">!=</span> off_diag[, <span class="dv">2</span>], ]</span>
+<span id="cb35-17"><a href="pca---análise-de-componentes-principais.html#cb35-17" tabindex="-1"></a>    </span>
+<span id="cb35-18"><a href="pca---análise-de-componentes-principais.html#cb35-18" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(off_diag) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb35-19"><a href="pca---análise-de-componentes-principais.html#cb35-19" tabindex="-1"></a>      <span class="cf">break</span>  <span class="co"># Convergido</span></span>
+<span id="cb35-20"><a href="pca---análise-de-componentes-principais.html#cb35-20" tabindex="-1"></a>    }</span>
+<span id="cb35-21"><a href="pca---análise-de-componentes-principais.html#cb35-21" tabindex="-1"></a>    </span>
+<span id="cb35-22"><a href="pca---análise-de-componentes-principais.html#cb35-22" tabindex="-1"></a>    <span class="co"># Selecionar o primeiro elemento fora da diagonal</span></span>
+<span id="cb35-23"><a href="pca---análise-de-componentes-principais.html#cb35-23" tabindex="-1"></a>    p <span class="ot">&lt;-</span> off_diag[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb35-24"><a href="pca---análise-de-componentes-principais.html#cb35-24" tabindex="-1"></a>    q <span class="ot">&lt;-</span> off_diag[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb35-25"><a href="pca---análise-de-componentes-principais.html#cb35-25" tabindex="-1"></a>    </span>
+<span id="cb35-26"><a href="pca---análise-de-componentes-principais.html#cb35-26" tabindex="-1"></a>    <span class="co"># Cálculo dos ângulos de rotação</span></span>
+<span id="cb35-27"><a href="pca---análise-de-componentes-principais.html#cb35-27" tabindex="-1"></a>    <span class="cf">if</span> (ATA[p, p] <span class="sc">==</span> ATA[q, q]) {</span>
+<span id="cb35-28"><a href="pca---análise-de-componentes-principais.html#cb35-28" tabindex="-1"></a>      theta <span class="ot">&lt;-</span> pi <span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb35-29"><a href="pca---análise-de-componentes-principais.html#cb35-29" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb35-30"><a href="pca---análise-de-componentes-principais.html#cb35-30" tabindex="-1"></a>      theta <span class="ot">&lt;-</span> <span class="fu">atan</span>(<span class="dv">2</span> <span class="sc">*</span> ATA[p, q] <span class="sc">/</span> (ATA[p, p] <span class="sc">-</span> ATA[q, q])) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb35-31"><a href="pca---análise-de-componentes-principais.html#cb35-31" tabindex="-1"></a>    }</span>
+<span id="cb35-32"><a href="pca---análise-de-componentes-principais.html#cb35-32" tabindex="-1"></a>    </span>
+<span id="cb35-33"><a href="pca---análise-de-componentes-principais.html#cb35-33" tabindex="-1"></a>    <span class="co"># Matriz de rotação</span></span>
+<span id="cb35-34"><a href="pca---análise-de-componentes-principais.html#cb35-34" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="fu">cos</span>(theta)</span>
+<span id="cb35-35"><a href="pca---análise-de-componentes-principais.html#cb35-35" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="fu">sin</span>(theta)</span>
+<span id="cb35-36"><a href="pca---análise-de-componentes-principais.html#cb35-36" tabindex="-1"></a>    </span>
+<span id="cb35-37"><a href="pca---análise-de-componentes-principais.html#cb35-37" tabindex="-1"></a>    <span class="co"># Atualizar ATA</span></span>
+<span id="cb35-38"><a href="pca---análise-de-componentes-principais.html#cb35-38" tabindex="-1"></a>    R <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
+<span id="cb35-39"><a href="pca---análise-de-componentes-principais.html#cb35-39" tabindex="-1"></a>    R[<span class="fu">c</span>(p, q), <span class="fu">c</span>(p, q)] <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(c, <span class="sc">-</span>s, s, c), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb35-40"><a href="pca---análise-de-componentes-principais.html#cb35-40" tabindex="-1"></a>    </span>
+<span id="cb35-41"><a href="pca---análise-de-componentes-principais.html#cb35-41" tabindex="-1"></a>    ATA <span class="ot">&lt;-</span> <span class="fu">t</span>(R) <span class="sc">%*%</span> ATA <span class="sc">%*%</span> R</span>
+<span id="cb35-42"><a href="pca---análise-de-componentes-principais.html#cb35-42" tabindex="-1"></a>    V <span class="ot">&lt;-</span> V <span class="sc">%*%</span> R</span>
+<span id="cb35-43"><a href="pca---análise-de-componentes-principais.html#cb35-43" tabindex="-1"></a>    </span>
+<span id="cb35-44"><a href="pca---análise-de-componentes-principais.html#cb35-44" tabindex="-1"></a>    <span class="co"># Calcular os autovalores</span></span>
+<span id="cb35-45"><a href="pca---análise-de-componentes-principais.html#cb35-45" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">abs</span>(ATA[off_diag]) <span class="sc">&lt;</span> tol)) {</span>
+<span id="cb35-46"><a href="pca---análise-de-componentes-principais.html#cb35-46" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb35-47"><a href="pca---análise-de-componentes-principais.html#cb35-47" tabindex="-1"></a>    }</span>
+<span id="cb35-48"><a href="pca---análise-de-componentes-principais.html#cb35-48" tabindex="-1"></a>  }</span>
+<span id="cb35-49"><a href="pca---análise-de-componentes-principais.html#cb35-49" tabindex="-1"></a>  </span>
+<span id="cb35-50"><a href="pca---análise-de-componentes-principais.html#cb35-50" tabindex="-1"></a>  <span class="co"># Valores singulares</span></span>
+<span id="cb35-51"><a href="pca---análise-de-componentes-principais.html#cb35-51" tabindex="-1"></a>  singular_values <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(ATA))</span>
+<span id="cb35-52"><a href="pca---análise-de-componentes-principais.html#cb35-52" tabindex="-1"></a>  </span>
+<span id="cb35-53"><a href="pca---análise-de-componentes-principais.html#cb35-53" tabindex="-1"></a>  <span class="co"># Calcular U</span></span>
+<span id="cb35-54"><a href="pca---análise-de-componentes-principais.html#cb35-54" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb35-55"><a href="pca---análise-de-componentes-principais.html#cb35-55" tabindex="-1"></a>    <span class="cf">if</span> (singular_values[i] <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb35-56"><a href="pca---análise-de-componentes-principais.html#cb35-56" tabindex="-1"></a>      U[, i] <span class="ot">&lt;-</span> A <span class="sc">%*%</span> V[, i] <span class="sc">/</span> singular_values[i]</span>
+<span id="cb35-57"><a href="pca---análise-de-componentes-principais.html#cb35-57" tabindex="-1"></a>    }</span>
+<span id="cb35-58"><a href="pca---análise-de-componentes-principais.html#cb35-58" tabindex="-1"></a>  }</span>
+<span id="cb35-59"><a href="pca---análise-de-componentes-principais.html#cb35-59" tabindex="-1"></a>  </span>
+<span id="cb35-60"><a href="pca---análise-de-componentes-principais.html#cb35-60" tabindex="-1"></a>  <span class="co"># Retornar os resultados</span></span>
+<span id="cb35-61"><a href="pca---análise-de-componentes-principais.html#cb35-61" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">U =</span> U, <span class="at">D =</span> <span class="fu">diag</span>(singular_values), <span class="at">V =</span> V))</span>
+<span id="cb35-62"><a href="pca---análise-de-componentes-principais.html#cb35-62" tabindex="-1"></a>}</span>
+<span id="cb35-63"><a href="pca---análise-de-componentes-principais.html#cb35-63" tabindex="-1"></a></span>
+<span id="cb35-64"><a href="pca---análise-de-componentes-principais.html#cb35-64" tabindex="-1"></a><span class="co"># Matriz exemplo</span></span>
+<span id="cb35-65"><a href="pca---análise-de-componentes-principais.html#cb35-65" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-66"><a href="pca---análise-de-componentes-principais.html#cb35-66" tabindex="-1"></a></span>
+<span id="cb35-67"><a href="pca---análise-de-componentes-principais.html#cb35-67" tabindex="-1"></a><span class="co"># Chamar a função</span></span>
+<span id="cb35-68"><a href="pca---análise-de-componentes-principais.html#cb35-68" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">jacobi_svd</span>(A)</span>
+<span id="cb35-69"><a href="pca---análise-de-componentes-principais.html#cb35-69" tabindex="-1"></a></span>
+<span id="cb35-70"><a href="pca---análise-de-componentes-principais.html#cb35-70" tabindex="-1"></a><span class="co"># Resultados</span></span>
+<span id="cb35-71"><a href="pca---análise-de-componentes-principais.html#cb35-71" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Matriz U:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Matriz U:</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="pca---análise-de-componentes-principais.html#cb37-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>U)</span></code></pre></div>
+<pre><code>##            [,1]       [,2]
+## [1,]  0.8944272 -0.4472136
+## [2,] -0.4472136 -0.8944272</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="pca---análise-de-componentes-principais.html#cb39-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz D (valores singulares):</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Matriz D (valores singulares):</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="pca---análise-de-componentes-principais.html#cb41-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>D)</span></code></pre></div>
+<pre><code>##          [,1]     [,2]
+## [1,] 3.162278 0.000000
+## [2,] 0.000000 6.324555</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="pca---análise-de-componentes-principais.html#cb43-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz V:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Matriz V:</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="pca---análise-de-componentes-principais.html#cb45-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>V)</span></code></pre></div>
+<pre><code>##           [,1]       [,2]
+## [1,] 0.7071068 -0.7071068
+## [2,] 0.7071068  0.7071068</code></pre>
+<p><strong>Algoritmos para SVD</strong></p>
+<p>Existem vários algoritmos para calcular a SVD, incluindo:</p>
+<ul>
+<li>Método de Jacobi: Uma abordagem iterativa, mas geralmente mais lenta para matrizes grandes.</li>
+<li>Algoritmo de Golub-Reinsch: Um método mais eficiente que combina a decomposição QR e o método de Jacobi.</li>
+<li>Algoritmo de Lanczos: Usado para matrizes grandes e esparsas; baseia-se em métodos de subespaço.</li>
+<li>SVD baseado em bidiagonalização: Usa decomposições bidiagonais, seguido por uma SVD da matriz bidiagonal.</li>
+<li>Algoritmos de fatoração de matrizes de baixa-rank: Técnicas como o método de potência e métodos estocásticos.</li>
+</ul>
+<p><strong>Eficiência dos Algoritmos</strong></p>
+<p>O algoritmo de Golub-Reinsch é um dos mais utilizados na prática e considerado eficiente para a maioria das aplicações. Para matrizes muito grandes ou esparsas, métodos baseados em Lanczos ou bidiagonalização tendem a ser mais eficientes.</p>
+<p>A escolha do algoritmo SVD mais eficiente depende do tamanho e da estrutura da matriz que você está tratando, bem como das necessidades específicas da aplicação.</p>
+<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a>, <em>LAPACK</em><a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a>, <em>MKL</em><a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
+</details>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="46">
+<li id="fn46"><p><a href="https://pt.wikipedia.org/wiki/An%C3%A1lise_de_componentes_principais" class="uri">https://pt.wikipedia.org/wiki/An%C3%A1lise_de_componentes_principais</a><a href="pca---análise-de-componentes-principais.html#fnref46" class="footnote-back">↩︎</a></p></li>
+<li id="fn47"><p><a href="https://pt.wikipedia.org/wiki/Karl_Pearson" class="uri">https://pt.wikipedia.org/wiki/Karl_Pearson</a><a href="pca---análise-de-componentes-principais.html#fnref47" class="footnote-back">↩︎</a></p></li>
+<li id="fn48"><p>Pearson, K. (1901). LIII. <em>On lines and planes of closest fit to systems of points in space</em>,
+<strong>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</strong>,
+2(11), 559–572. <a href="https://doi.org/10.1080/14786440109462720" class="uri">https://doi.org/10.1080/14786440109462720</a><a href="pca---análise-de-componentes-principais.html#fnref48" class="footnote-back">↩︎</a></p></li>
+<li id="fn49"><p><a href="https://pt.wikipedia.org/wiki/Harold_Hotelling" class="uri">https://pt.wikipedia.org/wiki/Harold_Hotelling</a><a href="pca---análise-de-componentes-principais.html#fnref49" class="footnote-back">↩︎</a></p></li>
+<li id="fn50"><p>Hotelling, H. (1933). <em>Analysis of a complex of statistical variables into principal components</em>, <strong>Journal of Educational Psychology</strong>, 24(6), 417–441. <a href="https://doi.org/10.1037/h0071325" class="uri">https://doi.org/10.1037/h0071325</a><a href="pca---análise-de-componentes-principais.html#fnref50" class="footnote-back">↩︎</a></p></li>
+<li id="fn51"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="pca---análise-de-componentes-principais.html#fnref51" class="footnote-back">↩︎</a></p></li>
+<li id="fn52"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="pca---análise-de-componentes-principais.html#fnref52" class="footnote-back">↩︎</a></p></li>
+<li id="fn53"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="pca---análise-de-componentes-principais.html#fnref53" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="parte-iii---análise-exploratória-de-dados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hca---análise-de-agrupamento-hierárquico.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsubsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true,
+"post_processor": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

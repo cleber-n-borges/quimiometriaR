@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>&#8474;&#8477; 4 Pré-Processamento de Variáveis | Caderno de Quimiometria com R</title>
+  <meta name="description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="&#8474;&#8477; 4 Pré-Processamento de Variáveis | Caderno de Quimiometria com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+  <meta property="og:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="github-repo" content="cleber-n-borges/quimiometriaR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="&#8474;&#8477; 4 Pré-Processamento de Variáveis | Caderno de Quimiometria com R" />
+  
+  <meta name="twitter:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="twitter:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+<link rel="prev" href="parte-ii---tratamento-dos-dados.html"/>
+<link rel="next" href="pré-processamento-de-amostras.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJVXYW1C58"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YJVXYW1C58');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">&#8474;&#8477; Quimiometria com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bem-vindos!</a></li>
+<li class="chapter" data-level="" data-path="útil-para-você.html"><a href="útil-para-você.html"><i class="fa fa-check"></i>Útil para Você!</a></li>
+<li class="chapter" data-level="" data-path="pergunte-ao-chatgpt.html"><a href="pergunte-ao-chatgpt.html"><i class="fa fa-check"></i>Pergunte ao ChatGPT</a></li>
+<li class="chapter" data-level="" data-path="estrutura-do-caderno.html"><a href="estrutura-do-caderno.html"><i class="fa fa-check"></i>Estrutura do Caderno</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html"><i class="fa fa-check"></i>PARTE I - Ponto de Partida</a>
+<ul>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#primeiro-passo"><i class="fa fa-check"></i>Primeiro Passo</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#o-que-é-quimiometria"><i class="fa fa-check"></i>O que é Quimiometria?</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#aplicações-do-r-na-quimiometria"><i class="fa fa-check"></i>Aplicações do R na Quimiometria</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#contribuições-do-chatgpt"><i class="fa fa-check"></i>Contribuições do ChatGPT</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html"><i class="fa fa-check"></i><b>1</b> Comece a Usar o R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-o-r-e-rstudio"><i class="fa fa-check"></i><b>1.1</b> Instale o R e RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conheça-o-básico-do-r"><i class="fa fa-check"></i><b>1.2</b> Conheça o Básico do R</a></li>
+<li class="chapter" data-level="1.3" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#realize-análises-simples"><i class="fa fa-check"></i><b>1.3</b> Realize Análises Simples</a></li>
+<li class="chapter" data-level="1.4" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#a-conveniência-do-help"><i class="fa fa-check"></i><b>1.4</b> A Conveniência do <code>help()</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#como-usar-o-comando-help"><i class="fa fa-check"></i>Como Usar o Comando <code>help()</code>:</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conveniência-da-prática"><i class="fa fa-check"></i>Conveniência da Prática</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#exemplo-de-uso"><i class="fa fa-check"></i>Exemplo de Uso</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#manuseie-arquivos"><i class="fa fa-check"></i><b>1.5</b> Manuseie Arquivos</a></li>
+<li class="chapter" data-level="1.6" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#salve-e-restaure-seu-workspace"><i class="fa fa-check"></i><b>1.6</b> Salve e Restaure seu <i>Workspace</i></a></li>
+<li class="chapter" data-level="1.7" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-pacotes-r"><i class="fa fa-check"></i><b>1.7</b> Instale Pacotes R</a></li>
+<li class="chapter" data-level="1.8" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#aprenda-mais-e-pratique"><i class="fa fa-check"></i><b>1.8</b> Aprenda Mais e Pratique</a></li>
+<li class="chapter" data-level="1.9" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#participar-de-comunidades"><i class="fa fa-check"></i><b>1.9</b> Participar de Comunidades</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html"><i class="fa fa-check"></i><b>2</b> Conjunto de Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#organização-e-notação"><i class="fa fa-check"></i><b>2.1</b> Organização e Notação</a></li>
+<li class="chapter" data-level="2.2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#valores-faltantes-na"><i class="fa fa-check"></i><b>2.2</b> Valores faltantes: <code>NA</code></a></li>
+<li class="chapter" data-level="2.3" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#dados-disponíveis"><i class="fa fa-check"></i><b>2.3</b> Dados Disponíveis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html"><i class="fa fa-check"></i><b>3</b> Visualização de Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#gráficos-com-o-r"><i class="fa fa-check"></i><b>3.1</b> Gráficos com o R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#funções-nativas"><i class="fa fa-check"></i><b>3.1.1</b> Funções nativas</a></li>
+<li class="chapter" data-level="3.1.2" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-animation"><i class="fa fa-check"></i><b>3.1.2</b> Pacote <code>animation</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-ggplot2"><i class="fa fa-check"></i><b>3.1.3</b> Pacote <code>ggplot2</code></a></li>
+<li class="chapter" data-level="3.1.4" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-plotly"><i class="fa fa-check"></i><b>3.1.4</b> Pacote <code>plotly</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-ii---tratamento-dos-dados.html"><a href="parte-ii---tratamento-dos-dados.html"><i class="fa fa-check"></i>PARTE II - Tratamento dos Dados</a></li>
+<li class="chapter" data-level="4" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html"><i class="fa fa-check"></i><b>4</b> Pré-Processamento de Variáveis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#autoescalamento"><i class="fa fa-check"></i><b>4.1</b> Autoescalamento</a></li>
+<li class="chapter" data-level="4.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#normalização-min-max"><i class="fa fa-check"></i><b>4.2</b> Normalização Min-Max:</a></li>
+<li class="chapter" data-level="4.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformações"><i class="fa fa-check"></i><b>4.3</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logarítmica-e-raiz-quadrada"><i class="fa fa-check"></i><b>4.3.1</b> Logarítmica e Raiz Quadrada</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformação-box-cox"><i class="fa fa-check"></i><b>4.3.2</b> Transformação Box-Cox</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logística-e-logit"><i class="fa fa-check"></i><b>4.3.3</b> Logística e <em>Logit</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html"><i class="fa fa-check"></i><b>5</b> Pré-Processamento de Amostras</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html#todo"><i class="fa fa-check"></i><b>5.1</b> TODO</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-iii---análise-exploratória-de-dados.html"><a href="parte-iii---análise-exploratória-de-dados.html"><i class="fa fa-check"></i>PARTE III - Análise Exploratória de Dados</a></li>
+<li class="chapter" data-level="6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html"><i class="fa fa-check"></i><b>6</b> PCA - Análise de Componentes Principais</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#desenvolvimento-histórico"><i class="fa fa-check"></i><b>6.1</b> Desenvolvimento histórico</a></li>
+<li class="chapter" data-level="6.2" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#definição"><i class="fa fa-check"></i><b>6.2</b> Definição</a></li>
+<li class="chapter" data-level="6.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#interpretação-geométrica"><i class="fa fa-check"></i><b>6.3</b> Interpretação Geométrica</a></li>
+<li class="chapter" data-level="6.4" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#objetivo"><i class="fa fa-check"></i><b>6.4</b> Objetivo</a></li>
+<li class="chapter" data-level="6.5" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#pca-como-decomposição-matricial"><i class="fa fa-check"></i><b>6.5</b> PCA como Decomposição Matricial</a></li>
+<li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#principais-algoritmos"><i class="fa fa-check"></i><b>6.6</b> Principais Algoritmos</a></li>
+<li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.7</b> Variância por PC</a></li>
+<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.8</b> Aplicação Típica</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>7</b> HCA - Análise de Agrupamento Hierárquico</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/cleber-n-borges/quimiometriaR" target="blank">&#8474;&#8477; Repositório GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Caderno de Quimiometria com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pré-processamento-de-variáveis" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">&#8474;&#8477; 4</span> Pré-Processamento de Variáveis<a href="pré-processamento-de-variáveis.html#pré-processamento-de-variáveis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="autoescalamento" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Autoescalamento<a href="pré-processamento-de-variáveis.html#autoescalamento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O <strong>autoescalamento</strong> é um processo de pré-processamento de dados amplamente utilizado em estatística, aprendizado de máquina e quimiometria para transformar os dados para uma escala comum. Isso facilita a análise e modelagem, especialmente quando diferentes variáveis possuem magnitudes e unidades diferentes. O autoescalamento é fundamental para garantir que todas as variáveis contribuam igualmente para a análise, evitando que variáveis com escalas maiores dominem o modelo.</p>
+<p>Esta transformação ajusta a escala dos dados e a centraliza em torno de zero, facilitando comparações e análises subsequentes.</p>
+<p><strong>Fórmula do Autoescalamento</strong></p>
+<p>Para uma variável <span class="math inline">\(x\)</span> com média μ e desvio padrão σ, o autoescalamento é realizado pela transformação:</p>
+<p> </p>
+<p><span class="math display">\[
+x_{autoescalado} = (x − μ ) / σ
+\]</span></p>
+<p>Onde:</p>
+<ul>
+<li><span class="math inline">\(x\)</span> representa os valores da variável original.</li>
+<li>μ é a média da variável.</li>
+<li>σ é o desvio padrão da variável.</li>
+<li><span class="math inline">\(x_{autoescalado}\)</span> são os valores transformados.</li>
+</ul>
+<p> </p>
+<p><strong>Propriedades do Autoescalamento</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Uniformização da Escala:</strong> Garante que todas as variáveis estejam na mesma escala, o que é especialmente útil em algoritmos que são sensíveis à escala dos dados, como algoritmos de clustering (e.g., K-means) e métodos de aprendizado de máquina (e.g., regressão linear e máquinas de vetor de suporte).</p></li>
+<li><p><strong>Melhoria da Convergência:</strong> Pode acelerar a convergência de algoritmos de otimização que utilizam gradientes, pois elimina a influência desproporcional de variáveis com escalas maiores.</p></li>
+<li><p><strong>Interpretação Consistente:</strong> Facilita a interpretação dos coeficientes de modelos, especialmente em regressão, onde variáveis com diferentes escalas podem obscurecer a relação entre variáveis e respostas.</p></li>
+<li><p><strong>Comparação e Visualização:</strong> Facilita a comparação entre variáveis e a visualização dos dados em gráficos, pois todas as variáveis têm a mesma escala. (Comumente, os softwares que criam gráficos autoescalam as variáveis para melhorar a clareza das dispersões dos pontos, mas mantêm os rótulos das variáveis originais. Esta é uma das aplicações do autoescalamento).</p></li>
+</ol>
+<p> </p>
+<p><strong>Aplicações Comuns</strong></p>
+<ul>
+<li><p><strong>Aprendizado de Máquina:</strong> Antes de aplicar algoritmos de aprendizado de máquina, como K-means, PCA (Análise de Componentes Principais), e regressão, os dados são frequentemente autoescalados para garantir um desempenho eficaz e resultados confiáveis.</p></li>
+<li><p><strong>Análise Estatística:</strong> Em análises estatísticas multivariadas, como a Análise de Componentes Principais (PCA) e Análise Discriminante Linear (LDA), o autoescalamento é usado para garantir que cada variável contribua de forma equitativa para as análises.</p></li>
+<li><p><strong>Quimiometria:</strong> Na análise de dados espectroscópicos e quimiométricos, o autoescalamento ajuda a normalizar os dados para melhorar a interpretação dos modelos e a precisão das previsões.</p></li>
+</ul>
+<p> </p>
+<p><strong>Exemplo Prático em R</strong></p>
+<p>Abaixo segue um exemplo de como realizar o autoescalamento de dados em R, usando a função <code>scale()</code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="pré-processamento-de-variáveis.html#cb31-1" tabindex="-1"></a><span class="co"># Carregar pacotes necessários</span></span>
+<span id="cb31-2"><a href="pré-processamento-de-variáveis.html#cb31-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb31-3"><a href="pré-processamento-de-variáveis.html#cb31-3" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="pré-processamento-de-variáveis.html#cb31-4" tabindex="-1"></a><span class="co"># Definir o seed para reprodutibilidade</span></span>
+<span id="cb31-5"><a href="pré-processamento-de-variáveis.html#cb31-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb31-6"><a href="pré-processamento-de-variáveis.html#cb31-6" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="pré-processamento-de-variáveis.html#cb31-7" tabindex="-1"></a><span class="co"># Criar um dataframe com 2 variáveis e 25 amostras</span></span>
+<span id="cb31-8"><a href="pré-processamento-de-variáveis.html#cb31-8" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb31-9"><a href="pré-processamento-de-variáveis.html#cb31-9" tabindex="-1"></a>  <span class="at">Variavel1 =</span> <span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>),</span>
+<span id="cb31-10"><a href="pré-processamento-de-variáveis.html#cb31-10" tabindex="-1"></a>  <span class="at">Variavel2 =</span> <span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">20</span>)</span>
+<span id="cb31-11"><a href="pré-processamento-de-variáveis.html#cb31-11" tabindex="-1"></a>)</span>
+<span id="cb31-12"><a href="pré-processamento-de-variáveis.html#cb31-12" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="pré-processamento-de-variáveis.html#cb31-13" tabindex="-1"></a><span class="co"># Exibir o dataframe original</span></span>
+<span id="cb31-14"><a href="pré-processamento-de-variáveis.html#cb31-14" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Dataframe Original:&quot;</span>)</span>
+<span id="cb31-15"><a href="pré-processamento-de-variáveis.html#cb31-15" tabindex="-1"></a><span class="fu">print</span>(df)</span>
+<span id="cb31-16"><a href="pré-processamento-de-variáveis.html#cb31-16" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="pré-processamento-de-variáveis.html#cb31-17" tabindex="-1"></a><span class="co"># Aplicar autoescalamento</span></span>
+<span id="cb31-18"><a href="pré-processamento-de-variáveis.html#cb31-18" tabindex="-1"></a>df_autoescalado <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>( <span class="fu">scale</span>(df) )</span>
+<span id="cb31-19"><a href="pré-processamento-de-variáveis.html#cb31-19" tabindex="-1"></a></span>
+<span id="cb31-20"><a href="pré-processamento-de-variáveis.html#cb31-20" tabindex="-1"></a><span class="co"># Exibir o dataframe autoescalado</span></span>
+<span id="cb31-21"><a href="pré-processamento-de-variáveis.html#cb31-21" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Dataframe Autoescalado:&quot;</span>)</span>
+<span id="cb31-22"><a href="pré-processamento-de-variáveis.html#cb31-22" tabindex="-1"></a><span class="fu">print</span>(df_autoescalado)</span>
+<span id="cb31-23"><a href="pré-processamento-de-variáveis.html#cb31-23" tabindex="-1"></a></span>
+<span id="cb31-24"><a href="pré-processamento-de-variáveis.html#cb31-24" tabindex="-1"></a><span class="co"># Gráfico dos dados originais</span></span>
+<span id="cb31-25"><a href="pré-processamento-de-variáveis.html#cb31-25" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Variavel1, <span class="at">y =</span> Variavel2)) <span class="sc">+</span></span>
+<span id="cb31-26"><a href="pré-processamento-de-variáveis.html#cb31-26" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb31-27"><a href="pré-processamento-de-variáveis.html#cb31-27" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Dados Originais&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Variável 1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Variável 2&quot;</span>)</span>
+<span id="cb31-28"><a href="pré-processamento-de-variáveis.html#cb31-28" tabindex="-1"></a></span>
+<span id="cb31-29"><a href="pré-processamento-de-variáveis.html#cb31-29" tabindex="-1"></a><span class="co"># Gráfico dos dados autoescalados</span></span>
+<span id="cb31-30"><a href="pré-processamento-de-variáveis.html#cb31-30" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_autoescalado, <span class="fu">aes</span>(<span class="at">x =</span> Variavel1, <span class="at">y =</span> Variavel2)) <span class="sc">+</span></span>
+<span id="cb31-31"><a href="pré-processamento-de-variáveis.html#cb31-31" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb31-32"><a href="pré-processamento-de-variáveis.html#cb31-32" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Dados Autoescalados&quot;</span>,</span>
+<span id="cb31-33"><a href="pré-processamento-de-variáveis.html#cb31-33" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Variável 1 (Autoescalado)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Variável 2 (Autoescalado)&quot;</span>)</span>
+<span id="cb31-34"><a href="pré-processamento-de-variáveis.html#cb31-34" tabindex="-1"></a></span>
+<span id="cb31-35"><a href="pré-processamento-de-variáveis.html#cb31-35" tabindex="-1"></a><span class="co"># Mostrar os gráficos</span></span>
+<span id="cb31-36"><a href="pré-processamento-de-variáveis.html#cb31-36" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb31-37"><a href="pré-processamento-de-variáveis.html#cb31-37" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>Você pode copiar e colar esse código em um script R para gerar e visualizar os gráficos dos dados originais e autoescalados.</p>
+<p> </p>
+<p><strong>Explicação do Código</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Criação do Dataframe:</strong> Utilizamos <code>rnorm()</code> para gerar 25 amostras para duas variáveis com médias e desvios padrão diferentes.</p></li>
+<li><p><strong>Autoescalamento:</strong> Aplicamos a função <code>scale()</code> para normalizar os dados, transformando-os para ter média zero e desvio padrão um.</p></li>
+<li><p><strong>Gráficos:</strong></p></li>
+</ol>
+<ul>
+<li><strong>Dados Originais:</strong> Exibimos um gráfico de dispersão dos dados originais.</li>
+<li><strong>Dados Autoescalados:</strong> Exibimos um gráfico de dispersão dos dados após o autoescalamento.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Visualização:</strong> Usamos <code>gridExtra</code> para mostrar os gráficos lado a lado.</li>
+</ol>
+<p>O autoescalamento é uma técnica essencial no pré-processamento de dados, garantindo que todos os dados sejam tratados de maneira justa e adequada para análises e modelagens subsequentes.</p>
+<p> </p>
+<p><strong>Saída Gráfica</strong></p>
+<p>Na janela de saída gráfica do R, deve aparecer o gráfico seguinte.</p>
+<p> </p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-114"></span>
+<img src="img/parte02/autoescalamento.png" alt="Dados originais e autoescalados." width="95%" />
+<p class="caption">
+Figure 4.1: Dados originais e autoescalados.
+</p>
+</div>
+<p> </p>
+<p><strong>O que deve ser notado?</strong></p>
+<p>A mudança de escala de cada variável individualmente deve ser óbvia, e a distância relativa entre as variáveis não se altera! É justamente essa propriedade que nos garante que a informação química que pode estar contida nos dados não se perde.</p>
+<p> </p>
+</div>
+<div id="normalização-min-max" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Normalização Min-Max:<a href="pré-processamento-de-variáveis.html#normalização-min-max" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Embora a normalização pelos valores mínimos e máximos não seja completamente resistente a outliers, ela pode reduzir o impacto que valores extremos têm na análise. Outliers podem distorcer a escala e a interpretação dos dados, e a normalização ajuda a mitigar esse efeito ao transformar os dados para um intervalo padrão.</p>
+<p> </p>
+<p><strong>Fórmula para a normalização</strong></p>
+<p><span class="math display">\[
+  x_{normalizado} = ( x − x_{min} ) / ( x_{max} - x_{min} )
+\]</span></p>
+<p>onde:</p>
+<ul>
+<li><span class="math inline">\(x\)</span> representa os dados originais</li>
+<li><span class="math inline">\(x_{min}\)</span> é o valor mínimo da variável</li>
+<li><span class="math inline">\(x_{min}\)</span> é o valor máximo da variável</li>
+<li><span class="math inline">\(x_{normalizado}\)</span> são os dados normalizados</li>
+</ul>
+<p> </p>
+<p><strong>Passos para Normalização Min-Max</strong></p>
+<ul>
+<li><p><strong>Determine os Valores Mínimo e Máximo</strong>: Encontre os valores mínimo e máximo da variável que você deseja normalizar.</p></li>
+<li><p><strong>Aplicar a Fórmula</strong>: Para cada variável <span class="math inline">\(x\)</span>, aplique a fórmula para transformar o valor para o intervalo [0, 1].</p></li>
+</ul>
+<p> </p>
+<p><strong>Exemplo Prático em R</strong></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="pré-processamento-de-variáveis.html#cb32-1" tabindex="-1"></a><span class="co"># Criar um vetor de dados</span></span>
+<span id="cb32-2"><a href="pré-processamento-de-variáveis.html#cb32-2" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>)</span>
+<span id="cb32-3"><a href="pré-processamento-de-variáveis.html#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="pré-processamento-de-variáveis.html#cb32-4" tabindex="-1"></a><span class="co"># Normalizar os dados para o intervalo [0, 1]</span></span>
+<span id="cb32-5"><a href="pré-processamento-de-variáveis.html#cb32-5" tabindex="-1"></a>normalizado <span class="ot">&lt;-</span> (dados <span class="sc">-</span> <span class="fu">min</span>(dados)) <span class="sc">/</span> (<span class="fu">max</span>(dados) <span class="sc">-</span> <span class="fu">min</span>(dados))</span>
+<span id="cb32-6"><a href="pré-processamento-de-variáveis.html#cb32-6" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="pré-processamento-de-variáveis.html#cb32-7" tabindex="-1"></a><span class="co"># Exibir os dados normalizados</span></span>
+<span id="cb32-8"><a href="pré-processamento-de-variáveis.html#cb32-8" tabindex="-1"></a><span class="fu">print</span>(normalizado)</span>
+<span id="cb32-9"><a href="pré-processamento-de-variáveis.html#cb32-9" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="pré-processamento-de-variáveis.html#cb32-10" tabindex="-1"></a><span class="co"># Para normalizar os dados contidos em um dataframe ou uma matriz</span></span>
+<span id="cb32-11"><a href="pré-processamento-de-variáveis.html#cb32-11" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="pré-processamento-de-variáveis.html#cb32-12" tabindex="-1"></a><span class="co"># Definir o seed para reprodutibilidade</span></span>
+<span id="cb32-13"><a href="pré-processamento-de-variáveis.html#cb32-13" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb32-14"><a href="pré-processamento-de-variáveis.html#cb32-14" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="pré-processamento-de-variáveis.html#cb32-15" tabindex="-1"></a><span class="co"># Criar um dataframe com 2 variáveis e 25 amostras</span></span>
+<span id="cb32-16"><a href="pré-processamento-de-variáveis.html#cb32-16" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb32-17"><a href="pré-processamento-de-variáveis.html#cb32-17" tabindex="-1"></a>  <span class="at">Variavel1 =</span> <span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>),</span>
+<span id="cb32-18"><a href="pré-processamento-de-variáveis.html#cb32-18" tabindex="-1"></a>  <span class="at">Variavel2 =</span> <span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">20</span>)</span>
+<span id="cb32-19"><a href="pré-processamento-de-variáveis.html#cb32-19" tabindex="-1"></a>)</span>
+<span id="cb32-20"><a href="pré-processamento-de-variáveis.html#cb32-20" tabindex="-1"></a></span>
+<span id="cb32-21"><a href="pré-processamento-de-variáveis.html#cb32-21" tabindex="-1"></a><span class="co"># Aplicar a normalização Min-Max</span></span>
+<span id="cb32-22"><a href="pré-processamento-de-variáveis.html#cb32-22" tabindex="-1"></a>df_normalizado <span class="ot">&lt;-</span> <span class="fu">apply</span>( df, <span class="dv">2</span>, <span class="cf">function</span>(df)(df <span class="sc">-</span> <span class="fu">min</span>(df)) <span class="sc">/</span> (<span class="fu">max</span>(df) <span class="sc">-</span> <span class="fu">min</span>(df))  )</span>
+<span id="cb32-23"><a href="pré-processamento-de-variáveis.html#cb32-23" tabindex="-1"></a></span>
+<span id="cb32-24"><a href="pré-processamento-de-variáveis.html#cb32-24" tabindex="-1"></a><span class="co">#Exibir os dados normalizados</span></span>
+<span id="cb32-25"><a href="pré-processamento-de-variáveis.html#cb32-25" tabindex="-1"></a><span class="fu">print</span>( df_normalizado)</span></code></pre></div>
+<p> </p>
+<p><strong>Explicação do Trecho do Código</strong></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="pré-processamento-de-variáveis.html#cb33-1" tabindex="-1"></a><span class="co"># Aplicar a normalização Min-Max</span></span>
+<span id="cb33-2"><a href="pré-processamento-de-variáveis.html#cb33-2" tabindex="-1"></a>df_normalizado <span class="ot">&lt;-</span> <span class="fu">apply</span>( df, <span class="dv">2</span>, <span class="cf">function</span>(df)(df <span class="sc">-</span> <span class="fu">min</span>(df)) <span class="sc">/</span> (<span class="fu">max</span>(df) <span class="sc">-</span> <span class="fu">min</span>(df))  )</span></code></pre></div>
+<p><strong>Passo a Passo</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Função <code>apply()</code></strong>:</li>
+</ol>
+<ul>
+<li><code>apply()</code> é uma função em R que aplica uma função especificada a margens de uma matriz ou data frame.</li>
+<li>A sintaxe básica é <code>apply(X, MARGIN, FUN, ...)</code>, onde <code>X</code> é a matriz ou data frame, <code>MARGIN</code> indica a margem sobre a qual a função deve ser aplicada (1 para linhas e 2 para colunas), e <code>FUN</code> é a função a ser aplicada. (Estes detalhes estão no help da função apply).</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Argumentos do apply()</strong>:</li>
+</ol>
+<ul>
+<li><code>df</code>: Este é o data frame ou matriz ao qual a função será aplicada.</li>
+<li><code>2</code>: Este argumento indica que a função deve ser aplicada a cada coluna do data frame (<code>MARGIN = 2</code> significa aplicar a função por coluna).</li>
+<li><code>function(df)(df - min(df)) / (max(df) - min(df))</code>: Este é o código da função que será aplicada a cada coluna.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Função anônima</strong>:</li>
+</ol>
+<ul>
+<li><code>function(df) (df - min(df)) / (max(df) - min(df))</code> é uma função anônima (ou seja, uma função definida sem nome).</li>
+<li>Essa função realiza a normalização Min-Max para cada coluna do data frame. A normalização Min-Max transforma os valores para uma faixa de 0 a 1.</li>
+</ul>
+<p><strong>Destrinchando a Função Anônima</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><code>df - min(df)</code>:</li>
+</ol>
+<ul>
+<li>Para cada valor na coluna, subtrai o valor mínimo dessa coluna. Isso é feito para ajustar os valores, começando do zero.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><code>max(df) - min(df)</code>:</li>
+</ol>
+<ul>
+<li>Calcula a diferença entre o valor máximo e o valor mínimo da coluna (também chamado de amplitude). Isso é usado para dimensionar os valores ajustados para a faixa de 0 a 1.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><code>(df - min(df)) / (max(df) - min(df))</code>:</li>
+</ol>
+<ul>
+<li>Divide o ajuste realizado na primeira etapa pela faixa (a diferença entre o valor máximo e o valor mínimo). O resultado é que os valores da coluna são escalados para o intervalo de 0 a 1.</li>
+</ul>
+<p><strong>Resultado</strong>:</p>
+<ul>
+<li><code>df_normalizado</code>:
+<ul>
+<li>O resultado do <code>apply()</code> é um novo data frame (ou matriz, dependendo da estrutura original de <code>df</code>) onde cada coluna é normalizada usando a técnica Min-Max. Os valores em cada coluna vão variar entre 0 e 1.</li>
+</ul></li>
+</ul>
+<p><strong>Considerações Adicionais</strong>:</p>
+<ul>
+<li><strong>Estrutura do Data Frame</strong>:
+<ul>
+<li><code>apply()</code> pode transformar um data frame em uma matriz, o que pode causar problemas se o data frame original contiver tipos de dados mistos (por exemplo, números e caracteres). Se for o caso, considere converter para uma matriz ou usar funções específicas para data frames, como <code>lapply()</code>.</li>
+</ul></li>
+</ul>
+</div>
+<div id="transformações" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Transformações<a href="pré-processamento-de-variáveis.html#transformações" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>É muito comum, na construção de modelos preditivos, o uso de transformações<a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a> de variáveis para abordar e corrigir vários problemas corriqueiros como assimetria na distribuição, heterocedasticidade, não linearidade e <em>outliers</em>. O uso adequado dessas transformações pode melhorar significativamente a eficácia das previsões, isto é, resultar em modelos mais precisos, robustos e interpretáveis. As transformações têm como objetivo abordar os seguintes aspectos:</p>
+<p><strong>1. Correção da Assimetria</strong>: Dados assimétricos (ou seja, que apresentam uma cauda mais longa de um lado do que do outro) podem levar a ajustes imprecisos dos modelos prejudicando o desempenho preditivo, pois muitos modelos estatísticos assumem que os dados seguem uma distribuição normal. Transformações como a logarítmica, a raiz quadrada ou a Box-Cox podem ajudar a suavizar a distribuição dos dados, tornando-a mais simétrica e, assim, melhorando a precisão do modelo.</p>
+<p><strong>2. Estabilização da Variância</strong>: Em muitos casos, a variância dos dados não é constante em diferentes níveis da variável preditora, um fenômeno conhecido como heterocedasticidade. Isso pode levar a previsões imprecisas e inferências incorretas. Transformações como a Box-Cox ou a logarítmica podem estabilizar a variância, fazendo com que a variabilidade dos dados seja mais uniforme e adequada para modelos que assumem homocedasticidade.</p>
+<p><strong>3. Melhora na Linearidade</strong>: Muitos modelos preditivos, como a regressão linear, pressupõem uma relação linear entre as variáveis independentes e a variável dependente. No entanto, a relação real pode ser não linear. Transformações podem transformar essas relações não lineares em lineares, facilitando a modelagem e a interpretação dos dados. Por exemplo, uma transformação logarítmica pode transformar uma relação exponencial em uma relação linear, melhorando a adequação do modelo.</p>
+<p><strong>4. Redução do Impacto de Outliers</strong>: Transformações podem reduzir o impacto de valores extremos ou outliers, que podem distorcer a análise e a construção do modelo. Por exemplo, a transformação logarítmica pode minimizar o efeito de valores muito altos, tornando-os menos influentes no ajuste do modelo.</p>
+<p><strong>5. Melhoria na Interpretabilidade</strong>: Em alguns casos, a transformação das variáveis pode facilitar a interpretação dos coeficientes do modelo. Por exemplo, em uma transformação logarítmica, o coeficiente da variável pode ser interpretado como a taxa de crescimento percentual, o que pode ser mais intuitivo e informativo para decisões práticas.</p>
+<p><strong>6. Ajuste para Problemas Específicos de Dados</strong>: Alguns tipos de dados, como contagens ou dados que variam em ordens de magnitude, podem se beneficiar de transformações específicas que são mais adequadas para o tipo de dados em questão. Transformações apropriadas podem levar a modelos mais precisos e robustos.</p>
+<div id="logarítmica-e-raiz-quadrada" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Logarítmica e Raiz Quadrada<a href="pré-processamento-de-variáveis.html#logarítmica-e-raiz-quadrada" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As transformações por aplicação da operação logarítmica e da operação raiz quadrada são amplamente empregadas quando a variável apresenta uma distribuição assimétrica ou uma variância elevada. São monotônicas, o que significa que preserva a ordem dos dados. Isso é crucial para modelos preditivos, pois assegura que a transformação não altere a capacidade do modelo de capturar a relação entre as variáveis. Também são não-paramétricas.</p>
+<p> </p>
+<p><strong>Transformação logarítmica</strong>:</p>
+<p><span class="math display">\[
+y_{transformada} = log( y )
+\]</span></p>
+<p><strong>Transformação raiz quadrada</strong>:</p>
+<p><span class="math display">\[
+y_{transformada} = \sqrt y
+\]</span></p>
+<p><strong>onde</strong>:</p>
+<ul>
+<li><span class="math inline">\(y\)</span> é a variável original a ser transformada.</li>
+<li><span class="math inline">\(y_{transformada}\)</span> é a variável transformada.</li>
+</ul>
+<p> </p>
+<p>A diferença básica é entre as duas operações é o quão rapidamente conseguem contrair a escala original. Graficamente é mais intuitivo essa percepção.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-116"></span>
+<img src="img/parte02/transf-log-sqrt.png" alt="Transformações Logarítmica e Raiz Quadarada" width="95%" />
+<p class="caption">
+Figure 4.2: Transformações Logarítmica e Raiz Quadarada
+</p>
+</div>
+<p> </p>
+</div>
+<div id="transformação-box-cox" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Transformação Box-Cox<a href="pré-processamento-de-variáveis.html#transformação-box-cox" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Transformação Box-Cox<a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a> é uma técnica estatística utilizada para estabilizar a variância e tornar os dados mais próximos de uma distribuição normal, o que pode ser útil para melhorar a qualidade de modelos estatísticos e de machine learning.</p>
+<p>Aqui estão alguns pontos principais sobre a Transformação Box-Cox:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Objetivo</strong>:</li>
+</ol>
+<p>A transformação visa lidar com problemas de heterocedasticidade (variação não constante) e não-normalidade nos dados. A normalidade e a homocedasticidade são frequentemente pressupostos em muitos testes estatísticos e modelos de regressão.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Formulação Matemática</strong>:</li>
+</ol>
+<p>A fórmula da Transformação Box-Cox é dada por:</p>
+<p><span class="math display">\[
+   y(\lambda) =
+   \begin{cases}
+   \frac{y^\lambda - 1}{\lambda} &amp; \text{se } \lambda \neq 0 \\
+   \log(y) &amp; \text{se } \lambda = 0
+   \end{cases}
+   \]</span></p>
+<p>onde:</p>
+<ul>
+<li><span class="math inline">\(y\)</span> é a variável original a ser transformada.</li>
+<li><span class="math inline">\(\lambda\)</span> é o parâmetro de transformação, que pode assumir qualquer valor real.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Escolha de <span class="math inline">\(\lambda\)</span></strong>:</li>
+</ol>
+<p>O parâmetro <span class="math inline">\(\lambda\)</span> é ajustado para encontrar a melhor transformação possível dos dados. A escolha de <span class="math inline">\(\lambda\)</span> é geralmente feita através de métodos de da maximização da função de verossimilhança, que busca o valor <span class="math inline">\(\lambda\)</span> que melhor estabiliza a variância maximiza e melhor proximidade dos dados transformados a uma distribuição normal. Em alguns softwares estatísticos, você pode encontrar o melhor <span class="math inline">\(\lambda\)</span> automaticamente. A transformação ajuda a reduzir a heterocedasticidade, ou seja, a variação não constante dos resíduos em um modelo de regressão. O melhor ajuste dos dados a uma distribuição normal pode melhorar a adequação dos modelos estatísticos e facilitar a interpretação dos resultados. A transformação é uma forma generalizada de várias outras transformações comuns, como a transformação logarítmica (para <span class="math inline">\(\lambda = 0\)</span>) e a raiz quadrada (<span class="math inline">\(\lambda = 0.5\)</span>).</p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Restrições</strong>:</li>
+</ol>
+<p>A Transformação Box-Cox só pode ser aplicada a dados positivos (ou seja, <span class="math inline">\(y &gt; 0\)</span>). Se seus dados contiverem valores não positivos, pode ser necessário adicionar uma constante aos dados antes da transformação ou utilizar outras transformações. A escolha de <span class="math inline">\(\lambda\)</span> pode ser sensível e pode variar dependendo dos dados. Uma transformação que funciona bem para um conjunto de dados pode não ser ideal para outro (Existem outras transformações, como a transformação logarítmica simples ou a transformação de raiz quadrada, que podem ser mais apropriadas dependendo do contexto dos dados e dos objetivos da análise).</p>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Aplicações</strong>:</li>
+</ol>
+<p>A Transformação Box-Cox é amplamente utilizada em análise de regressão, ANOVA e outros modelos estatísticos onde os pressupostos de normalidade e homocedasticidade são importantes. Ela pode melhorar a validade dos resultados e a eficácia dos modelos.</p>
+<ul>
+<li><p><strong>Modelagem Estatística</strong>: Em modelos de regressão e ANOVA, onde pressupostos de normalidade e homocedasticidade são importantes, a Transformação Box-Cox pode melhorar o ajuste do modelo e a validade dos testes.</p></li>
+<li><p><strong>Previsão</strong>: Em modelos de séries temporais e de previsão, a transformação pode estabilizar a variância das observações ao longo do tempo, tornando os modelos mais robustos.</p></li>
+<li><p><strong>Análise Exploratória</strong>: A transformação pode ser usada para explorar a natureza dos dados e identificar a melhor abordagem para análise e modelagem.</p></li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li><strong>Interpretação</strong>:</li>
+</ol>
+<p>Após aplicar a transformação, interpretar os resultados pode ser menos intuitivo exigir cuidados, pois a transformação altera a escala dos dados. Dependendo de <span class="math inline">\(\lambda\)</span>, a interpretação dos coeficientes e das previsões pode exigir uma adaptação. Em casos particulares, pode ser necessário traduzir os resultados transformados de volta para a escala original.</p>
+<p><strong>Em síntese</strong>, a Transformação Box-Cox é utilizada para ajustar dados e melhorar a performance dos modelos estatísticos, ajudando a lidar com problemas comuns como heterocedasticidade e não-normalidade. No entanto, como qualquer ferramenta estatística, deve ser usada com compreensão de suas limitações e com cuidado na interpretação dos resultados.</p>
+<p> </p>
+<p>No R, o pacote <code>MASS</code> possui a função <code>boxcox</code> que implementa essa transformação.</p>
+</div>
+<div id="logística-e-logit" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Logística e <em>Logit</em><a href="pré-processamento-de-variáveis.html#logística-e-logit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h4>
+Função Logística
+</h4>
+<p>A função logística<a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a> é a curva com um formato de “S” quando representada graficamente, sendo conhecidad como sigmoidal. O contradomínio da função começa em <span class="math inline">\(0\)</span>, sobe rapidamente, e depois se aproxima de <span class="math inline">\(1\)</span>, criando uma transição suave entre esses dois limites. É definida pela fórmula:</p>
+<p><span class="math display">\[
+z = \left(\frac{1}{1+e^{-y}}\right)
+\]</span></p>
+<p>À medida que <span class="math inline">\(y\)</span> tende a <span class="math inline">\(-\infty\)</span>, a função se aproxima de <span class="math inline">\(0\)</span>. À medida que <span class="math inline">\(y\)</span> tende a <span class="math inline">\(\infty\)</span>, a função se aproxima de <span class="math inline">\(1\)</span>. O ponto de inflexão da função logística ocorre em <span class="math inline">\(y = 0\)</span>, onde a função assume o valor <span class="math inline">\(0,5\)</span>. Esse ponto é onde a função muda de crescer lentamente para crescer rapidamente. A função pode ser generalizada facilmente para contemplar os seus ajustes a outros limites.</p>
+<p><strong>Uso da Função Logística</strong></p>
+<ul>
+<li><p><strong>Modelagem de Probabilidades</strong>: A função logística é usada para mapear qualquer valor real <span class="math inline">\(z\)</span> para um intervalo entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>, tornando-a útil para modelar probabilidades. Isso é especialmente importante em modelos de regressão logística, onde a saída do modelo deve ser uma probabilidade.</p></li>
+<li><p><strong>Modelos de Crescimento</strong>: Em biologia e outras ciências, a função logística é usada para descrever o crescimento populacional limitado por fatores de capacidade de carga.</p></li>
+<li><p><strong>Redes Neurais</strong>: Na aprendizagem de máquinas e redes neurais, a função logística pode ser usada como uma função de ativação para introduzir não-linearidade nos modelos.</p></li>
+</ul>
+<p><strong>Relação com a Função <em>Logit</em></strong></p>
+<p>A função logística é a inversa da função <em>logit</em>. Enquanto a função <em>logit</em> transforma uma probabilidade em uma escala não restrita, a função logística faz a transformação inversa, convertendo um valor em uma probabilidade. Se você tem um valor <span class="math inline">\(z\)</span> (que pode ser o resultado de uma combinação linear de variáveis independentes em um modelo de regressão logística), a função logística é usada para obter a probabilidade <span class="math inline">\(p\)</span>. Dessa forma, a função logística é essencial para transformar as previsões de um modelo de regressão logística em probabilidades compreensíveis e interpretáveis.</p>
+<h4>
+Função <em>logit</em>
+</h4>
+<p>A função <em>logit</em><a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a> é uma função matemática que é frequentemente usada em modelos estatísticos, especialmente na regressão logística. A função <em>logit</em> é definida como o logaritmo da razão de chances (<em>odds</em>) e é dada pela fórmula:</p>
+<p><span class="math display">\[ \text{logit}(p) = \log \left(\frac{p}{1-p}\right) \]</span></p>
+<p>onde <span class="math inline">\(p\)</span> é a probabilidade de um evento ocorrer, e <span class="math inline">\(\frac{p}{1-p}\)</span> é a razão de chances do evento.</p>
+<p>A função <em>logit</em> transforma uma probabilidade <span class="math inline">\(p\)</span> (que varia entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>) em uma escala que vai de <span class="math inline">\(-\infty\)</span> a <span class="math inline">\(\infty\)</span>.</p>
+<p>Isso é útil em modelos de regressão logística porque a probabilidade <span class="math inline">\(p\)</span> é restrita ao intervalo <span class="math inline">\([0,1]\)</span>, mas a função <em>logit</em> permite que a relação entre variáveis preditoras e a probabilidade de um evento seja modelada em uma escala não restrita.</p>
+<p>A função <em>logit</em> é a função inversa da função logística.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-118"></span>
+<img src="img/parte02/curva-logist-logit.png" alt="Curvas Logística e logit" width="95%" />
+<p class="caption">
+Figure 4.3: Curvas Logística e logit
+</p>
+</div>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="40">
+<li id="fn40"><p><a href="https://en.wikipedia.org/wiki/Data_transformation_(statistics)" class="uri">https://en.wikipedia.org/wiki/Data_transformation_(statistics)</a><a href="pré-processamento-de-variáveis.html#fnref40" class="footnote-back">↩︎</a></p></li>
+<li id="fn41"><p><a href="https://en.wikipedia.org/wiki/Power_transform#Box%E2%80%93Cox_transformation" class="uri">https://en.wikipedia.org/wiki/Power_transform#Box%E2%80%93Cox_transformation</a><a href="pré-processamento-de-variáveis.html#fnref41" class="footnote-back">↩︎</a></p></li>
+<li id="fn42"><p><a href="https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_log%C3%ADstica" class="uri">https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_log%C3%ADstica</a><a href="pré-processamento-de-variáveis.html#fnref42" class="footnote-back">↩︎</a></p></li>
+<li id="fn43"><p><a href="https://en.wikipedia.org/wiki/Logit" class="uri">https://en.wikipedia.org/wiki/Logit</a><a href="pré-processamento-de-variáveis.html#fnref43" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="parte-ii---tratamento-dos-dados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pré-processamento-de-amostras.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsubsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true,
+"post_processor": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

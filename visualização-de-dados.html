@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>&#8474;&#8477; 3 Visualização de Dados | Caderno de Quimiometria com R</title>
+  <meta name="description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="&#8474;&#8477; 3 Visualização de Dados | Caderno de Quimiometria com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+  <meta property="og:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="github-repo" content="cleber-n-borges/quimiometriaR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="&#8474;&#8477; 3 Visualização de Dados | Caderno de Quimiometria com R" />
+  
+  <meta name="twitter:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="twitter:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+<link rel="prev" href="conjunto-de-dados.html"/>
+<link rel="next" href="parte-ii---tratamento-dos-dados.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJVXYW1C58"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YJVXYW1C58');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">&#8474;&#8477; Quimiometria com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bem-vindos!</a></li>
+<li class="chapter" data-level="" data-path="útil-para-você.html"><a href="útil-para-você.html"><i class="fa fa-check"></i>Útil para Você!</a></li>
+<li class="chapter" data-level="" data-path="pergunte-ao-chatgpt.html"><a href="pergunte-ao-chatgpt.html"><i class="fa fa-check"></i>Pergunte ao ChatGPT</a></li>
+<li class="chapter" data-level="" data-path="estrutura-do-caderno.html"><a href="estrutura-do-caderno.html"><i class="fa fa-check"></i>Estrutura do Caderno</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html"><i class="fa fa-check"></i>PARTE I - Ponto de Partida</a>
+<ul>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#primeiro-passo"><i class="fa fa-check"></i>Primeiro Passo</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#o-que-é-quimiometria"><i class="fa fa-check"></i>O que é Quimiometria?</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#aplicações-do-r-na-quimiometria"><i class="fa fa-check"></i>Aplicações do R na Quimiometria</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#contribuições-do-chatgpt"><i class="fa fa-check"></i>Contribuições do ChatGPT</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html"><i class="fa fa-check"></i><b>1</b> Comece a Usar o R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-o-r-e-rstudio"><i class="fa fa-check"></i><b>1.1</b> Instale o R e RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conheça-o-básico-do-r"><i class="fa fa-check"></i><b>1.2</b> Conheça o Básico do R</a></li>
+<li class="chapter" data-level="1.3" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#realize-análises-simples"><i class="fa fa-check"></i><b>1.3</b> Realize Análises Simples</a></li>
+<li class="chapter" data-level="1.4" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#a-conveniência-do-help"><i class="fa fa-check"></i><b>1.4</b> A Conveniência do <code>help()</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#como-usar-o-comando-help"><i class="fa fa-check"></i>Como Usar o Comando <code>help()</code>:</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conveniência-da-prática"><i class="fa fa-check"></i>Conveniência da Prática</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#exemplo-de-uso"><i class="fa fa-check"></i>Exemplo de Uso</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#manuseie-arquivos"><i class="fa fa-check"></i><b>1.5</b> Manuseie Arquivos</a></li>
+<li class="chapter" data-level="1.6" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#salve-e-restaure-seu-workspace"><i class="fa fa-check"></i><b>1.6</b> Salve e Restaure seu <i>Workspace</i></a></li>
+<li class="chapter" data-level="1.7" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-pacotes-r"><i class="fa fa-check"></i><b>1.7</b> Instale Pacotes R</a></li>
+<li class="chapter" data-level="1.8" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#aprenda-mais-e-pratique"><i class="fa fa-check"></i><b>1.8</b> Aprenda Mais e Pratique</a></li>
+<li class="chapter" data-level="1.9" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#participar-de-comunidades"><i class="fa fa-check"></i><b>1.9</b> Participar de Comunidades</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html"><i class="fa fa-check"></i><b>2</b> Conjunto de Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#organização-e-notação"><i class="fa fa-check"></i><b>2.1</b> Organização e Notação</a></li>
+<li class="chapter" data-level="2.2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#valores-faltantes-na"><i class="fa fa-check"></i><b>2.2</b> Valores faltantes: <code>NA</code></a></li>
+<li class="chapter" data-level="2.3" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#dados-disponíveis"><i class="fa fa-check"></i><b>2.3</b> Dados Disponíveis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html"><i class="fa fa-check"></i><b>3</b> Visualização de Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#gráficos-com-o-r"><i class="fa fa-check"></i><b>3.1</b> Gráficos com o R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#funções-nativas"><i class="fa fa-check"></i><b>3.1.1</b> Funções nativas</a></li>
+<li class="chapter" data-level="3.1.2" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-animation"><i class="fa fa-check"></i><b>3.1.2</b> Pacote <code>animation</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-ggplot2"><i class="fa fa-check"></i><b>3.1.3</b> Pacote <code>ggplot2</code></a></li>
+<li class="chapter" data-level="3.1.4" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-plotly"><i class="fa fa-check"></i><b>3.1.4</b> Pacote <code>plotly</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-ii---tratamento-dos-dados.html"><a href="parte-ii---tratamento-dos-dados.html"><i class="fa fa-check"></i>PARTE II - Tratamento dos Dados</a></li>
+<li class="chapter" data-level="4" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html"><i class="fa fa-check"></i><b>4</b> Pré-Processamento de Variáveis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#autoescalamento"><i class="fa fa-check"></i><b>4.1</b> Autoescalamento</a></li>
+<li class="chapter" data-level="4.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#normalização-min-max"><i class="fa fa-check"></i><b>4.2</b> Normalização Min-Max:</a></li>
+<li class="chapter" data-level="4.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformações"><i class="fa fa-check"></i><b>4.3</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logarítmica-e-raiz-quadrada"><i class="fa fa-check"></i><b>4.3.1</b> Logarítmica e Raiz Quadrada</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformação-box-cox"><i class="fa fa-check"></i><b>4.3.2</b> Transformação Box-Cox</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logística-e-logit"><i class="fa fa-check"></i><b>4.3.3</b> Logística e <em>Logit</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html"><i class="fa fa-check"></i><b>5</b> Pré-Processamento de Amostras</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html#todo"><i class="fa fa-check"></i><b>5.1</b> TODO</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-iii---análise-exploratória-de-dados.html"><a href="parte-iii---análise-exploratória-de-dados.html"><i class="fa fa-check"></i>PARTE III - Análise Exploratória de Dados</a></li>
+<li class="chapter" data-level="6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html"><i class="fa fa-check"></i><b>6</b> PCA - Análise de Componentes Principais</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#desenvolvimento-histórico"><i class="fa fa-check"></i><b>6.1</b> Desenvolvimento histórico</a></li>
+<li class="chapter" data-level="6.2" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#definição"><i class="fa fa-check"></i><b>6.2</b> Definição</a></li>
+<li class="chapter" data-level="6.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#interpretação-geométrica"><i class="fa fa-check"></i><b>6.3</b> Interpretação Geométrica</a></li>
+<li class="chapter" data-level="6.4" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#objetivo"><i class="fa fa-check"></i><b>6.4</b> Objetivo</a></li>
+<li class="chapter" data-level="6.5" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#pca-como-decomposição-matricial"><i class="fa fa-check"></i><b>6.5</b> PCA como Decomposição Matricial</a></li>
+<li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#principais-algoritmos"><i class="fa fa-check"></i><b>6.6</b> Principais Algoritmos</a></li>
+<li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.7</b> Variância por PC</a></li>
+<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.8</b> Aplicação Típica</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>7</b> HCA - Análise de Agrupamento Hierárquico</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/cleber-n-borges/quimiometriaR" target="blank">&#8474;&#8477; Repositório GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Caderno de Quimiometria com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="visualização-de-dados" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">&#8474;&#8477; 3</span> Visualização de Dados<a href="visualização-de-dados.html#visualização-de-dados" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Muitas vezes, os detalhes da informação que estamos tentando compreender, que podem estar ocultos nos dados, não são facilmente capturados apenas por análises e processos numéricos.</p>
+<p>Visualizar dados em gráficos é crucial por várias razões:</p>
+<ul>
+<li><p><strong>Facilita a Interpretação:</strong> Gráficos tornam os dados mais compreensíveis ao transformar números em tabelas em representações visuais que, em geral, são mais fáceis de interpretar. Pois, isso ajuda a identificar padrões (tendências), anomalias (<i>outliers</i>) e relação entre variáveis de forma mais intuitiva. É mais fácil entender e analisar informações visuais do que interpretar grandes conjuntos de números.</p></li>
+<li><p><strong>Facilita a Análise Exploratória:</strong> Durante a análise exploratória dos dados, gráficos ajudam a entender melhor o conjunto de dados e a formular hipóteses para testes estatísticos subsequentes.</p></li>
+<li><p><strong>Ajuda na Comparação:</strong> Permite a comparação direta entre diferentes conjuntos de dados ou categorias.</p></li>
+<li><p><strong>Comunicação:</strong> Facilita a comunicação quando você precisar apresentar seus resultados para outras pessoas.</p></li>
+</ul>
+<p>Em termos gerais, os gráficos são úteis para tornar os dados mais compreensíveis, detectar padrões e tendências.</p>
+<h3>
+Quarteto de Anscomble
+</h3>
+<p>O Quarteto de Anscomble<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> é um conjunto de dados artificial criado justamente com a intenção de, forma gráfica, transmitir ao menos algumas das justificativas anteriores para obter uma compreensão completa da informação neles contida.</p>
+<p>Esse conjunto de dados foi projetado de maneira a ter algumas estatísticas descritivas númericas idênticas (média, variância, correlação, reta) mais com diferentes padrões óbvios quando visualizados graficamente. Fica evidente que dados podem ter estatísticas numéricas similares mas podem ter estruturas muito diversas. A tabela a seguir mostram esses dados.</p>
+<p> </p>
+<center>
+<caption>
+<span id="tab:lab">Table 3.1: </span> Quarteto de Anscombe
+</caption>
+</center>
+<hr class="double" style="height: 2px; background-color: #90A5A2;">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b8790653f3961dd29ec6" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b8790653f3961dd29ec6">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],[10,8,13,9,11,14,6,4,12,7,5],[10,8,13,9,11,14,6,4,12,7,5],[10,8,13,9,11,14,6,4,12,7,5],[8,8,8,8,8,8,8,19,8,8,8],[8.039999999999999,6.95,7.58,8.81,8.33,9.960000000000001,7.24,4.26,10.84,4.82,5.68],[9.140000000000001,8.140000000000001,8.74,8.77,9.26,8.1,6.13,3.1,9.130000000000001,7.26,4.74],[7.46,6.77,12.74,7.11,7.81,8.84,6.08,5.39,8.15,6.42,5.73],[6.58,5.76,7.71,8.84,8.470000000000001,7.04,5.25,12.5,5.56,7.91,6.89]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>x1<\/th>\n      <th>x2<\/th>\n      <th>x3<\/th>\n      <th>x4<\/th>\n      <th>y1<\/th>\n      <th>y2<\/th>\n      <th>y3<\/th>\n      <th>y4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"autoWidth":true,"lengthMenu":[5,11],"searching":false,"rownames":false,"selection":"single","language":{"emptyTable":"Nenhum registro encontrado","info":"Mostrando de _START_ até _END_ de _TOTAL_ registros","infoFiltered":"(Filtrados de _MAX_ registros)","infoThousands":".","loadingRecords":"Carregando...","zeroRecords":"Nenhum registro encontrado","search":"Pesquisar","paginate":{"next":"Próximo","previous":"Anterior","first":"Primeiro","last":"Último"},"aria":{"sortAscending":": Ordenar colunas de forma ascendente","sortDescending":": Ordenar colunas de forma descendente"},"select":{"rows":{"_":"Selecionado %d linhas","1":"Selecionado 1 linha"},"cells":{"1":"1 célula selecionada","_":"%d células selecionadas"},"columns":{"1":"1 coluna selecionada","_":"%d colunas selecionadas"}},"buttons":{"copySuccess":{"1":"Uma linha copiada com sucesso","_":"%d linhas copiadas com sucesso"},"collection":"Coleção  <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>","colvis":"Visibilidade da Coluna","colvisRestore":"Restaurar Visibilidade","copy":"Copiar","copyKeys":"Pressione ctrl ou u2318 + C para copiar os dados da tabela para a área de transferência do sistema. Para cancelar, clique nesta mensagem ou pressione Esc..","copyTitle":"Copiar para a Área de Transferência","csv":"CSV","excel":"Excel","pageLength":{"-1":"Mostrar todos os registros","_":"Mostrar %d registros"},"pdf":"PDF","print":"Imprimir","createState":"Criar estado","removeAllStates":"Remover todos os estados","removeState":"Remover","renameState":"Renomear","savedStates":"Estados salvos","stateRestore":"Estado %d","updateState":"Atualizar"},"autoFill":{"cancel":"Cancelar","fill":"Preencher todas as células com","fillHorizontal":"Preencher células horizontalmente","fillVertical":"Preencher células verticalmente"},"lengthMenu":"Exibir _MENU_ resultados por página","searchBuilder":{"add":"Adicionar Condição","button":{"0":"Construtor de Pesquisa","_":"Construtor de Pesquisa (%d)"},"clearAll":"Limpar Tudo","condition":"Condição","conditions":{"date":{"after":"Depois","before":"Antes","between":"Entre","empty":"Vazio","equals":"Igual","not":"Não","notBetween":"Não Entre","notEmpty":"Não Vazio"},"number":{"between":"Entre","empty":"Vazio","equals":"Igual","gt":"Maior Que","gte":"Maior ou Igual a","lt":"Menor Que","lte":"Menor ou Igual a","not":"Não","notBetween":"Não Entre","notEmpty":"Não Vazio"},"string":{"contains":"Contém","empty":"Vazio","endsWith":"Termina Com","equals":"Igual","not":"Não","notEmpty":"Não Vazio","startsWith":"Começa Com","notContains":"Não contém","notStartsWith":"Não começa com","notEndsWith":"Não termina com"},"array":{"contains":"Contém","empty":"Vazio","equals":"Igual à","not":"Não","notEmpty":"Não vazio","without":"Não possui"}},"data":"Data","deleteTitle":"Excluir regra de filtragem","logicAnd":"E","logicOr":"Ou","title":{"0":"Construtor de Pesquisa","_":"Construtor de Pesquisa (%d)"},"value":"Valor","leftTitle":"Critérios Externos","rightTitle":"Critérios Internos"},"searchPanes":{"clearMessage":"Limpar Tudo","collapse":{"0":"Painéis de Pesquisa","_":"Painéis de Pesquisa (%d)"},"count":"{total}","countFiltered":"{shown} ({total})","emptyPanes":"Nenhum Painel de Pesquisa","loadMessage":"Carregando Painéis de Pesquisa...","title":"Filtros Ativos","showMessage":"Mostrar todos","collapseMessage":"Fechar todos"},"thousands":".","datetime":{"previous":"Anterior","next":"Próximo","hours":"Hora","minutes":"Minuto","seconds":"Segundo","amPm":["am","pm"],"unknown":"-","months":{"0":"Janeiro","1":"Fevereiro","10":"Novembro","11":"Dezembro","2":"Março","3":"Abril","4":"Maio","5":"Junho","6":"Julho","7":"Agosto","8":"Setembro","9":"Outubro"},"weekdays":["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinte-feira","Sexta-feira","Sábado"]},"editor":{"close":"Fechar","create":{"button":"Novo","submit":"Criar","title":"Criar novo registro"},"edit":{"button":"Editar","submit":"Atualizar","title":"Editar registro"},"error":{"system":"Ocorreu um erro no sistema (<a target=\"\\\" rel=\"nofollow\" href=\"\\\">Mais informações<\/a>)."},"multi":{"noMulti":"Essa entrada pode ser editada individualmente, mas não como parte do grupo","restore":"Desfazer alterações","title":"Multiplos valores","info":"Os itens selecionados contêm valores diferentes para esta entrada. Para editar e definir todos os itens para esta entrada com o mesmo valor, clique ou toque aqui, caso contrário, eles manterão seus valores individuais."},"remove":{"button":"Remover","confirm":{"_":"Tem certeza que quer deletar %d linhas?","1":"Tem certeza que quer deletar 1 linha?"},"submit":"Remover","title":"Remover registro"}},"decimal":",","stateRestore":{"creationModal":{"button":"Criar","columns":{"search":"Busca de colunas","visible":"Visibilidade da coluna"},"name":"Nome:","order":"Ordernar","paging":"Paginação","scroller":"Posição da barra de rolagem","search":"Busca","searchBuilder":"Mecanismo de busca","select":"Selecionar","title":"Criar novo estado","toggleLabel":"Inclui:"},"emptyStates":"Nenhum estado salvo","removeConfirm":"Confirma remover %s?","removeJoiner":"e","removeSubmit":"Remover","removeTitle":"Remover estado","renameButton":"Renomear","renameLabel":"Novo nome para %s:","renameTitle":"Renomear estado","duplicateError":"Já existe um estado com esse nome!","emptyError":"Não pode ser vazio!","removeError":"Falha ao remover estado!"},"infoEmpty":"Mostrando 0 até 0 de 0 registro(s)","processing":"Carregando...","searchPlaceholder":"Buscar registros"},"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"x1","targets":1},{"name":"x2","targets":2},{"name":"x3","targets":3},{"name":"x4","targets":4},{"name":"y1","targets":5},{"name":"y2","targets":6},{"name":"y3","targets":7},{"name":"y4","targets":8}],"order":[],"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p> </p>
+<ul>
+<li>conjunto I: <strong>x1</strong> e <strong>y1</strong>; conjunto II: <strong>x2</strong> e <strong>y2</strong>; conjunto III: <strong>x3</strong> e <strong>y3</strong>; conjunto IV: <strong>x4</strong> e <strong>y4</strong>
+<hr class="double" style="height: 2px; background-color: #90A5A2;"></li>
+</ul>
+<!--
+A tabela \@ref(tab:lab) mostra os dados de Anscombe:
+-->
+<p> </p>
+<p>Abaixo seguem os quatro gráficos do conjunto de dados de Anscombe.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<img src="img/parte01/anscombe.png" alt="Quarteto de Anscombe" width="95%" />
+<p class="caption">
+Figure 3.1: Quarteto de Anscombe
+</p>
+</div>
+<p>A saber, as estatísiticas descritivas são apresentados a seguir no trecho de código executado:</p>
+<pre><code># Calcula as médias dos x&#39;s e dos y&#39;s
+&gt; round( apply( anscombe, 2, mean ), 2 )
+ x1  x2  x3  x4  y1  y2  y3  y4 
+9.0 9.0 9.0 9.0 7.5 7.5 7.5 7.5 
+&gt; 
+# Calcula as variâncias dos x&#39;s e dos y&#39;s
+&gt; round( apply( anscombe, 2, var ), 2 )
+   x1    x2    x3    x4    y1    y2    y3    y4 
+11.00 11.00 11.00 11.00  4.13  4.13  4.12  4.12 
+&gt; 
+&gt; attach(anscombe)
+# Calcula as correlações entre os x&#39;s e y&#39;s
+&gt; round( c( cor(x1,y1), cor(x2,y2), cor(x3,y3), cor(x4,y4) ), 2 )
+[1] 0.82 0.82 0.82 0.82
+&gt; 
+# Calcula as regressões lineares entre os x&#39;s e y&#39;s
+&gt; reg1 &lt;- lm( y1 ~ x1 ); reg2 &lt;- lm( y2 ~ x2 )
+&gt; reg3 &lt;- lm( y3 ~ x3 ); reg4 &lt;- lm( y4 ~ x4 )
+&gt; 
+# Mostra os coeficientes angulares e lineares, entre os x&#39;s e y&#39;s
+&gt; round( rbind( coef( reg1 ), coef( reg2 ), coef( reg3 ), coef( reg4 ) ), 2 )
+     (Intercept)  x1
+[1,]           3 0.5
+[2,]           3 0.5
+[3,]           3 0.5
+[4,]           3 0.5
+&gt; 
+# Mostra os coeficientes de determinação, entre os x&#39;s e y&#39;s
+&gt; round( 
++     c( summary( reg1 )$r.sq, summary( reg2 )$r.sq,
++        summary( reg3 )$r.sq, summary( reg4 )$r.sq
++     ), 2 )
+[1] 0.67 0.67 0.67 0.67
+&gt; 
+&gt; detach( anscombe )
+&gt;</code></pre>
+<p>Do resultado observamos que:</p>
+<ul>
+<li>os valores das médias das variáveis <strong>x</strong>’s são iguais a 9.</li>
+<li>os valores das médias das variáveis <strong>y</strong>’s são iguais a 7,5.</li>
+<li>os valores das variâncias das variáveis <strong>x</strong>’s são iguais a 11.</li>
+<li>os valores das variâncias das variáveis <strong>y</strong>’s são iguais a 4,1.</li>
+<li>os valores das correlações entre as variáveis <strong>x</strong>’s e <strong>y</strong>’s são iguais a 0,82.</li>
+<li>os valores dos coeficientes dos parâmetros lineares e angulares são, respectivamente, iguais a 3 e 0,5.</li>
+</ul>
+<p>Considere os gráficos anteriores e tente argumentar contra sua importância! Será um um desafio significativo.</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>Para saber mais, consulte a Wikipédia:</p>
+<ul>
+<li>Link: <a href="https://pt.wikipedia.org/wiki/Quarteto_de_Anscombe" class="uri">https://pt.wikipedia.org/wiki/Quarteto_de_Anscombe</a>
+<br></li>
+</ul></li>
+<li><p>No R,</p>
+<ul>
+<li>digite: <code>?anscombe</code></li>
+</ul></li>
+</ol>
+<p> </p>
+<p><strong>Exercício</strong></p>
+<ul>
+<li>Para entender passo a passo o último trecho de código apresentado, no ChatGPT, digite: “Explique o seguinte código:” <span style="text-decoration: underline dotted; font-family:&#39;Courier New&#39;;">8&lt;recorte e cole aqui o trecho de código executado acima&gt;8</span>
+<details>
+<summary>
+😈 <strong>Resposta</strong>
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/Exerc-Ansc-v2.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+</details></li>
+</ul>
+<p> </p>
+<h3>
+Construindo bons Gráficos…
+</h3>
+<p>Um bom gráfico deve comunicar informações de maneira clara e direta. Para alcançar esse objetivo, é fundamental que ele possua certas características essenciais. A seguir, apresentamos as principais características que contribuem para a eficácia de um gráfico.</p>
+<ul>
+<li><p><strong>Clareza</strong>: As informações devem ser apresentadas de maneira que sejam facilmente compreendidas pelo público. Evite a sobrecarga de elementos no gráfico, como <strong>excessos</strong> de dados, linhas ou legendas, pois isso pode confundir o espectador. Um design limpo e focado ajuda a transmitir a mensagem de forma mais eficaz.</p></li>
+<li><p><strong>Título Descritivo</strong>: Um título deve ser claro e conciso, refletindo precisamente o conteúdo e o propósito do gráfico. Ele deve fornecer uma visão imediata sobre o que está sendo apresentado, ajudando o espectador a entender rapidamente o tema abordado e o contexto dos dados.</p></li>
+<li><p><strong>Eixos Bem Definidos</strong>: Os eixos do gráfico devem ter rótulos claros e informativos, que identifiquem claramente o que cada um representa. É essencial incluir as unidades de medida quando aplicável, pois isso ajuda o espectador a interpretar os dados com precisão e a entender a escala e o contexto das informações apresentadas.</p></li>
+<li><p><strong>Legibilidade</strong>: Escolha fontes que sejam claras e legíveis, utilizando tamanhos apropriados para garantir que todos os elementos do gráfico sejam facilmente compreensíveis. A legibilidade é fundamental para que o público possa absorver as informações rapidamente, sem esforço adicional para decifrar texto ou números. Esteja ciente de que um gráfico bonito é tão ruim quanto um gráfico feio pois elementos de estética não devem nunca se sobreporem aos elementos informativos! Então evite qualquer fonte decorativa que possa prejudicar a clareza.</p></li>
+<li><p><strong>Cores e Estilos</strong>: Utilize cores que contrastem bem entre si para facilitar a distinção entre diferentes elementos do gráfico. Quando o gráfico precisar ser impresso em cores e em escala de cinza, escolha uma paleta que mantenha a clareza das informações em ambas as versões. Isso garante que os dados sejam legíveis e facilmente interpretáveis, independentemente do formato de impressão. Existem paletas de cores projetadas especificamente para minimizar a perda de informação ao converter o gráfico do espaço de cores para a escala de cinza. Essas paletas são cuidadosamente elaboradas para garantir que as diferenças e nuances importantes entre os dados sejam preservadas, mesmo quando visualizadas em preto e branco. Dessa forma, a legibilidade e a clareza do gráfico são mantidas, independentemente do formato de apresentação (Pesquise sobre a paleta de cores <code>Viridis</code><a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> para saber mais).</p>
+<details>
+<summary>
+😈
+</summary>
+<h5>
+<p>Paletas e Escala de Cinza</p>
+</h5>
+<ul>
+<li>
+<p><strong>Paletas <code>tim.colors</code> (pacote <code>fields</code>) e <code>viridis</code></strong></p>
+</li>
+<p><img src="img/parte01/pallete_teste_projection.png" width="95%" style="display: block; margin: auto;" /></p>
+<li>
+<p><strong>Suas respectivas projeções para escala de cinza</strong></p>
+</li>
+<p><img src="img/parte01/pallete_teste_projection_Grayscale.png" width="95%" style="display: block; margin: auto;" /></p>
+</ul>
+</details></li>
+</ul>
+<ul>
+<li><p><strong>Escala Apropriada</strong>: A escala do gráfico deve ser adequada ao tipo de dados apresentados, permitindo uma interpretação precisa e facilitando a comparação entre diferentes elementos. Escolher uma escala que represente adequadamente a variação dos dados ajuda a evitar distorções e a garantir que as diferenças sejam facilmente visíveis. Isso contribui para uma análise mais eficaz e intuitiva das informações.</p></li>
+<li><p><strong>Dados Precisos</strong>: Garanta que os dados representados no gráfico sejam corretos, confiáveis e atualizados. A precisão das informações é fundamental para a credibilidade do gráfico e para a tomada de decisões informadas. Verificar as fontes e a integridade dos dados antes de apresentá-los ajuda a evitar mal-entendidos e a transmitir uma mensagem clara e consistente.</p></li>
+<li><p><strong>Anotações e Destaques</strong>: Utilize anotações para realçar pontos-chave e informações relevantes no gráfico, facilitando a compreensão do espectador. No entanto, é importante evitar excessos; muitas anotações podem criar confusão e desviar a atenção do principal. O equilíbrio é essencial: destaque o que é realmente significativo para que a mensagem central permaneça clara e impactante.</p></li>
+<li><p><strong>Interatividade (se aplicável)</strong>: Em gráficos digitais, a inclusão de elementos interativos pode enriquecer a experiência do usuário, permitindo uma exploração mais profunda dos dados. Funcionalidades como zoom, filtragem e visualizações dinâmicas permitem que o público interaja com as informações, descubra padrões e personalize a visualização de acordo com suas necessidades. Isso não só torna a análise mais envolvente, mas também ajuda na compreensão de insights complexos.</p></li>
+</ul>
+<p>Essas características são essenciais para garantir que o público compreenda rapidamente a mensagem que o gráfico busca transmitir. Ao priorizar clareza, precisão e design eficaz, facilitamos a interpretação dos dados e potencializamos o impacto da informação, tornando-a mais acessível e significativa para todos.</p>
+<div id="gráficos-com-o-r" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Gráficos com o R<a href="visualização-de-dados.html#gráficos-com-o-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R oferece um rico ecossistema de funções e pacotes para a criação de vários tipos de gráficos que permite desde visualizações simples até representações sofisticadas para necessidades específicas. Desde o ínicio, nas próprias palavras do <em>R Core Team</em>, a definição para o R foi<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>:</p>
+<blockquote>
+<p>“R é uma linguagem e ambiente para computação estatística e gráficos”.</p>
+</blockquote>
+<p>E o cuidado com o sistema gráfico foi planejado desde a origem do ambiente:</p>
+<blockquote>
+<p>“Um dos pontos fortes do R é a facilidade com que gráficos bem projetados com qualidade de publicação podem ser produzidos, incluindo símbolos matemáticos e fórmulas quando necessário. Foi tomado muito cuidado com os padrões para as pequenas opções de design em gráficos, mas o usuário mantém o controle total”.</p>
+</blockquote>
+<p>A adoção e desenvenvolvimento posterior foi consequência direta dessa preocupação em se ter um software livre com tais capacidades também em quesitos de produção de boas imagens de gráficos estatísticos.</p>
+<p>O site <em>The R Graph Gallery</em><a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a> possui uma coleção extensa de gráficos gerados por R na web. São centenas de gráficos são exibidos em diversas seções, sempre com seu código reproduzível disponível. H</p>
+<p>Há também <em>R Gallery Book</em><a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a>, um guia completo baseado no site da <em>R Graph Gallery</em>. Ele extrai informações diretamente da galeria, oferecendo detalhes minuciosos na reprodução e na elaboração de ideias.</p>
+<div id="funções-nativas" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Funções nativas<a href="visualização-de-dados.html#funções-nativas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As funções nativas servem para criar gráficos diversos, incluindo gráficos de dispersão, linhas, barras, boxplots e histogramas, entre outros. Essas funções nativas são de propósito geral e bastante versáteis. (Existem muitas outras funções específicas disponíveis para atender a necessidades mais especializadas e que são fornecidas por pacotes). Algumas dessas funções gerais e suas respectivas finalidades estão listadas a seguir:</p>
+<ul>
+<li><code>plot()</code>: usada para criar gráficos de dispersão básicos<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>, permitindo visualizar a relação entre duas variáveis.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-plot.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Gráfico de Dispersão (Scatter Plot)</strong><br>
+<img src="img/parte01/01-demo-plot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Gráfico de Linhas (Line Plot)</strong><br>
+<img src="img/parte01/02-demo-plot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Gráfico de Barras (Bar Plot)</strong><br>
+<img src="img/parte01/03-demo-plot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Gráfico de Função Matemática (Mathematical Function Plot)</strong><br>
+<img src="img/parte01/04-demo-plot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Gráfico de Densidade (Density Plot)</strong><br>
+<img src="img/parte01/05-demo-plot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Gráfico com Anotações</strong><br>
+(Para o exemplo 6, foi necessário alterar as coordenadas)<br>
+<strong>text(3, 0, “Ponto Médio”, col = “red”, cex = 1.2)</strong><br>
+<strong>arrows(1, -0.8, 3, 0, col = “gray”, length = 0.1, lwd=2)</strong>
+<img src="img/parte01/06-demo-plot.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>matplot()</code>: é utilizada para plotar várias séries<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a> de dados em um único gráfico, facilitando a comparação entre múltiplas variáveis ou conjuntos de dados.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-matplot.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Gráfico Simples de Múltiplas Linhas</strong><br>
+<img src="img/parte01/01-demo-matplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Gráfico de Funções Trigonométricas</strong><br>
+<img src="img/parte01/02-demo-matplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Gráfico de Múltiplas Séries de Dados Aleatórios</strong><br>
+<img src="img/parte01/03-demo-matplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Gráfico com Diferentes Escalas de Eixo Y</strong><br>
+<img src="img/parte01/04-demo-matplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Gráfico de Dispersão de Multiplas Variáveis</strong><br>
+<img src="img/parte01/05-demo-matplot.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>barplot()</code>: é utilizada para criar gráficos de barras<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>, utiliza barras retangulares para representar dados. O comprimento de cada barra é proporcional ao valor que ela representa, e as barras podem ser orientadas vertical ou horizontalmente.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-barplot.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Exemplo Básico de <code>barplot</code></strong><br>
+<img src="img/parte01/01-demo-barplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Gráfico de Barras com Várias Categorias</strong><br>
+<img src="img/parte01/02-demo-barplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Gráfico de Barras Empilhadas</strong><br>
+<img src="img/parte01/03-demo-barplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Gráfico de Barras com Barras Horizontais</strong><br>
+<img src="img/parte01/04-demo-barplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Gráfico de Barras com Personalização de Eixos e Rótulos</strong><br>
+<img src="img/parte01/05-demo-barplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Gráfico de Barras com Erros (Bar Error)</strong><br>
+<img src="img/parte01/06-demo-barplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 7: Gráfico de Barras com Anotação de Texto</strong><br>
+(Para o exemplo 7, foi necessário acrescentar a opção:)<br>
+<strong>ylim=c(0,23)</strong><br>
+<img src="img/parte01/07-demo-barplot.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>pie()</code>: é usada para criar gráfico de setores ou gráfico circular, tradicionalmente chamado gráficos de pizza<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>, que mostram a proporção de cada categoria em relação ao total, facilitando a visualização das partes que compõem um todo. Recomenda-se não usar esse tipo de gráfico!
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-pie.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Exemplo Simples de Gráfico de Pizza</strong><br>
+<img src="img/parte01/01-demo-pie.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Gráfico de Pizza com Percentuais</strong><br>
+<img src="img/parte01/02-demo-pie.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Gráfico de Pizza Colorido</strong><br>
+<img src="img/parte01/03-demo-pie.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Gráfico de Pizza com Explosão de Fatias</strong><br>
+(Para o exemplo 4, foi necessário retirar a opção:)<br>
+<strong>‘explode’, pois não existe a opção na função pie nativa</strong><br>
+<img src="img/parte01/04-demo-pie.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Gráfico de Pizza com Legenda Personalizada</strong><br>
+<img src="img/parte01/05-demo-pie.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Gráfico de Pizza com Rótulos Personalizados</strong><br>
+<img src="img/parte01/06-demo-pie.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 7: Gráfico de Pizza 3D (Usando Pacote plotrix)</strong><br>
+(Para o exemplo 7, foi necessário acrescentar a opção:)<br>
+<strong>title(sub=“Que horror! Nunca faça um monstro desses…”)</strong><br>
+<img src="img/parte01/07-demo-pie.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>boxplot()</code>: é utilizada para criar gráficos de caixa<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>, que visualizam a distribuição de dados através de quartis, mediana e possíveis outliers, ajudando a identificar a dispersão e a simetria dos dados.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-boxplot.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Boxplot Simples de Um Conjunto de Dados</strong><br>
+<img src="img/parte01/01-demo-boxplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Comparação de Múltiplos Grupos</strong><br>
+<img src="img/parte01/02-demo-boxplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Boxplot com Outliers e Linha de Referência</strong><br>
+<img src="img/parte01/03-demo-boxplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Boxplot Horizontal</strong><br>
+<img src="img/parte01/04-demo-boxplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Boxplot por Fatores em um DataFrame</strong><br>
+<img src="img/parte01/05-demo-boxplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Boxplot com Notch</strong><br>
+<img src="img/parte01/06-demo-boxplot.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>hist()</code>: é usada para criar histogramas<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a>, que mostram a distribuição de uma variável contínua, dividindo os dados em intervalos (bins) e exibindo a frequência ou a densidade de cada intervalo.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-hist.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Histograma simples com dados gerados aleatoriamente</strong><br>
+<img src="img/parte01/01-demo-hist.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Ajustando o número de intervalos (breaks)</strong><br>
+<img src="img/parte01/02-demo-hist.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Comparando distribuições (dois histogramas sobrepostos)</strong><br>
+(Para o exemplo 3, foi necessário acrescentar a opção:)<br>
+<strong>ylim=c(0,150)</strong><br>
+<img src="img/parte01/03-demo-hist.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Histograma com densidade (suavização)</strong><br>
+<img src="img/parte01/04-demo-hist.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Histograma com cores graduadas e sem bordas</strong><br>
+<img src="img/parte01/05-demo-hist.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Customizando eixos e rótulos</strong><br>
+<img src="img/parte01/06-demo-hist.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 7: Histograma de dados com assimetria (distribuição exponencial)</strong><br>
+<img src="img/parte01/07-demo-hist.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 8: Adicionando média e mediana ao histograma</strong><br>
+<img src="img/parte01/08-demo-hist.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>image()</code>: cria gráficos de matriz ou mapas de calor<a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a>, representando a estrutura de dados em uma matriz através de cores, permitindo a visualização de padrões e intensidades em dados bidimensionais.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-image.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Visualização de uma matriz simples</strong><br>
+<img src="img/parte01/01-demo-image.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Visualização de Funções Matemáticas (Função Seno)</strong><br>
+<img src="img/parte01/02-demo-image.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Mapa de Calor de Dados Aleatórios</strong><br>
+<img src="img/parte01/03-demo-image.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Visualizando uma Distribuição Normal Bivariada</strong><br>
+<img src="img/parte01/04-demo-image.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Customizando o Eixo e a Escala de Cores</strong><br>
+<img src="img/parte01/05-demo-image.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Visualizando uma Imagem de Rastreio (Contornos)</strong><br>
+<img src="img/parte01/06-demo-image.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>contour()</code>: ou curvas de nível<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a>, é utilizada para criar gráficos de contorno, que representam linhas de igual valor em um conjunto de dados bidimensionais, ajudando a visualizar a forma e a distribuição de variáveis contínuas em um espaço.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-contour.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Contorno simples de uma função matemática</strong><br>
+<img src="img/parte01/01-demo-contour.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Adicionando mais níveis de contorno</strong><br>
+<img src="img/parte01/02-demo-contour.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Contorno de uma superfície quadrática</strong><br>
+<img src="img/parte01/03-demo-contour.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Contorno com cores customizadas</strong><br>
+<img src="img/parte01/04-demo-contour.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Adicionando uma imagem de fundo (grayscale)</strong><br>
+<img src="img/parte01/05-demo-contour.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Contornos de uma função bidimensional com múltiplas funções</strong><br>
+<img src="img/parte01/06-demo-contour.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 7: Contorno com títulos e rótulos customizados</strong><br>
+<img src="img/parte01/07-demo-contour.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>mosaicplot()</code>: usada para criar gráficos de mosaico<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a>, que visualizam a associação entre duas ou mais variáveis categóricas, mostrando a proporção de cada combinação de categorias através de áreas proporcionais em um gráfico.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-mosaicplot.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Gráfico de Mosaico Simples</strong><br>
+<img src="img/parte01/01-demo-mosaicplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Gráfico de Mosaico com Dados de Frequência</strong><br>
+<img src="img/parte01/02-demo-mosaicplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Gráfico de Mosaico com Bordas e Cores Personalizadas</strong><br>
+<img src="img/parte01/03-demo-mosaicplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Gráfico de Mosaico para Mais de Duas Variáveis</strong><br>
+<img src="img/parte01/04-demo-mosaicplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Gráfico de Mosaico com Formato Horizontal e Vertical</strong><br>
+(Para o exemplo 5, não existe a opção <em>direction</em>:)<br>
+o R ignora e gera uma mensagem de atenção.<br>
+<img src="img/parte01/05-demo-mosaicplot.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Gráfico de Mosaico para Dados Faltantes</strong><br>
+<img src="img/parte01/06-demo-mosaicplot.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>dotchart()</code>: usada para criar gráficos de pontos<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a>, que visualizam a distribuição de dados em uma única variável categórica, com pontos dispostos ao longo de um eixo, facilitando a comparação de magnitudes entre categorias.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-dotchart.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Gráfico de Pontos Simples</strong><br>
+<img src="img/parte01/01-demo-dotchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Gráfico de Pontos com Nomes de Categorias</strong><br>
+<img src="img/parte01/02-demo-dotchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Gráfico de Pontos com Agrupamento de Dados</strong><br>
+(Para o exemplo 3, foi feita a alteração:)<br>
+<strong>groups = as.factor(grupos)</strong>.<br>
+<img src="img/parte01/03-demo-dotchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Gráfico de Pontos com Valores Ordenados</strong><br>
+<img src="img/parte01/04-demo-dotchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Gráfico de Pontos com Múltiplos Grupos e Cores Personalizadas</strong><br>
+(Para o exemplo 5, foi feita a alteração:)<br>
+<strong>groups = as.factor(grupos)</strong>.<br>
+<img src="img/parte01/05-demo-dotchart.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<ul>
+<li><code>stripchart()</code>: é usada para criar gráficos de dispersão unidimensionais<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a>, representando a distribuição de dados de uma variável contínua ao longo de um eixo, com pontos posicionados horizontalmente ou verticalmente, facilitando a visualização da dispersão e concentração dos dados. Esse tipo de gráfico é uma boa alternativa aos boxplots quando os tamanhos de amostra são pequenos. É similar ao <em>dotchart</em>.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-stripchart.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Stripchart básico com um conjunto de dados</strong><br>
+<img src="img/parte01/01-demo-stripchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Comparação entre grupos (vetores múltiplos)</strong><br>
+<img src="img/parte01/02-demo-stripchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Stripchart com sobreposição de boxplot</strong><br>
+(Para o exemplo 3, foi feita a alteração:)<br>
+<strong>groups = as.factor(grupos)</strong>.<br>
+<img src="img/parte01/03-demo-stripchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Stripchart de dados categorizados</strong><br>
+<img src="img/parte01/04-demo-stripchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Stripchart com distribuição empilhada</strong><br>
+<img src="img/parte01/05-demo-stripchart.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Stripchart de vários grupos em linhas diferentes</strong><br>
+<img src="img/parte01/06-demo-stripchart.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+<li><code>persp()</code>: é utilizada para criar gráficos em perspectiva 3D, que visualizam superfícies tridimensionais a partir de dados de uma matriz, ajudando a representar e explorar a estrutura espacial dos dados.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-persp.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Superfície de uma Função Quadrática Simples</strong><br>
+<img src="img/parte01/01-demo-persp.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Função Seno-Cosseno (Ondas)</strong><br>
+<img src="img/parte01/02-demo-persp.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Gráfico de uma Função de Pico Gaussiano</strong><br>
+<img src="img/parte01/03-demo-persp.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Superfície de Função Exponencial com Parâmetros Modificados</strong><br>
+<img src="img/parte01/04-demo-persp.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Função de Ondas Cosenoidal Multiplicada por um Exponencial</strong><br>
+<img src="img/parte01/05-demo-persp.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Função de Picos Aleatórios (Uso de Ruído)</strong><br>
+<img src="img/parte01/06-demo-persp.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+<li>Uma curiosidade é que o R não possui uma função nativa específica para criar gráficos de dispersão em 3D. Embora seja possível realizar isso com criatividade usando as funções <code>persp</code> e <code>trans3d</code>, gráficos de dispersão em 3D são frequentemente desaconselhados devido ao fato de não transmitir informações claras e úteis ao usuário (baixo poder informativo). Como há pessoas que insistem no uso nesse tipo de gráfico, e visando à completude, o pacote <code>scatterplot3d</code> será utilizado para complementar a lista de tipos de gráficos.
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-scatterplot3d.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Gráfico Básico 3D</strong><br>
+<img src="img/parte01/01-demo-scatterplot3d.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Gráfico com Diferentes Cores</strong><br>
+<img src="img/parte01/02-demo-scatterplot3d.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Gráfico com Tamanho dos Pontos Variável</strong><br>
+(Para o exemplo 3, foi feita a alteração:)<br>
+de <strong>cex = sizes</strong> para <strong>cex.symbols = sizes*0.15</strong>.<br>
+<img src="img/parte01/03-demo-scatterplot3d.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Gráfico com Superfície de Regressão</strong><br>
+(Para o exemplo 4, foi feita a alteração:)<br>
+<strong>draw_lines = TRUE</strong><br>
+<img src="img/parte01/04-demo-scatterplot3d.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Gráfico com Anotações</strong><br>
+(Para o exemplo 4, foi feita a alteração:)<br>
+<strong>text( s3d$xyz.convert( cbind(x,y,z) ), …</strong><br>
+<img src="img/parte01/05-demo-scatterplot3d.png" width="95%" style="display: block; margin: auto;" />
+</details></li>
+</ul>
+<p>Para aprender, consulte o <code>help()</code> de cada função para saber sobre o uso típico. Leia atentamente todos os detalhes e execute os exemplos fornecidos (hiperlink ‘<em>Run examples</em>’ das páginas de ajuda das funções). Com tempo e prática, você se familiarizará gradualmente com cada uma. Essa listagem está aqui para futuras consultas.</p>
+<p>O sistema gráfico nativo é ideal para gráficos rápidos e quando se busca simplicidade preservando qualidade editorial (ou seja, quando é necessário ter alto nível de clareza, precisão, legibilidade, consistência e profissionalismo para que o gráfico seja apresentado para fins de comunicação e publicação. Você pode salvar esses gráficos em diversos formatos <em>raster</em> (<em>bitmap</em>) e também em alguns formatos vetoriais, dependendo das suas necessidades de qualidade (Veja: <code>?png</code> e <code>?pdf</code>).</p>
+</div>
+<div id="pacote-animation" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Pacote <code>animation</code><a href="visualização-de-dados.html#pacote-animation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Com o uso do pacote <strong><code>animation</code></strong> é possível ir além dos gráficos estáticos, permitindo criar animações, proporcionando um modo dinâmico de visualizar os dados quando pertinente. É particularmente útil quando você deseja visualizar mudanças ou interações complexas ao longo do tempo ou ângulos, como simulações, evoluções temporais ou rotações de gráficos 3D.</p>
+<p>O principal propósito do pacote <code>animation</code> é facilitar a criação de <strong>GIFs animados</strong>, <strong>vídeos</strong> e <strong>apresentações interativas</strong> diretamente a partir de gráficos gerados no R. Ele simplifica a criação de animações de maneira iterativa e automática, combinando vários gráficos em uma sequência que pode ser visualizada como um filme.</p>
+<p><strong>Funcionalidades e Vantagens:</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Criação de GIFs e Vídeos</strong>:
+<ul>
+<li>O <code>animation</code> permite salvar animações em diferentes formatos, como GIF, vídeo (MP4, AVI) e até slideshows em HTML.</li>
+<li>É multi-formato: Suporta vários formatos de saída, como GIF, MP4, HTML, e AVI.</li>
+<li>Funções como <code>saveGIF()</code>, <code>saveVideo()</code>, e <code>saveHTML()</code> facilitam o processo de salvar as animações em diversos formatos de mídia.</li>
+</ul></li>
+<li><strong>Simulações Dinâmicas</strong>:
+<ul>
+<li>É ideal para criar animações de simulações estatísticas, como métodos de Monte Carlo, simulações de cadeia de Markov, evolução de dados ao longo do tempo ou visualizações rotativas de gráficos 3D.</li>
+</ul></li>
+<li><strong>Controle Total da Animação</strong>:
+<ul>
+<li>O usuário pode controlar a velocidade, número de quadros e até personalizar os intervalos de tempo entre os quadros, proporcionando flexibilidade para criar animações simples ou avançadas.</li>
+<li>Exemplos: <code>ani.options(interval = 0.1)</code> define o intervalo de tempo entre os quadros da animação.</li>
+</ul></li>
+<li><strong>Facilidade de Uso</strong>:
+<ul>
+<li>A estrutura é intuitiva, mesmo para iniciantes. Para criar uma animação, basta colocar o código de criação dos gráficos dentro de um loop, e a função <code>saveGIF()</code> ou outra função correspondente cuidará do resto.</li>
+<li>É simples e rápido pois mesmo com pouco código é possível criar animações sofisticadas.</li>
+</ul></li>
+<li><strong>Integração com Gráficos 3D e Superfícies</strong>:
+<ul>
+<li>Funciona muito bem com gráficos tridimensionais, permitindo criar animações que rotacionam gráficos em torno de seus eixos ou mostram como eles evoluem em várias dimensões.</li>
+</ul></li>
+<li><strong>Interatividade e Visualização de Modelos</strong>:
+<ul>
+<li>A animação pode ajudar a entender visualmente conceitos complexos, como a convergência de estimativas em modelos estatísticos, a simulação de distribuições probabilísticas, ou a visualização de resíduos em modelos de regressão.</li>
+</ul></li>
+</ol>
+<details>
+<summary>
+😈 i
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-animation-i.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Animação Básica com Função saveGIF()</strong><br>
+<img src="img/parte01/01-demo-animation-i.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Animação com Função saveVideo()</strong><br>
+<center>
+<div class="float">
+<img src="img/parte01/02-demo-animation-i.png" alt="MP4 video" />
+<div class="figcaption">MP4 video</div>
+</div>
+</center>
+<p><br>
+<br>
+<strong>Exemplo 3: Animação Interativa em HTML com saveHTML()</strong><br>
+<iframe src="img/parte01/03-demo-animation-i.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br></p>
+<strong>Exemplo 4: Animação com <code>ani.options()</code> para Controlar Parâmetros</strong><br>
+<img src="img/parte01/04-demo-animation-i.gif" width="95%" style="display: block; margin: auto;" />
+</details>
+<br>
+<details>
+<summary>
+😈 ii
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br>
+<br><strong>Animações dos Gráficos anteriormente obtidos com a função <code>persp()</code></strong><br><br>
+<iframe src="chatgpt/parte01/demo-animation-ii.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: </strong><br>
+<img src="img/parte01/01-demo-animation-ii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: </strong><br>
+<img src="img/parte01/02-demo-animation-ii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: </strong><br>
+<img src="img/parte01/03-demo-animation-ii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: </strong><br>
+<img src="img/parte01/04-demo-animation-ii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: </strong><br>
+<img src="img/parte01/05-demo-animation-ii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: </strong><br>
+<img src="img/parte01/06-demo-animation-ii.gif" width="95%" style="display: block; margin: auto;" />
+</details>
+<br>
+<details>
+<summary>
+😈 iii
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br>
+<br><strong>Animações dos Gráficos anteriormente obtidos com a função <code>scatterplot3d()</code></strong><br><br>
+<iframe src="chatgpt/parte01/demo-animation-iii.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: </strong><br>
+<img src="img/parte01/01-demo-animation-iii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: </strong><br>
+<img src="img/parte01/02-demo-animation-iii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: </strong><br>
+<img src="img/parte01/03-demo-animation-iii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: </strong><br>
+<img src="img/parte01/04-demo-animation-iii.gif" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: </strong><br>
+<img src="img/parte01/05-demo-animation-iii.gif" width="95%" style="display: block; margin: auto;" />
+</details>
+</div>
+<div id="pacote-ggplot2" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Pacote <code>ggplot2</code><a href="visualização-de-dados.html#pacote-ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O <code>ggplot2</code><a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a><sup>,</sup> <a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a> é um dos pacotes mais renomados para visualização de dados em R, desenvolvido e mantido por Hadley Wickham. Baseado na Gramática dos Gráficos (<em>Grammar of Graphics</em><a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a>), ele oferece uma abordagem estruturada e intuitiva para criar representações visuais sofisticadas e informativas. Ao combinar diferentes camadas, como pontos, linhas e barras, o <code>ggplot2</code> proporciona grande flexibilidade na personalização dos gráficos, permitindo criar visualizações esteticamente agradáveis e adaptadas às suas necessidades.</p>
+<p>O pacote <code>ggplot2</code>, por ter sua estrutura baseada em camadas, é altamente extensível. Essas extensões são desenvolvidas por uma comunidade ativa de usuários e desenvolvedores e são distribuídas como pacotes adicionais no ecossistema R. Elas podem adicionar novas funcionalidades, melhorar a estética dos gráficos ou facilitar o uso de <code>ggplot2</code> em contextos específicos.</p>
+O site: <a href="https://exts.ggplot2.tidyverse.org/" class="uri">https://exts.ggplot2.tidyverse.org/</a> rastreia e lista extensões do pacote <code>ggplot2</code> desenvolvidas por usuários R na comunidade. O objetivo do site é facilitar aos usuários do R a localização dessas extensões desenvolvidas. A galeria<a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a> de demonstração possui mais de 130 extensões, todas acompanhadas de exemplos para ajudar na sua usabilidade.<br> <br>
+<details>
+<summary>
+😈
+</summary>
+<br><strong>Demonstração pelo ChatGPT</strong><br><br>
+<iframe src="chatgpt/parte01/demo-ggplot2.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br>
+<strong>Resultados</strong><br><br>
+<strong>Exemplo 1: Gráfico de Dispersão (Scatter Plot)</strong><br>
+<img src="img/parte01/01-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 2: Gráfico de Linhas (Line Plot)</strong><br>
+<img src="img/parte01/02-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 3: Histograma</strong><br>
+<img src="img/parte01/03-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 4: Boxplot</strong><br>
+<img src="img/parte01/04-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 5: Gráfico de Barras Empilhadas (Stacked Bar Chart)</strong><br>
+<img src="img/parte01/05-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 6: Gráfico de Barras Agrupadas (Grouped Bar Chart)</strong><br>
+<img src="img/parte01/06-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 7: Gráfico de Área</strong><br>
+<img src="img/parte01/07-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 8: Gráfico de Densidade (Density Plot)</strong><br>
+<img src="img/parte01/08-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+<strong>Exemplo 9: Gráfico de Linhas com Múltiplas Séries</strong><br>
+<img src="img/parte01/09-demo-ggplot2.png" width="95%" style="display: block; margin: auto;" />
+</details>
+<h3>
+Gramática dos Gráficos
+</h3>
+<p>A Gramática dos Gráficos é um <em>framework</em> teórico para a construção de gráficos por meio de camadas.</p>
+<p>Aqui está uma visão geral dessas camadas:</p>
+<h4>
+Conceitos Fundamentais
+</h4>
+<ol style="list-style-type: decimal">
+<li><strong>Componentes Básicos:</strong>
+<ul>
+<li><strong>Dados</strong>: O conjunto de dados a ser visualizado.</li>
+<li><strong>Estéticas (Aesthetics)</strong>: Mapeamento de variáveis para propriedades visuais, como a posição, cor, tamanho e forma dos elementos do gráfico.</li>
+<li><strong>Geometria (Geoms)</strong>: Define os tipos de gráficos e formas visuais representadas que você quer criar, como pontos (<code>geom_point()</code>), linhas (<code>geom_line()</code>), barras (<code>geom_bar()</code>), etc.</li>
+<li><strong>Facetas (Facets)</strong>: Divisão dos dados em subconjuntos para criar múltiplos gráficos, dividindo os dados com base em uma ou mais variáveis para facilitar a comparação entre grupos (usando <code>facet_wrap()</code> ou <code>facet_grid()</code>).</li>
+<li><strong>Estatísticas (Stats)</strong>: Transformações e cálculos realizados sobre os dados antes de serem visualizados, como a adição de linhas de tendência (usando <code>stat_smooth()</code>).</li>
+<li><strong>Coordenação (Coords)</strong>: Sistema de coordenadas usado para posicionar os elementos no gráfico, como coordenadas cartesianas (<code>coord_cartesian()</code>) ou polares (<code>coord_polar()</code>).</li>
+<li><strong>Temas (Themes)</strong>: Personalização da aparência estética do gráfico, incluindo a formatação de texto, linhas e elementos de fundo.</li>
+</ul></li>
+<li><strong>Camadas (Layers):</strong>
+<ul>
+<li>Em vez de criar um gráfico de uma vez, a Gramática dos Gráficos permite construir gráficos adicionando camadas. Cada camada representa uma parte do gráfico e pode ser ajustada e combinada de maneira modular.</li>
+</ul></li>
+<li><strong>Gráficos Combináveis:</strong>
+<ul>
+<li>Graças à abordagem modular, você pode combinar diferentes tipos de gráficos e camadas em uma única visualização. Por exemplo, adicionar uma linha de regressão a um gráfico de dispersão ou combinar gráficos de barras com gráficos de linha.</li>
+</ul></li>
+<li><strong>Sistema de Mapeamento:</strong>
+<ul>
+<li>A Gramática dos Gráficos usa mapeamentos estéticos para associar variáveis dos dados a propriedades visuais dos elementos do gráfico. Isso facilita a criação de visualizações que são tanto informativas quanto visualmente impactantes.</li>
+</ul></li>
+</ol>
+<h4>
+Benefícios da Gramática dos Gráficos
+</h4>
+<ul>
+<li><strong>Flexibilidade</strong>: Permite criar visualizações complexas combinando diferentes elementos.</li>
+<li><strong>Modularidade</strong>: Facilita a construção e modificação de gráficos por meio da adição ou remoção de camadas.</li>
+<li><strong>Consistência</strong>: Oferece uma abordagem consistente para a criação de gráficos, tornando mais fácil entender e interpretar a visualização.</li>
+</ul>
+<p>O objetivo da Gramática dos Gráficos é facilitar a criação de representações visuais de maneira intuitiva e estruturada, promovendo uma análise mais direta e uma comunicação mais eficaz dos resultados.</p>
+</div>
+<div id="pacote-plotly" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Pacote <code>plotly</code><a href="visualização-de-dados.html#pacote-plotly" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O pacote <strong><code>plotly</code></strong> cria gráficos interativos e dinâmicos. Ele é baseado na biblioteca <em>JavaScript Plotly.js</em>, que é amplamente utilizada para visualizações de dados na <em>WEB</em>. O objetivo do <code>plotly</code> é facilitar a criação de gráficos interativos diretamente a partir do R, sem a necessidade de programar em <em>JavaScript</em>. Ele é muito popular em aplicações de ciência de dados e <em>dashboards</em>.</p>
+<p>O <strong>plotly</strong> é construído sobre a tecnologia <strong>D3.js</strong> (<em>Data-Driven Documents</em>) e o <strong>WebGL</strong>, que permitem a renderização de gráficos diretamente em navegadores com alto desempenho e interação. Ele é altamente compatível com outras ferramentas de visualização no R, como o <strong>ggplot2</strong>, o que permite transformar gráficos estáticos em gráficos interativos com facilidade. É altamente versátil e pode ser utilizado tanto para visualizações simples como para gráficos complexos e tridimensionais, tudo com um alto nível de interatividade e personalização.</p>
+<h4>
+Principais Recursos do <code>plotly</code>
+</h4>
+<ol style="list-style-type: decimal">
+<li><p><strong>Interatividade</strong>: Gráficos podem ser manipulados pelos usuários, incluindo zoom, rotação (para gráficos 3D), seleção de dados, e adição de anotações.</p></li>
+<li><p><strong>Suporte a gráficos 3D</strong>: Permite a criação de gráficos tridimensionais como superfícies, dispersões e malhas (<em>meshes</em>) que podem ser rotacionados e explorados.</p></li>
+<li><p><strong>Facilidade de uso</strong>: Simples de integrar com gráficos criados pelo <strong>ggplot2</strong> e também com gráficos nativos do R, como os criados pela função <code>plot_ly</code>.</p></li>
+<li><p><strong>Gráficos interativos e responsivos</strong>: Os gráficos se ajustam automaticamente ao tamanho da tela, o que os torna ideais para aplicações <em>WEB</em> e <em>dashboards</em>.</p></li>
+<li><p><strong>Exportação</strong>: Permite exportar gráficos em formatos estáticos como PNG, SVG, PDF, além de integrá-los diretamente em documentos HTML interativos.</p></li>
+<li><p><strong>Suporte a vários tipos de gráficos</strong>:</p>
+<ul>
+<li>Gráficos de dispersão (scatter plots)</li>
+<li>Gráficos de linhas</li>
+<li>Gráficos de barras</li>
+<li>Histogramas</li>
+<li>Superfícies 3D</li>
+<li>Gráficos de calor (heatmaps)</li>
+<li>Gráficos de violino e boxplots</li>
+<li>Gráficos de radar, etc.</li>
+</ul></li>
+</ol>
+<p>Visite o site: <a href="https://plot.ly/r/" class="uri">https://plot.ly/r/</a> para consultar o ‘Guia de Referência’ e uma variedade de exemplos ilustrando os recursos do pacote.</p>
+<p>O livro: ‘Interactive web-based data visualization with R, plotly, and shiny’ está disponível gratuitamente em <a href="https://plotly-r.com/" class="uri">https://plotly-r.com/</a> . A obra é dedicada à criação de visualizações interativas baseadas na <em>WEB</em> utilizando o R, focando principalmente no pacote <code>plotly</code> e na integração com o <strong>Shiny</strong>.</p>
+<h4>
+Exemplo típico do <code>plotly</code>
+</h4>
+<p>Gráfico simples feito com <code>plotly</code> para fins de ilustração:</p>
+<!--
+<iframe src="img/parte01/plotly/plotly_exemp_tipico.html" top="0" left="0" height="480" width="100%" style="border: 2px solid #E4E4E4;" ></iframe>
+-->
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-113"></span>
+<iframe src="img/parte01/plotly/plotly_exemp_tipico.html" width="95%" height="400px" data-external="1">
+</iframe>
+<p class="caption">
+Figure 3.2: Exemplo típico do <code>plotly</code>
+</p>
+</div>
+<p>A <em>toolbar</em> (barra de ferramentas) nos gráficos criados com <code>plotly</code> oferece uma série de funcionalidades interativas que melhoram a experiência do usuário ao explorar os dados de maneira dinâmica. Esses recursos tornam a visualização não apenas mais atraente, mas também mais funcional, facilitando a análise de dados complexos de forma acessível. O usuário também pode personalizar a <em>toolbar</em> escolhendo quais ferramentas e recursos devem ser exibidos, utilizando o parâmetro <code>config()</code> na função <code>plot_ly()</code> (por exemplo, esconder a <em>toolbar</em> ou desativar certas funções).</p>
+<p>Aqui estão os principais recursos e botões:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Zoom</strong>:
+<ul>
+<li>O botão de zoom permite que o usuário selecione uma área do gráfico para ampliar. Após clicar no botão, você pode clicar e arrastar para criar um retângulo em torno da área que deseja ampliar.</li>
+</ul></li>
+<li><strong>Pan</strong>:
+<ul>
+<li>O botão de pan permite que o usuário mova o gráfico. Isso é útil após usar o zoom, permitindo que você explore diferentes partes do gráfico sem ter que redefinir o zoom.</li>
+</ul></li>
+<li><strong>Reset Axes</strong>:
+<ul>
+<li>Este botão redefine o gráfico para suas escalas e limites originais, permitindo que você retorne rapidamente à visualização padrão.</li>
+</ul></li>
+<li><strong>Download</strong>:
+<ul>
+<li>O botão de download permite exportar o gráfico em diferentes formatos, como PNG, JPEG, PDF ou SVG. Essa funcionalidade é especialmente útil para incluir gráficos em relatórios ou apresentações.</li>
+</ul></li>
+<li><strong>Select</strong>:
+<ul>
+<li>O recurso de seleção permite que o usuário selecione pontos ou uma área específica do gráfico. Dependendo do tipo de gráfico, essa seleção pode ser usada para destacar dados ou filtrar informações.</li>
+</ul></li>
+<li><strong>Hover Information</strong>:
+<ul>
+<li>Ao passar o mouse sobre os pontos do gráfico, informações adicionais sobre os dados são exibidas. Isso pode incluir valores numéricos, rótulos e outras informações contextuais que ajudam na interpretação dos dados.</li>
+</ul></li>
+<li><strong>Legend (Legenda)</strong>:
+<ul>
+<li>A legenda permite ao usuário ativar ou desativar a visibilidade de diferentes séries de dados no gráfico, facilitando a comparação entre categorias ou grupos.</li>
+</ul></li>
+</ol>
+<details>
+<summary>
+😈 +
+</summary>
+<p><br><strong>Demonstração pelo ChatGPT</strong><br><br></p>
+<p><strong>Mais exemplos usando o <code>plotly</code></strong><br><br></p>
+<p><strong>Exemplo 1: </strong><br>
+<iframe src="img/parte01/plotly/01-demo-plotly.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br></p>
+<p><strong>Exemplo 2: </strong><br>
+<iframe src="img/parte01/plotly/02-demo-plotly.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br></p>
+<p><strong>Exemplo 3: </strong><br>
+<iframe src="img/parte01/plotly/03-demo-plotly.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br></p>
+<p><strong>Exemplo 4: </strong><br>
+<iframe src="img/parte01/plotly/04-demo-plotly.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br></p>
+<p><strong>Exemplo 5: </strong><br>
+<iframe src="img/parte01/plotly/05-demo-plotly.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br></p>
+<p><strong>Exemplo 6: </strong><br>
+<iframe src="img/parte01/plotly/06-demo-plotly.html" top="0" left="0" height="800" width="100%" style="border: 2px solid #E4E4E4;"></iframe><br><br></p>
+</details>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="20">
+<li id="fn20"><p>Produzido pelo estatístico Francis John Anscombe<a href="visualização-de-dados.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p><a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" class="uri">https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html</a><a href="visualização-de-dados.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p><a href="https://www.r-project.org/about.html" class="uri">https://www.r-project.org/about.html</a><a href="visualização-de-dados.html#fnref22" class="footnote-back">↩︎</a></p></li>
+<li id="fn23"><p><a href="https://r-graph-gallery.com/" class="uri">https://r-graph-gallery.com/</a><a href="visualização-de-dados.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p><a href="https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/" class="uri">https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/</a><a href="visualização-de-dados.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p><a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico" class="uri">https://pt.wikipedia.org/wiki/Gr%C3%A1fico</a><a href="visualização-de-dados.html#fnref25" class="footnote-back">↩︎</a></p></li>
+<li id="fn26"><p><a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_linha" class="uri">https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_linha</a><a href="visualização-de-dados.html#fnref26" class="footnote-back">↩︎</a></p></li>
+<li id="fn27"><p><a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras" class="uri">https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras</a><a href="visualização-de-dados.html#fnref27" class="footnote-back">↩︎</a></p></li>
+<li id="fn28"><p><a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_setores" class="uri">https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_setores</a><a href="visualização-de-dados.html#fnref28" class="footnote-back">↩︎</a></p></li>
+<li id="fn29"><p><a href="https://pt.wikipedia.org/wiki/Diagrama_de_caixa" class="uri">https://pt.wikipedia.org/wiki/Diagrama_de_caixa</a><a href="visualização-de-dados.html#fnref29" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p><a href="https://pt.wikipedia.org/wiki/Histograma" class="uri">https://pt.wikipedia.org/wiki/Histograma</a><a href="visualização-de-dados.html#fnref30" class="footnote-back">↩︎</a></p></li>
+<li id="fn31"><p><a href="https://pt.wikipedia.org/wiki/Mapa_de_calor" class="uri">https://pt.wikipedia.org/wiki/Mapa_de_calor</a><a href="visualização-de-dados.html#fnref31" class="footnote-back">↩︎</a></p></li>
+<li id="fn32"><p><a href="https://pt.wikipedia.org/wiki/Isolinha" class="uri">https://pt.wikipedia.org/wiki/Isolinha</a><a href="visualização-de-dados.html#fnref32" class="footnote-back">↩︎</a></p></li>
+<li id="fn33"><p><a href="https://en.wikipedia.org/wiki/Mosaic_plot" class="uri">https://en.wikipedia.org/wiki/Mosaic_plot</a><a href="visualização-de-dados.html#fnref33" class="footnote-back">↩︎</a></p></li>
+<li id="fn34"><p><a href="https://en.wikipedia.org/wiki/Dot_plot_(statistics)" class="uri">https://en.wikipedia.org/wiki/Dot_plot_(statistics)</a><a href="visualização-de-dados.html#fnref34" class="footnote-back">↩︎</a></p></li>
+<li id="fn35"><p><a href="https://en.wikipedia.org/wiki/Dot_plot_(statistics)" class="uri">https://en.wikipedia.org/wiki/Dot_plot_(statistics)</a><a href="visualização-de-dados.html#fnref35" class="footnote-back">↩︎</a></p></li>
+<li id="fn36"><p><a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a><a href="visualização-de-dados.html#fnref36" class="footnote-back">↩︎</a></p></li>
+<li id="fn37"><p><a href="https://en.wikipedia.org/wiki/Ggplot2" class="uri">https://en.wikipedia.org/wiki/Ggplot2</a><a href="visualização-de-dados.html#fnref37" class="footnote-back">↩︎</a></p></li>
+<li id="fn38"><p>A Gramática dos Gráficos foi desenvolvida por Leland Wilkinson<a href="visualização-de-dados.html#fnref38" class="footnote-back">↩︎</a></p></li>
+<li id="fn39"><p><a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a><a href="visualização-de-dados.html#fnref39" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="conjunto-de-dados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="parte-ii---tratamento-dos-dados.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsubsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true,
+"post_processor": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>&#8474;&#8477; 1 Comece a Usar o R | Caderno de Quimiometria com R</title>
+  <meta name="description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="&#8474;&#8477; 1 Comece a Usar o R | Caderno de Quimiometria com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+  <meta property="og:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="github-repo" content="cleber-n-borges/quimiometriaR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="&#8474;&#8477; 1 Comece a Usar o R | Caderno de Quimiometria com R" />
+  
+  <meta name="twitter:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="twitter:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+<link rel="prev" href="parte-i---ponto-de-partida.html"/>
+<link rel="next" href="conjunto-de-dados.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJVXYW1C58"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YJVXYW1C58');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">&#8474;&#8477; Quimiometria com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bem-vindos!</a></li>
+<li class="chapter" data-level="" data-path="útil-para-você.html"><a href="útil-para-você.html"><i class="fa fa-check"></i>Útil para Você!</a></li>
+<li class="chapter" data-level="" data-path="pergunte-ao-chatgpt.html"><a href="pergunte-ao-chatgpt.html"><i class="fa fa-check"></i>Pergunte ao ChatGPT</a></li>
+<li class="chapter" data-level="" data-path="estrutura-do-caderno.html"><a href="estrutura-do-caderno.html"><i class="fa fa-check"></i>Estrutura do Caderno</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html"><i class="fa fa-check"></i>PARTE I - Ponto de Partida</a>
+<ul>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#primeiro-passo"><i class="fa fa-check"></i>Primeiro Passo</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#o-que-é-quimiometria"><i class="fa fa-check"></i>O que é Quimiometria?</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#aplicações-do-r-na-quimiometria"><i class="fa fa-check"></i>Aplicações do R na Quimiometria</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#contribuições-do-chatgpt"><i class="fa fa-check"></i>Contribuições do ChatGPT</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html"><i class="fa fa-check"></i><b>1</b> Comece a Usar o R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-o-r-e-rstudio"><i class="fa fa-check"></i><b>1.1</b> Instale o R e RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conheça-o-básico-do-r"><i class="fa fa-check"></i><b>1.2</b> Conheça o Básico do R</a></li>
+<li class="chapter" data-level="1.3" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#realize-análises-simples"><i class="fa fa-check"></i><b>1.3</b> Realize Análises Simples</a></li>
+<li class="chapter" data-level="1.4" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#a-conveniência-do-help"><i class="fa fa-check"></i><b>1.4</b> A Conveniência do <code>help()</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#como-usar-o-comando-help"><i class="fa fa-check"></i>Como Usar o Comando <code>help()</code>:</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conveniência-da-prática"><i class="fa fa-check"></i>Conveniência da Prática</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#exemplo-de-uso"><i class="fa fa-check"></i>Exemplo de Uso</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#manuseie-arquivos"><i class="fa fa-check"></i><b>1.5</b> Manuseie Arquivos</a></li>
+<li class="chapter" data-level="1.6" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#salve-e-restaure-seu-workspace"><i class="fa fa-check"></i><b>1.6</b> Salve e Restaure seu <i>Workspace</i></a></li>
+<li class="chapter" data-level="1.7" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-pacotes-r"><i class="fa fa-check"></i><b>1.7</b> Instale Pacotes R</a></li>
+<li class="chapter" data-level="1.8" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#aprenda-mais-e-pratique"><i class="fa fa-check"></i><b>1.8</b> Aprenda Mais e Pratique</a></li>
+<li class="chapter" data-level="1.9" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#participar-de-comunidades"><i class="fa fa-check"></i><b>1.9</b> Participar de Comunidades</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html"><i class="fa fa-check"></i><b>2</b> Conjunto de Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#organização-e-notação"><i class="fa fa-check"></i><b>2.1</b> Organização e Notação</a></li>
+<li class="chapter" data-level="2.2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#valores-faltantes-na"><i class="fa fa-check"></i><b>2.2</b> Valores faltantes: <code>NA</code></a></li>
+<li class="chapter" data-level="2.3" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#dados-disponíveis"><i class="fa fa-check"></i><b>2.3</b> Dados Disponíveis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html"><i class="fa fa-check"></i><b>3</b> Visualização de Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#gráficos-com-o-r"><i class="fa fa-check"></i><b>3.1</b> Gráficos com o R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#funções-nativas"><i class="fa fa-check"></i><b>3.1.1</b> Funções nativas</a></li>
+<li class="chapter" data-level="3.1.2" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-animation"><i class="fa fa-check"></i><b>3.1.2</b> Pacote <code>animation</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-ggplot2"><i class="fa fa-check"></i><b>3.1.3</b> Pacote <code>ggplot2</code></a></li>
+<li class="chapter" data-level="3.1.4" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-plotly"><i class="fa fa-check"></i><b>3.1.4</b> Pacote <code>plotly</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-ii---tratamento-dos-dados.html"><a href="parte-ii---tratamento-dos-dados.html"><i class="fa fa-check"></i>PARTE II - Tratamento dos Dados</a></li>
+<li class="chapter" data-level="4" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html"><i class="fa fa-check"></i><b>4</b> Pré-Processamento de Variáveis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#autoescalamento"><i class="fa fa-check"></i><b>4.1</b> Autoescalamento</a></li>
+<li class="chapter" data-level="4.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#normalização-min-max"><i class="fa fa-check"></i><b>4.2</b> Normalização Min-Max:</a></li>
+<li class="chapter" data-level="4.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformações"><i class="fa fa-check"></i><b>4.3</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logarítmica-e-raiz-quadrada"><i class="fa fa-check"></i><b>4.3.1</b> Logarítmica e Raiz Quadrada</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformação-box-cox"><i class="fa fa-check"></i><b>4.3.2</b> Transformação Box-Cox</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logística-e-logit"><i class="fa fa-check"></i><b>4.3.3</b> Logística e <em>Logit</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html"><i class="fa fa-check"></i><b>5</b> Pré-Processamento de Amostras</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html#todo"><i class="fa fa-check"></i><b>5.1</b> TODO</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-iii---análise-exploratória-de-dados.html"><a href="parte-iii---análise-exploratória-de-dados.html"><i class="fa fa-check"></i>PARTE III - Análise Exploratória de Dados</a></li>
+<li class="chapter" data-level="6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html"><i class="fa fa-check"></i><b>6</b> PCA - Análise de Componentes Principais</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#desenvolvimento-histórico"><i class="fa fa-check"></i><b>6.1</b> Desenvolvimento histórico</a></li>
+<li class="chapter" data-level="6.2" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#definição"><i class="fa fa-check"></i><b>6.2</b> Definição</a></li>
+<li class="chapter" data-level="6.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#interpretação-geométrica"><i class="fa fa-check"></i><b>6.3</b> Interpretação Geométrica</a></li>
+<li class="chapter" data-level="6.4" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#objetivo"><i class="fa fa-check"></i><b>6.4</b> Objetivo</a></li>
+<li class="chapter" data-level="6.5" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#pca-como-decomposição-matricial"><i class="fa fa-check"></i><b>6.5</b> PCA como Decomposição Matricial</a></li>
+<li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#principais-algoritmos"><i class="fa fa-check"></i><b>6.6</b> Principais Algoritmos</a></li>
+<li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.7</b> Variância por PC</a></li>
+<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.8</b> Aplicação Típica</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>7</b> HCA - Análise de Agrupamento Hierárquico</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/cleber-n-borges/quimiometriaR" target="blank">&#8474;&#8477; Repositório GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Caderno de Quimiometria com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="comece-a-usar-o-r" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">&#8474;&#8477; 1</span> Comece a Usar o R<a href="comece-a-usar-o-r.html#comece-a-usar-o-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Começar a usar o R pode ser uma experiência empolgante e enriquecedora, especialmente se você está interessado em análise de dados e estatística. Aqui está um guia para você iniciar com o R:</p>
+<div id="instale-o-r-e-rstudio" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Instale o R e RStudio<a href="comece-a-usar-o-r.html#instale-o-r-e-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Siga as instruções:</p>
+<ul>
+<li><p><strong>Instale o R:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Acesse o <a href="https://cran.r-project.org/">site do CRAN (<em>Comprehensive R Archive Network</em>)</a><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</li>
+<li>Selecione o link para o seu sistema operacional (Windows, macOS, Linux).</li>
+<li>Baixe e execute o instalador, seguindo as instruções na tela.</li>
+</ol></li>
+</ul>
+<ul>
+<li><p><strong>Instale o RStudio (opcional, mas fortemente recomendado):</strong></p>
+<ol style="list-style-type: decimal">
+<li>Vá para o <a href="https://rstudio.com/products/rstudio/download/">site do RStudio</a><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</li>
+<li>Baixe a versão gratuita (RStudio Desktop Open Source License).</li>
+<li>Instale o RStudio após a instalação do R. RStudio fornece um ambiente de desenvolvimento integrado (IDE) que facilita o uso do R.</li>
+</ol></li>
+</ul>
+<ul>
+<li><p><strong>Abra o RStudio:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Ao abrir o RStudio, você verá várias janelas, incluindo o console, o editor de scripts, o ambiente de trabalho e o painel de arquivos.</li>
+<li>Você já poderá executar comandos no console.</li>
+</ol></li>
+</ul>
+<p><strong>Dica</strong>: Não se esqueça de visitar o site oficial do R: <a href="https://www.r-project.org/">https://www.r-project.org/</a>.</p>
+</div>
+<div id="conheça-o-básico-do-r" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Conheça o Básico do R<a href="comece-a-usar-o-r.html#conheça-o-básico-do-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Quando você usa uma função nativa do R, você segue uma sintaxe que envolve chamar a função pelo seu nome e passar argumentos entre parênteses.</p>
+<p><strong>Sintaxe geral</strong>:</p>
+<p><code>nome_da_funcao(argumento1, argumento2, ...)</code></p>
+<ul>
+<li><strong>Parênteses</strong>: Envolvem os argumentos da função.</li>
+<li><strong>Argumentos</strong>: Valores ou variáveis que a função precisa para executar sua tarefa.</li>
+</ul>
+<p>Veja um exemplo:</p>
+<ul>
+<li><p><strong>Executar Códigos Simples:</strong>
+Experimente comandos básicos no console do RStudio:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="comece-a-usar-o-r.html#cb1-1" tabindex="-1"></a><span class="co"># Criar um vetor</span></span>
+<span id="cb1-2"><a href="comece-a-usar-o-r.html#cb1-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb1-3"><a href="comece-a-usar-o-r.html#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="comece-a-usar-o-r.html#cb1-4" tabindex="-1"></a><span class="co"># Calcular a média</span></span>
+<span id="cb1-5"><a href="comece-a-usar-o-r.html#cb1-5" tabindex="-1"></a><span class="fu">mean</span>(x)</span>
+<span id="cb1-6"><a href="comece-a-usar-o-r.html#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="comece-a-usar-o-r.html#cb1-7" tabindex="-1"></a><span class="co"># Calcular o desvio padrão</span></span>
+<span id="cb1-8"><a href="comece-a-usar-o-r.html#cb1-8" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code></pre></div></li>
+</ul>
+<p>Aqui está a descrição dessa estrutura básica:</p>
+<ul>
+<li><code>#</code>: o sinal (chamado cerquilha) indica que a linha contém um comentário explicativo</li>
+<li><code>x</code>: é um nome que o usuário escolhe para receber o resultado</li>
+<li><code>&lt;-</code>: é o operação de atribuição (que é um caso muito particular de função!)</li>
+<li><code>c()</code>: é a função que combina valores em um vetor</li>
+<li><code>1, 2, 3, 4, 5</code> são os dados digitados pelo usuário</li>
+<li><code>mean()</code>: é O nome da função que calcula o valor médio.</li>
+<li><code>sd()</code>: é O nome da função que calcula o valor do desvio padrão.</li>
+</ul>
+<p> </p>
+<p>Copie o código acima e cole-o no console do R. Você obterá a seguinte saída como resultado:</p>
+<pre><code>&gt; # Criar um vetor
+&gt; x &lt;- c(1, 2, 3, 4, 5)
+&gt; 
+&gt; # Calcular a média
+&gt; mean(x)
+[1] 3
+&gt; 
+&gt; # Calcular o desvio padrão
+&gt; sd(x)
+[1] 1.581139
+&gt; </code></pre>
+<ul>
+<li>O valor da média dos dados é igual a 3 e o valor do desvio padrão é igual a 1,58.</li>
+</ul>
+<p> </p>
+<p>Pronto! Você acabou de realizar sua primeira análise no R. Parabéns!</p>
+<p>Continue assim e explore ainda mais as possibilidades que o R oferece.</p>
+</div>
+<div id="realize-análises-simples" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Realize Análises Simples<a href="comece-a-usar-o-r.html#realize-análises-simples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Faça seus primeiros testes executando comandos simples de análises básicas.</p>
+<ul>
+<li><p><strong>Estatísticas Descritivas:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="comece-a-usar-o-r.html#cb3-1" tabindex="-1"></a><span class="co"># Gera 20 pontos de um distribuição Gaussiana padrão</span></span>
+<span id="cb3-2"><a href="comece-a-usar-o-r.html#cb3-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="dv">20</span> )</span>
+<span id="cb3-3"><a href="comece-a-usar-o-r.html#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="comece-a-usar-o-r.html#cb3-4" tabindex="-1"></a><span class="co"># Estatísticas básicas</span></span>
+<span id="cb3-5"><a href="comece-a-usar-o-r.html#cb3-5" tabindex="-1"></a><span class="fu">summary</span>(x)</span>
+<span id="cb3-6"><a href="comece-a-usar-o-r.html#cb3-6" tabindex="-1"></a><span class="fu">mean</span>(x)</span>
+<span id="cb3-7"><a href="comece-a-usar-o-r.html#cb3-7" tabindex="-1"></a><span class="fu">var</span>(x)</span>
+<span id="cb3-8"><a href="comece-a-usar-o-r.html#cb3-8" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code></pre></div></li>
+<li><p><strong>Gráfico de dispersão:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="comece-a-usar-o-r.html#cb4-1" tabindex="-1"></a><span class="co"># Gera 20 pontos de um distribuição Gaussiana padrão</span></span>
+<span id="cb4-2"><a href="comece-a-usar-o-r.html#cb4-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="dv">20</span> )</span>
+<span id="cb4-3"><a href="comece-a-usar-o-r.html#cb4-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="dv">20</span> )</span>
+<span id="cb4-4"><a href="comece-a-usar-o-r.html#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="comece-a-usar-o-r.html#cb4-5" tabindex="-1"></a><span class="co"># Gráfico simples de dispersão de pontos</span></span>
+<span id="cb4-6"><a href="comece-a-usar-o-r.html#cb4-6" tabindex="-1"></a><span class="fu">plot</span>( x, y )</span></code></pre></div></li>
+</ul>
+<p><strong>Dica</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Descubra detalhes sobre o que faz a função <code>rnorm()</code> com o comando <code>help( rnorm )</code>.</li>
+<li>Estude cada uma das 7 funções usadas anteriormente com <i>help( nome_da_ função )</i>.</li>
+</ol>
+</div>
+<div id="a-conveniência-do-help" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> A Conveniência do <code>help()</code><a href="comece-a-usar-o-r.html#a-conveniência-do-help" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O comando <code>help()</code> no R é uma ferramenta fundamental para obter informações detalhadas sobre funções, pacotes, e outros objetos do R. Utilizar <code>help()</code> pode melhorar significativamente a eficiência e a eficácia na utilização do R, pois fornece detalhes cruciais sobre como usar as funções e interpretar seus resultados.</p>
+<p><strong>Dica:</strong> Caso você queira os ler os manuais em português, pergunte ao ChatGPT:</p>
+<p>“Como ajustar o R para ter os manuais em pt_BR?”</p>
+<p>O ChatGPT explicará muitos detalhes sobre o comando abaixo:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="comece-a-usar-o-r.html#cb5-1" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">LANG =</span> <span class="st">&quot;pt_BR.UTF-8&quot;</span>)</span></code></pre></div>
+<div id="como-usar-o-comando-help" class="section level3 unnumbered hasAnchor">
+<h3>Como Usar o Comando <code>help()</code>:<a href="comece-a-usar-o-r.html#como-usar-o-comando-help" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><strong>Obter Ajuda para uma Função Específica</strong></li>
+</ol>
+<p>Para obter informações sobre uma função específica, use <code>help()</code> seguido do nome da função. Por exemplo, para obter ajuda sobre a função <code>mean()</code>, você pode usar:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="comece-a-usar-o-r.html#cb6-1" tabindex="-1"></a><span class="fu">help</span>(mean)</span></code></pre></div>
+<p>Ou, você também pode usar o símbolo de interrogação como uma alternativa:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="comece-a-usar-o-r.html#cb7-1" tabindex="-1"></a>?mean</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Obter Ajuda para um Pacote</strong></li>
+</ol>
+<p>Se você deseja obter uma lista de funções e informações sobre um pacote específico, você pode usar:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="comece-a-usar-o-r.html#cb8-1" tabindex="-1"></a><span class="fu">help</span>(<span class="at">package =</span> <span class="st">&quot;cluster&quot;</span>)</span></code></pre></div>
+<p>Isso exibe uma lista de todas as funções e datasets disponíveis no pacote <code>cluster</code>, além de um link para a documentação do pacote.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Pesquisar por Funções e Conceitos</strong></li>
+</ol>
+<p>Para buscar uma função ou conceito sem saber o nome exato, você pode usar <code>help.search()</code>. Por exemplo, para procurar funções relacionadas a “linear regression”, você pode usar:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="comece-a-usar-o-r.html#cb9-1" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">&quot;linear regression&quot;</span>)</span></code></pre></div>
+<p>Alternativamente, o comando ?? faz a mesma busca e pode ser usado como:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="comece-a-usar-o-r.html#cb10-1" tabindex="-1"></a>?? linear regression</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Acessar a Documentação do Pacote</strong></li>
+</ol>
+<p>Muitos pacotes têm um arquivo de documentação que pode ser acessado diretamente com:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="comece-a-usar-o-r.html#cb11-1" tabindex="-1"></a><span class="fu">browseVignettes</span>(<span class="at">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<p>Isso abre a página de vignettes do pacote no navegador, fornecendo documentação detalhada e exemplos.</p>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Metainformação</strong></li>
+</ol>
+<p>E evidentemente, execute o comando no R: <code>help( help )</code> para mais detalhes.</p>
+</div>
+<div id="conveniência-da-prática" class="section level3 unnumbered hasAnchor">
+<h3>Conveniência da Prática<a href="comece-a-usar-o-r.html#conveniência-da-prática" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Acesso Imediato à Documentação: Utilizando help(), você pode acessar rapidamente a documentação das funções e pacotes sem sair do ambiente de programação. Isso economiza tempo e melhora a eficiência na escrita de código.</p></li>
+<li><p>Compreensão dos Argumentos e Uso: A documentação fornece detalhes sobre os argumentos que uma função aceita, seu propósito, e exemplos de uso. Isso ajuda a evitar erros e a entender como usar as funções corretamente.</p></li>
+<li><p>Exploração de Pacotes: Quando você instala novos pacotes, help() permite explorar as funções disponíveis e entender o que cada pacote oferece, facilitando a integração de novos recursos em seu trabalho.</p></li>
+<li><p>Resolução de Problemas: Se você encontrar problemas ao usar uma função, a documentação geralmente inclui informações sobre erros comuns e como resolvê-los, o que pode ajudar a depurar o código.</p></li>
+<li><p>Aprendizado Contínuo: Consultar a documentação regularmente ajuda a aprender mais sobre as funcionalidades do R e a manter-se atualizado sobre novos pacotes e métodos.</p></li>
+<li><p>Documentação Completa: O uso de help() proporciona acesso a documentação completa, incluindo descrições, argumentos, detalhes e exemplos, que pode ser mais abrangente do que uma simples busca na web.</p></li>
+</ol>
+</div>
+<div id="exemplo-de-uso" class="section level3 unnumbered hasAnchor">
+<h3>Exemplo de Uso<a href="comece-a-usar-o-r.html#exemplo-de-uso" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Vamos dizer que você está trabalhando com a função <code>lm()</code> para regressão linear e deseja entender mais sobre seus argumentos e exemplos. Você pode digitar:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="comece-a-usar-o-r.html#cb12-1" tabindex="-1"></a>?lm</span></code></pre></div>
+<p>Isso abrirá a página de ajuda da função <code>lm()</code>, onde você encontrará uma descrição completa da função, os parâmetros que ela aceita, exemplos de uso e detalhes sobre a saída.</p>
+<p><strong>Dica:</strong> Pergunte ao ChatGPT como se estrutura uma página de ajuda sobre função R.</p>
+<p> </p>
+<p>Em resumo, o comando <code>help()</code> no R é uma ferramenta essencial para a exploração e utilização eficiente das funcionalidades do R, oferecendo acesso direto à documentação e facilitando o desenvolvimento e análise no ambiente R.</p>
+</div>
+</div>
+<div id="manuseie-arquivos" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Manuseie Arquivos<a href="comece-a-usar-o-r.html#manuseie-arquivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Saber manusear arquivos em R é fundamental para qualquer análise de dados, pois permite a importação e exportação de dados de e para diversos formatos.</p>
+<ul>
+<li><p><strong>Importação com <code>read.table()</code></strong>: Essa função é essencial para carregar dados de arquivos de texto (como CSV ou TSV) para dentro do R. Sem a capacidade de importar dados, seria impossível realizar análises com informações que estão armazenadas em arquivos externos.</p></li>
+<li><p><strong>Exportação com <code>write.table()</code></strong>: Depois de realizar análises ou manipulações, a função <code>write.table()</code> permite salvar os resultados em arquivos de texto. Isso é importante para compartilhar resultados, criar relatórios ou armazenar dados para uso futuro.</p></li>
+</ul>
+<p>Essas funções facilitam a integração de R com outros sistemas e garantem que dados possam ser facilmente movidos e utilizados entre diferentes plataformas.</p>
+<p>A função recebe como argumento o caminho do arquivo, o qual deve conter os dados como texto puro e em formato tabular e retorna um data.frame a partir dele, com casos correspondentes a linhas e variáveis a campos da tabela.</p>
+<ol style="list-style-type: decimal">
+<li><code>read.table()</code></li>
+</ol>
+<ul>
+<li><p><strong>Descrição</strong>: A função <code>read.table()</code> é utilizada para importar dados de arquivos de texto contendo dados organizados em formato tabular delimitados por tabulação, espaços, ou outros delimitadores. Ela recebe como argumento o caminho do arquivo e retorna um objeto do tipo <code>data.frame</code>, onde cada linha do arquivo corresponde a uma observação e cada coluna a uma variável. A função é flexível e permite ajustar os parâmetros delimitadores de campo, nomes de colunas e tipos de dados para adequar-se à estrutura do arquivo de entrada.</p></li>
+<li><p><strong>Sintaxe</strong>:</p></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="comece-a-usar-o-r.html#cb13-1" tabindex="-1"></a><span class="fu">read.table</span>(file, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, ...)</span></code></pre></div>
+<ul>
+<li><p><strong>file</strong>: O nome do arquivo ou URL.</p></li>
+<li><p><strong>header</strong>: Indica se o primeiro registro contém os nomes das colunas (TRUE ou FALSE).</p></li>
+<li><p><strong>sep</strong>: O delimitador dos campos, como “,” para CSV, “\t” para tabulação, ou ” ” para espaço.</p></li>
+<li><p><strong>…</strong>: Outros argumentos como <code>colClasses</code>, <code>nrows</code>, <code>skip</code>, etc.</p></li>
+<li><p><strong>Exemplo</strong>:</p></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="comece-a-usar-o-r.html#cb14-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;dados.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><code>write.table()</code></li>
+</ol>
+<ul>
+<li><p><strong>Descrição</strong>: A função <code>write.table()</code> é utilizada para exportar um objeto <code>data.frame</code> para um arquivo de texto em formato tabular. É frequentemente usada para salvar resultados de análises ou manipulações de dados. Ela recebe como argumento o caminho do arquivo de destino e o <code>data.frame</code> a ser salvo, e permite ajustar parâmetros como o delimitador de campo, a inclusão de cabeçalhos de coluna e amostras e o formato dos dados. O resultado é um arquivo de texto onde cada linha representa uma observação e cada coluna representa uma variável, estruturado de acordo com as especificações fornecidas.</p></li>
+<li><p><strong>Sintaxe</strong>:</p></li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="comece-a-usar-o-r.html#cb15-1" tabindex="-1"></a><span class="fu">write.table</span>(x, file, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>, <span class="at">row.names =</span> <span class="cn">TRUE</span>, <span class="at">col.names =</span> <span class="cn">TRUE</span>, ...)</span></code></pre></div>
+<ul>
+<li><p><strong>x</strong>: O objeto a ser exportado, geralmente um data frame ou matriz.</p></li>
+<li><p><strong>file</strong>: O nome do arquivo para o qual os dados serão exportados.</p></li>
+<li><p><strong>sep</strong>: O delimitador a ser usado entre os campos no arquivo de saída.</p></li>
+<li><p><strong>row.names</strong>: Indica se os nomes das linhas devem ser incluídos.</p></li>
+<li><p><strong>col.names</strong>: Indica se os nomes das colunas devem ser incluídos.</p></li>
+<li><p><strong>Exemplo</strong>:</p></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="comece-a-usar-o-r.html#cb16-1" tabindex="-1"></a><span class="fu">write.table</span>(data, <span class="st">&quot;dados_exportados.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><strong>Dica:</strong> Essas funções possuem variações como <code>read.csv()</code>, <code>write.csv()</code> e <code>scan()</code> para formatos específicos e leitura mais controlada.</p>
+<p>A leitura com atenção do manual sobre essas funções é obrigatória para qualquer analista!</p>
+</div>
+<div id="salve-e-restaure-seu-workspace" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Salve e Restaure seu <i>Workspace</i><a href="comece-a-usar-o-r.html#salve-e-restaure-seu-workspace" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para garantir que todo o seu trabalho no R seja preservado e que você possa retomar suas atividades sem perder dados ou configurações, é importante salvar seu ambiente de trabalho - <i>Workspace</i> - regularmente. Aqui estão os passos para salvar seus dados, o histórico de comandos e a sessão de trabalho no R:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Salve sua Sessão de Trabalho (Workspace):</strong> Para salvar tanto o <i>workspace</i> quanto o histórico de comandos, isto é, o ambiente completo, você pode usar a função <code>save.image</code>, que cria um arquivo <code>.RData</code> com todos os objetos e dados atuais:</li>
+</ol>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="comece-a-usar-o-r.html#cb17-1" tabindex="-1"></a><span class="fu">save.image</span>(<span class="at">file =</span> <span class="st">&quot;sessao_trabalho.RData&quot;</span>)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Salvar Objetos em um Arquivo RData:</strong> Para salvar todos os objetos do seu workspace (variáveis, funções, etc.) de uma vez, utilize a função <code>save</code>:</li>
+</ol>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="comece-a-usar-o-r.html#cb18-1" tabindex="-1"></a><span class="fu">save</span>(<span class="at">list =</span> <span class="fu">ls</span>(), <span class="at">file =</span> <span class="st">&quot;meu_workspace.RData&quot;</span>)</span></code></pre></div>
+<p>Você também pode usar <code>save</code> para salvar objetos individualmente se necessário.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Salve o Histórico de Comandos:</strong> O R mantém um histórico dos comandos que você executou durante sua sessão. Para salvar este histórico, você pode usar a função <code>savehistory</code>:</li>
+</ol>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="comece-a-usar-o-r.html#cb19-1" tabindex="-1"></a><span class="fu">savehistory</span>(<span class="at">file =</span> <span class="st">&quot;meu_historico.Rhistory&quot;</span>)</span></code></pre></div>
+<p>Isso criará um arquivo <code>.Rhistory</code> contendo todos os comandos que você digitou.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Restaurar a Sessão:</strong> Quando você quiser retomar seu trabalho, carregue o arquivo <code>.RData</code> com a função <code>load</code>:</li>
+</ol>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="comece-a-usar-o-r.html#cb20-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;sessao_trabalho.RData&quot;</span>)</span></code></pre></div>
+<p>Certifique-se de salvar seu trabalho frequentemente para evitar perdas e garantir que você possa continuar de onde parou. Isso é especialmente importante quando você está lidando com análises complexas e dados valiosos.</p>
+</div>
+<div id="instale-pacotes-r" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Instale Pacotes R<a href="comece-a-usar-o-r.html#instale-pacotes-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Instalar Pacotes:</strong></li>
+</ul>
+<p>Pacotes são conjuntos de ferramentas adicionais que você pode instalar no R para expandir suas funcionalidades. Eles são essenciais para tornar o R uma ferramenta poderosa, pois permitem que você adicione funções e procedimentos específicos para diferentes áreas da ciência e da análise de dados. Com pacotes, você pode personalizar o R para atender às suas necessidades específicas, tornando-o ainda mais eficiente e versátil.”</p>
+<p>No console do RStudio, você pode instalar pacotes com o comando <code>install.packages()</code>. Por exemplo:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="comece-a-usar-o-r.html#cb21-1" tabindex="-1"></a><span class="co"># Instala o pacote mdatools para preprocessamento,</span></span>
+<span id="cb21-2"><a href="comece-a-usar-o-r.html#cb21-2" tabindex="-1"></a><span class="co"># explorar e analisar dados multivariados. </span></span>
+<span id="cb21-3"><a href="comece-a-usar-o-r.html#cb21-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;mdatools&quot;</span>) </span>
+<span id="cb21-4"><a href="comece-a-usar-o-r.html#cb21-4" tabindex="-1"></a>  </span>
+<span id="cb21-5"><a href="comece-a-usar-o-r.html#cb21-5" tabindex="-1"></a><span class="co"># Instala o pacote ggplot2 para visualização de dados</span></span>
+<span id="cb21-6"><a href="comece-a-usar-o-r.html#cb21-6" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>) </span></code></pre></div>
+<ul>
+<li><strong>Carregar Pacotes:</strong></li>
+</ul>
+<p>Após instalar um pacote no R, ele não estará disponível automaticamente para uso. Para começar a usar as funções e recursos do pacote, você precisa carregá-lo na sessão atual com o comando <code>library()</code>. Por exemplo, para carregar o pacote chamado ‘cluster’, você deve usar o comando <code>library(cluster)</code>. Lembre-se de fazer isso sempre que iniciar uma nova sessão do R e quiser usar as funcionalidades do pacote.”</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="comece-a-usar-o-r.html#cb22-1" tabindex="-1"></a><span class="co"># Carrega o pacote &quot;cluster&quot;</span></span>
+<span id="cb22-2"><a href="comece-a-usar-o-r.html#cb22-2" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb22-3"><a href="comece-a-usar-o-r.html#cb22-3" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="comece-a-usar-o-r.html#cb22-4" tabindex="-1"></a><span class="co"># Carrega o pacote &quot;class&quot;</span></span>
+<span id="cb22-5"><a href="comece-a-usar-o-r.html#cb22-5" tabindex="-1"></a><span class="fu">library</span>(class)</span></code></pre></div>
+</div>
+<div id="aprenda-mais-e-pratique" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> Aprenda Mais e Pratique<a href="comece-a-usar-o-r.html#aprenda-mais-e-pratique" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Considere explorar recursos gratuitos e disponíveis online como:</p>
+<ol style="list-style-type: decimal">
+<li><p><a href="https://docs.ufpr.br/~aanjos/CE002A/estdescritiva.pdf">ESTATÍSTICA BÁSICA COM USO DO SOFTWARE R</a><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>, Adilson dos Anjos, Departamento de Estatística, UFPR.</p></li>
+<li><p><a href="https://bookdown.org/bruno_lucian_costa/CursoBasicoR/">Introdução à Análise de Dados em R</a><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>, Bruno Lucian &amp; Claudia Jakelline, Escola de Gestão &amp; Politicas Públicas da Fundação CEPERJ.</p></li>
+<li><p><a href="https://bookdown.org/elviomedeiros/fundamentos_de_ecologia_numerica/">Fundamentos de Ecologia Numérica</a><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, Disciplina de Ecologia Numérica do Curso de Ciências Biológicas do Campus V da UEPB, Prof. Elvio S. F. Medeiros, Laboratório de Ecologia, Universidade Estadual da Paraíba, Campus V, João Pessoa, PB; 2024-06-13.</p></li>
+<li><p><a href="https://bookdown.org/ricardo_lehtonen/anlise_de_dados_com_r/">Análises de Dados com R</a><a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>, Ricardo Lehtonen R. de Souza, 2023-08-11.</p></li>
+<li><p><a href="https://bookdown.org/joucoski/curso_R_book/">Curso de Estatística com R Project</a><a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>, Emerson Joucoski, 2024-02-22.</p></li>
+<li><p><a href="http://cursos.leg.ufpr.br/ecr/index.html">Estatística Computacional com R</a><a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>, Mayer, Bonat, Zeviani, Krainski, Ribeiro Jr, LEG-DEST-UFPR.</p></li>
+<li><p><a href="https://bookdown.org/luisfca/docs/">Conceitos e análises estatísticas com R e JASP</a><a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>, Luis Anunciação (PUC-Rio), PhD.</p></li>
+<li><p><a href="https://gorgens.github.io/compR-experimental/">Computação em R: Análise experimental</a><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>, Eric Bastos Gorgens, Marcio Leles Romarco de Oliveira, 2021-02-09.</p></li>
+<li><p><a href="https://bookdown.org/tiagoandremarques/trabalho4book/">Ecologia numérica 2020/2021: Trabalho 4</a><a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>, Tiago A. Marques, Susana França, Ana Sofia Reboleira e os alunos de Ecologia Numérica 2020/2021, 2020-12-30.</p></li>
+<li><p>A plataforma <a href="https://www.coursera.org/">Coursera</a><a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> possui curso gratuito e online sobre R</p></li>
+</ol>
+</div>
+<div id="participar-de-comunidades" class="section level2 hasAnchor" number="1.9">
+<h2><span class="header-section-number">1.9</span> Participar de Comunidades<a href="comece-a-usar-o-r.html#participar-de-comunidades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p><strong>Fóruns</strong>:</p>
+<ul>
+<li><a href="http://www.leg.ufpr.br/doku.php/software:rbr">R-br</a><a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>: é a lista Brasileira oficial de discussão do programa R. A [R-br] tem o propósito de permitir a troca de informações entre os usuários de R do Brasil (em português).</li>
+<li><a href="https://stat.ethz.ch/mailman/listinfo/r-help">R-help</a><a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>: Lista de discussão principal do R</li>
+<li><a href="https://stackoverflow.com/questions/tagged/r">Stack Overflow</a><a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>: Pergunte e responda a perguntas sobre R e programação em geral.</li>
+<li><a href="https://community.rstudio.com/">RStudio Community</a><a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>: Uma comunidade dedicada ao R e ao RStudio onde você pode encontrar discussões, perguntas e dicas.</li>
+</ul></li>
+</ul>
+<p>Participar dessas comunidades pode ajudar você a resolver problemas, aprender com os outros e se manter atualizado com as melhores práticas.</p>
+<p> </p>
+<p>Praticar regularmente e explorar novos pacotes e técnicas são fundamentais para se tornar proficiente no R.</p>
+<p>Boa sorte e divirta-se com suas análises!</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p><a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a><a href="comece-a-usar-o-r.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a><a href="comece-a-usar-o-r.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://docs.ufpr.br/~aanjos/CE002A/estdescritiva.pdf" class="uri">https://docs.ufpr.br/~aanjos/CE002A/estdescritiva.pdf</a><a href="comece-a-usar-o-r.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://bookdown.org/bruno_lucian_costa/CursoBasicoR/" class="uri">https://bookdown.org/bruno_lucian_costa/CursoBasicoR/</a><a href="comece-a-usar-o-r.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://bookdown.org/elviomedeiros/fundamentos_de_ecologia_numerica/" class="uri">https://bookdown.org/elviomedeiros/fundamentos_de_ecologia_numerica/</a><a href="comece-a-usar-o-r.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p><a href="https://bookdown.org/ricardo_lehtonen/anlise_de_dados_com_r/" class="uri">https://bookdown.org/ricardo_lehtonen/anlise_de_dados_com_r/</a><a href="comece-a-usar-o-r.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p><a href="https://bookdown.org/joucoski/curso_R_book/" class="uri">https://bookdown.org/joucoski/curso_R_book/</a><a href="comece-a-usar-o-r.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p><a href="http://cursos.leg.ufpr.br/ecr/index.html" class="uri">http://cursos.leg.ufpr.br/ecr/index.html</a><a href="comece-a-usar-o-r.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://bookdown.org/luisfca/docs/" class="uri">https://bookdown.org/luisfca/docs/</a><a href="comece-a-usar-o-r.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p><a href="https://gorgens.github.io/compR-experimental/" class="uri">https://gorgens.github.io/compR-experimental/</a><a href="comece-a-usar-o-r.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p><a href="https://bookdown.org/tiagoandremarques/trabalho4book/" class="uri">https://bookdown.org/tiagoandremarques/trabalho4book/</a><a href="comece-a-usar-o-r.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p><a href="https://www.coursera.org/" class="uri">https://www.coursera.org/</a><a href="comece-a-usar-o-r.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p><a href="http://www.leg.ufpr.br/doku.php/software:rbr" class="uri">http://www.leg.ufpr.br/doku.php/software:rbr</a><a href="comece-a-usar-o-r.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p><a href="https://stat.ethz.ch/mailman/listinfo/r-help" class="uri">https://stat.ethz.ch/mailman/listinfo/r-help</a><a href="comece-a-usar-o-r.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p><a href="https://stackoverflow.com/questions/tagged/r" class="uri">https://stackoverflow.com/questions/tagged/r</a><a href="comece-a-usar-o-r.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p><a href="https://community.rstudio.com/" class="uri">https://community.rstudio.com/</a><a href="comece-a-usar-o-r.html#fnref19" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="parte-i---ponto-de-partida.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conjunto-de-dados.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsubsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true,
+"post_processor": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

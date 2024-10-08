@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>&#8474;&#8477; 2 Conjunto de Dados | Caderno de Quimiometria com R</title>
+  <meta name="description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="&#8474;&#8477; 2 Conjunto de Dados | Caderno de Quimiometria com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+  <meta property="og:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="github-repo" content="cleber-n-borges/quimiometriaR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="&#8474;&#8477; 2 Conjunto de Dados | Caderno de Quimiometria com R" />
+  
+  <meta name="twitter:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="twitter:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+<link rel="prev" href="comece-a-usar-o-r.html"/>
+<link rel="next" href="visualização-de-dados.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJVXYW1C58"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YJVXYW1C58');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">&#8474;&#8477; Quimiometria com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bem-vindos!</a></li>
+<li class="chapter" data-level="" data-path="útil-para-você.html"><a href="útil-para-você.html"><i class="fa fa-check"></i>Útil para Você!</a></li>
+<li class="chapter" data-level="" data-path="pergunte-ao-chatgpt.html"><a href="pergunte-ao-chatgpt.html"><i class="fa fa-check"></i>Pergunte ao ChatGPT</a></li>
+<li class="chapter" data-level="" data-path="estrutura-do-caderno.html"><a href="estrutura-do-caderno.html"><i class="fa fa-check"></i>Estrutura do Caderno</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html"><i class="fa fa-check"></i>PARTE I - Ponto de Partida</a>
+<ul>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#primeiro-passo"><i class="fa fa-check"></i>Primeiro Passo</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#o-que-é-quimiometria"><i class="fa fa-check"></i>O que é Quimiometria?</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#aplicações-do-r-na-quimiometria"><i class="fa fa-check"></i>Aplicações do R na Quimiometria</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#contribuições-do-chatgpt"><i class="fa fa-check"></i>Contribuições do ChatGPT</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html"><i class="fa fa-check"></i><b>1</b> Comece a Usar o R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-o-r-e-rstudio"><i class="fa fa-check"></i><b>1.1</b> Instale o R e RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conheça-o-básico-do-r"><i class="fa fa-check"></i><b>1.2</b> Conheça o Básico do R</a></li>
+<li class="chapter" data-level="1.3" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#realize-análises-simples"><i class="fa fa-check"></i><b>1.3</b> Realize Análises Simples</a></li>
+<li class="chapter" data-level="1.4" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#a-conveniência-do-help"><i class="fa fa-check"></i><b>1.4</b> A Conveniência do <code>help()</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#como-usar-o-comando-help"><i class="fa fa-check"></i>Como Usar o Comando <code>help()</code>:</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conveniência-da-prática"><i class="fa fa-check"></i>Conveniência da Prática</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#exemplo-de-uso"><i class="fa fa-check"></i>Exemplo de Uso</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#manuseie-arquivos"><i class="fa fa-check"></i><b>1.5</b> Manuseie Arquivos</a></li>
+<li class="chapter" data-level="1.6" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#salve-e-restaure-seu-workspace"><i class="fa fa-check"></i><b>1.6</b> Salve e Restaure seu <i>Workspace</i></a></li>
+<li class="chapter" data-level="1.7" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-pacotes-r"><i class="fa fa-check"></i><b>1.7</b> Instale Pacotes R</a></li>
+<li class="chapter" data-level="1.8" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#aprenda-mais-e-pratique"><i class="fa fa-check"></i><b>1.8</b> Aprenda Mais e Pratique</a></li>
+<li class="chapter" data-level="1.9" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#participar-de-comunidades"><i class="fa fa-check"></i><b>1.9</b> Participar de Comunidades</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html"><i class="fa fa-check"></i><b>2</b> Conjunto de Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#organização-e-notação"><i class="fa fa-check"></i><b>2.1</b> Organização e Notação</a></li>
+<li class="chapter" data-level="2.2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#valores-faltantes-na"><i class="fa fa-check"></i><b>2.2</b> Valores faltantes: <code>NA</code></a></li>
+<li class="chapter" data-level="2.3" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#dados-disponíveis"><i class="fa fa-check"></i><b>2.3</b> Dados Disponíveis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html"><i class="fa fa-check"></i><b>3</b> Visualização de Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#gráficos-com-o-r"><i class="fa fa-check"></i><b>3.1</b> Gráficos com o R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#funções-nativas"><i class="fa fa-check"></i><b>3.1.1</b> Funções nativas</a></li>
+<li class="chapter" data-level="3.1.2" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-animation"><i class="fa fa-check"></i><b>3.1.2</b> Pacote <code>animation</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-ggplot2"><i class="fa fa-check"></i><b>3.1.3</b> Pacote <code>ggplot2</code></a></li>
+<li class="chapter" data-level="3.1.4" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-plotly"><i class="fa fa-check"></i><b>3.1.4</b> Pacote <code>plotly</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-ii---tratamento-dos-dados.html"><a href="parte-ii---tratamento-dos-dados.html"><i class="fa fa-check"></i>PARTE II - Tratamento dos Dados</a></li>
+<li class="chapter" data-level="4" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html"><i class="fa fa-check"></i><b>4</b> Pré-Processamento de Variáveis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#autoescalamento"><i class="fa fa-check"></i><b>4.1</b> Autoescalamento</a></li>
+<li class="chapter" data-level="4.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#normalização-min-max"><i class="fa fa-check"></i><b>4.2</b> Normalização Min-Max:</a></li>
+<li class="chapter" data-level="4.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformações"><i class="fa fa-check"></i><b>4.3</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logarítmica-e-raiz-quadrada"><i class="fa fa-check"></i><b>4.3.1</b> Logarítmica e Raiz Quadrada</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformação-box-cox"><i class="fa fa-check"></i><b>4.3.2</b> Transformação Box-Cox</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logística-e-logit"><i class="fa fa-check"></i><b>4.3.3</b> Logística e <em>Logit</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html"><i class="fa fa-check"></i><b>5</b> Pré-Processamento de Amostras</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html#todo"><i class="fa fa-check"></i><b>5.1</b> TODO</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-iii---análise-exploratória-de-dados.html"><a href="parte-iii---análise-exploratória-de-dados.html"><i class="fa fa-check"></i>PARTE III - Análise Exploratória de Dados</a></li>
+<li class="chapter" data-level="6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html"><i class="fa fa-check"></i><b>6</b> PCA - Análise de Componentes Principais</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#desenvolvimento-histórico"><i class="fa fa-check"></i><b>6.1</b> Desenvolvimento histórico</a></li>
+<li class="chapter" data-level="6.2" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#definição"><i class="fa fa-check"></i><b>6.2</b> Definição</a></li>
+<li class="chapter" data-level="6.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#interpretação-geométrica"><i class="fa fa-check"></i><b>6.3</b> Interpretação Geométrica</a></li>
+<li class="chapter" data-level="6.4" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#objetivo"><i class="fa fa-check"></i><b>6.4</b> Objetivo</a></li>
+<li class="chapter" data-level="6.5" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#pca-como-decomposição-matricial"><i class="fa fa-check"></i><b>6.5</b> PCA como Decomposição Matricial</a></li>
+<li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#principais-algoritmos"><i class="fa fa-check"></i><b>6.6</b> Principais Algoritmos</a></li>
+<li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.7</b> Variância por PC</a></li>
+<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.8</b> Aplicação Típica</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>7</b> HCA - Análise de Agrupamento Hierárquico</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/cleber-n-borges/quimiometriaR" target="blank">&#8474;&#8477; Repositório GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Caderno de Quimiometria com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="conjunto-de-dados" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">&#8474;&#8477; 2</span> Conjunto de Dados<a href="conjunto-de-dados.html#conjunto-de-dados" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Um conjunto de dados é uma coleção estruturada de informações organizadas em linhas e colunas, onde cada linha representa uma observação e cada coluna representa uma variável.
+Os dados devem ser convenientes para:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Análise:</strong> Facilitar a análise estatística e identificação de padrões.</li>
+<li><strong>Modelagem:</strong> Servir como base para desenvolver e testar modelos preditivos.</li>
+<li><strong>Decisão:</strong> Apoiar a tomada de decisões informadas em diversos contextos.</li>
+<li><strong>Relatórios:</strong> Permitir a criação de relatórios e a comunicação de insights.</li>
+<li><strong>Armazenamento:</strong> Dados devem ser organizados e armazenados para fácil acesso.</li>
+</ol>
+<p>Conjuntos de dados são fundamentais para pesquisa, negócios, e tomada de decisões baseadas em evidências.</p>
+<p><strong>Dica:</strong> Pergunte ao ChatGPT</p>
+<p><em>O que é um conjunto de dados? Qual objetivo de se ter um? Pra que serve?</em></p>
+<p>Caso tenha uma resposta sucinta, repita a pergunta pedindo riqueza de detalhes!</p>
+<div id="organização-e-notação" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Organização e Notação<a href="conjunto-de-dados.html#organização-e-notação" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O conjunto de dados é organizado em uma estrutura tabular, onde os dados são dispostos em linhas e colunas. A matriz que representa o conjunto de dados é sempre denotada por uma letra maiúscula em negrito, por exemplo, <span class="math inline">\(\mathbf{X}\)</span>.</p>
+<p>Uma matriz <span class="math inline">\(\mathbf{X}\)</span> que representa o conjunto de dados pode ser formalmente descrita da seguinte maneira:</p>
+<p><span class="math display">\[
+\mathbf{X} = \begin{bmatrix}
+x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1j} \\
+x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2j} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{i1} &amp; x_{i2} &amp; \cdots &amp; x_{ij}
+\end{bmatrix}
+\]</span></p>
+<p>onde:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{X}\)</span> é a matriz que representa o conjunto de dados.</li>
+<li><span class="math inline">\(x_{ij}\)</span>: é o elemento localizado na <em>i</em>-ésima linha e <em>j</em>-ésima coluna da matriz <span class="math inline">\(\mathbf{X}\)</span>. Isto é, representa o valor da <em>j</em>-ésima variável para o <em>i</em>-ésimo objeto.</li>
+<li><strong>Linhas:</strong> Cada linha <em>i</em> corresponde a um objeto individual, e todos os valores na linha <em>i</em> representam as medições ou características desse objeto em relação a todas as variáveis. Também é possível interpretar <em>i</em> como sendo o número total de objetos (amostras) no conjunto de dados.</li>
+<li><strong>Colunas:</strong> Cada coluna <em>j</em> representa uma variável específica, e todos os valores na coluna <em>j</em> representam as medições dessa variável em todos os objetos. Também é possível interpretar <em>j</em> como sendo o número total de variáveis (dimensões) medidas.</li>
+<li><strong>Notações variantes</strong>, mais compactas e menos formais, também são comumentes encontrada na literatura como: <span class="math inline">\(\mathbf{X}(I,J)\)</span>. Aqui, temos <span class="math inline">\(I\)</span> linhas e <span class="math inline">\(J\)</span> colunas na matriz <span class="math inline">\(\mathbf{X}\)</span>.</li>
+</ul>
+<div id="exemplificando" class="section level4 unnumbered hasAnchor">
+<h4>Exemplificando…<a href="conjunto-de-dados.html#exemplificando" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Se tivermos um conjunto de dados com 3 objetos e 4 variáveis, a matriz <span class="math inline">\(\mathbf{X}\)</span> pode ser representada como:</p>
+<p><span class="math display">\[
+\mathbf{X} = \begin{bmatrix}
+x_{11} &amp; x_{12} &amp; x_{13} &amp; x_{14} \\
+x_{21} &amp; x_{22} &amp; x_{23} &amp; x_{24} \\
+x_{31} &amp; x_{32} &amp; x_{33} &amp; x_{34}
+\end{bmatrix}
+\]</span></p>
+<p>onde <span class="math inline">\(x_{ij}\)</span> representa o valor da <em>j</em>-ésima variável para o <em>i</em>-ésimo objeto.</p>
+<p>Para as 3 primeiras linhas das 4 variáveis do cojunto de dados <em>Iris</em>, temos a matriz:</p>
+<p><span class="math display">\[
+\mathbf{X} = \begin{bmatrix}
+5.10 &amp; 3.50 &amp; 1.40 &amp; 0.20 \\
+4.90 &amp; 3.00 &amp; 1.40 &amp; 0.20 \\
+4.70 &amp; 3.20 &amp; 1.30 &amp; 0.20 \\
+\end{bmatrix}
+\]</span></p>
+<p> </p>
+</div>
+<div id="aproveitando-para-explicar-data.frame-e-matrix-no-r" class="section level4 unnumbered hasAnchor">
+<h4>Aproveitando para Explicar <code>data.frame</code> e <code>matrix</code> no R!<a href="conjunto-de-dados.html#aproveitando-para-explicar-data.frame-e-matrix-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>No R, os conjuntos de dados ou matrizes de dados são comumente representados por <i>data frames</i> (uma estrutura de dados computacional que muitas linguagens modernas também adotaram). Os <i>data frames</i> são estruturas de dados muito convenientes, pois suportam diferentes tipos de variáveis. Isso contrasta com as matrizes, que são restritas a um único tipo de dado. Ambas estruturas têm a capacidade de armazenar nomes de variáveis (colunas) e nomes de amostras (linhas) no R. A percepção de um <code>data.frame</code> é de uma estrutura muito mais semelhante com a de uma tabela convencional, como ilustrado a seguir:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-5">Table 2.1: </span>Parte do dataset Iris</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Sepal.Length</th>
+<th align="center">Sepal.Width</th>
+<th align="center">Petal.Length</th>
+<th align="center">Petal.Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">5.1</td>
+<td align="center">3.5</td>
+<td align="center">1.4</td>
+<td align="center">0.2</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">4.9</td>
+<td align="center">3.0</td>
+<td align="center">1.4</td>
+<td align="center">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="center">4.7</td>
+<td align="center">3.2</td>
+<td align="center">1.3</td>
+<td align="center">0.2</td>
+</tr>
+</tbody>
+</table>
+<!--
+
+-->
+<p>Para maior clareza, a seguir apresentamos a tabela implementada usando duas estruturas diferentes: <code>data.frame</code> e <code>matrix</code>. Visualmente, ambas as estruturas são indistinguíveis.</p>
+<pre><code>&gt; X &lt;- head( iris[,-5], 3 )
+&gt; X
+  Sepal.Length Sepal.Width Petal.Length Petal.Width
+1          5.1         3.5          1.4         0.2
+2          4.9         3.0          1.4         0.2
+3          4.7         3.2          1.3         0.2
+&gt; class( X )
+[1] &quot;data.frame&quot;
+&gt; Y &lt;- as.matrix( X )
+&gt; Y
+  Sepal.Length Sepal.Width Petal.Length Petal.Width
+1          5.1         3.5          1.4         0.2
+2          4.9         3.0          1.4         0.2
+3          4.7         3.2          1.3         0.2
+&gt; class( Y )
+[1] &quot;matrix&quot; &quot;array&quot; 
+&gt; </code></pre>
+<p>Aqui, X é um objeto da classe <code>data.frame</code> e Y é um objeto da classe <code>matrix</code>. A seguir, fornecemos uma explicação para cada comando.</p>
+<ul>
+<li>O comando <code>X &lt;- head( iris[,-5], 3 )</code> atribui a X(3,4) parte de <code>iris</code> (<code>iris</code> é 150x5).</li>
+<li>Digitar somente X, imprime seus valores na tela.</li>
+<li>O comando <code>class(X)</code> mostra que a classe do objeto X é <code>data.frame</code>.</li>
+<li><code>Y &lt;- as.matrix( X )</code> cria um objeto Y a partir de X e o força a ser da classe <code>matrix</code></li>
+<li>Digitar somente Y, imprime seus valores na tela.</li>
+<li>O comando <code>class(Y)</code> foi somente para confirmar que Y é uma matriz.</li>
+</ul>
+<p> </p>
+<p>Algumas propriedades da álgebra matricial são aplicáveis a ambas as classes. No entanto, quando há potencial para ambiguidades, é necessário realizar conversões explícitas entre as classes (como feito anteriormente).</p>
+<p>Além disso, é importante estar atento a conversões implícitas de tipos (ou classes), que podem ocorrer automaticamente. O exemplo a seguir ilustra esse comportamento:</p>
+<pre><code>&gt; X &lt;- head( iris[,-5], 3 )
+&gt; class(X)
+[1] &quot;data.frame&quot;
+&gt; Y &lt;- t( X )
+&gt; class(Y)
+[1] &quot;matrix&quot; &quot;array&quot; </code></pre>
+<p>A operação de transposição em X é permitida, mas o resultado é um objeto da classe <code>matrix</code>. Esteja atento a esses detalhes.</p>
+<ul>
+<li>O comando <code>t(X)</code> recebe uma matriz ou um data.frame X como argumento e retorna a transposta de X</li>
+</ul>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>Para mais alguns detalhes interessantes sobre <em>Conjunto de dados</em>, consulte a Wikipédia:</p>
+<ul>
+<li>Link: <a href="https://pt.wikipedia.org/wiki/Conjunto_de_dados" class="uri">https://pt.wikipedia.org/wiki/Conjunto_de_dados</a></li>
+</ul></li>
+<li><p>Para saber mais sobre os dados de <em>Iris</em>:</p>
+<ul>
+<li><p>Link: <a href="https://pt.wikipedia.org/wiki/Conjunto_de_dados_flor_Iris" class="uri">https://pt.wikipedia.org/wiki/Conjunto_de_dados_flor_Iris</a></p></li>
+<li><p>No R, digite: <code>?iris</code></p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="valores-faltantes-na" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Valores faltantes: <code>NA</code><a href="conjunto-de-dados.html#valores-faltantes-na" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>No R, <code>NA</code>, sigla de <em>Not Available</em>, é usado para representar valores faltantes em um conjunto de dados.</p>
+<p>A indicação é necessária para que o analista decida se haverá imputação de dados ou se haverá remoção das amostras que contenha parte dos dados perdidos.</p>
+<p>Aqui estão algumas maneiras comuns de lidar com <code>NA</code> no R:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Identificação de <code>NA</code> </strong></li>
+</ol>
+<p>Você pode identificar <code>NA</code> usando a função <code>is.na()</code>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="conjunto-de-dados.html#cb25-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>, <span class="cn">NA</span>)</span>
+<span id="cb25-2"><a href="conjunto-de-dados.html#cb25-2" tabindex="-1"></a><span class="fu">is.na</span>(x) <span class="co"># Verifica posições onde há algum NA</span></span>
+<span id="cb25-3"><a href="conjunto-de-dados.html#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="conjunto-de-dados.html#cb25-4" tabindex="-1"></a><span class="co"># Alternativa </span></span>
+<span id="cb25-5"><a href="conjunto-de-dados.html#cb25-5" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(x))  <span class="co"># Verifica se há algum NA</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Remoção de <code>NA</code></strong></li>
+</ol>
+<p>Para remover <code>NA</code> de um vetor ou dataframe, você pode usar a função <code>na.omit()</code> ou o argumento <code>na.rm</code> em funções como <code>mean()</code>, <code>sum()</code>, etc.</p>
+<p><strong>Para vetores:</strong></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="conjunto-de-dados.html#cb26-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>, <span class="cn">NA</span>)</span>
+<span id="cb26-2"><a href="conjunto-de-dados.html#cb26-2" tabindex="-1"></a>x_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(x)</span></code></pre></div>
+<p><strong>Para dataframes:</strong></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="conjunto-de-dados.html#cb27-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>), <span class="at">b =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb27-2"><a href="conjunto-de-dados.html#cb27-2" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df)</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Substituindo <code>NA</code></strong></li>
+</ol>
+<p>Substituir <code>NA</code> por um valor específico.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="conjunto-de-dados.html#cb28-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>, <span class="cn">NA</span>)</span>
+<span id="cb28-2"><a href="conjunto-de-dados.html#cb28-2" tabindex="-1"></a>x[<span class="fu">is.na</span>(x)] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># Substituindo NA por 0</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Análise Estatística com <code>NA</code></strong></li>
+</ol>
+<p>Algumas funções permitem que você especifique como lidar com <code>NA</code> usando o argumento <code>na.rm</code>.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="conjunto-de-dados.html#cb29-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb29-2"><a href="conjunto-de-dados.html#cb29-2" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  <span class="co"># Calcula a média ignorando NA</span></span></code></pre></div>
+<p>Para detalhes adicionais sobre <em>Dados Faltantes</em>, consulte a Wikipédia:</p>
+<p>Link: <a href="https://pt.wikipedia.org/wiki/Não-resposta" class="uri">https://pt.wikipedia.org/wiki/Não-resposta</a></p>
+<div id="imputação" class="section level4 unnumbered hasAnchor">
+<h4>Imputação<a href="conjunto-de-dados.html#imputação" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Imputação de dados é uma técnica utilizada na Estatística e em Ciência de Dados para lidar com dados faltantes ou ausentes em um conjunto de dados. Em vez de simplesmente excluir registros com dados faltantes, a imputação visa preencher esses valores ausentes com estimativas baseadas em informações disponíveis no conjunto de dados. O objetivo é melhorar a qualidade dos dados e permitir análises mais precisas e completas.
+Entre as principais técnicas estão:</p>
+<ul>
+<li><p><strong>Imputação Simples:</strong> Substitui valores faltantes por uma constante, como a média ou mediana dos valores existentes.</p></li>
+<li><p><strong>Imputação por Regressão:</strong> Usa um modelo de regressão para prever e preencher valores faltantes com base em variáveis preditoras.</p></li>
+<li><p><strong>Imputação por Métodos</strong> de Machine Learning: Emprega algoritmos como K-Nearest Neighbors (KNN) ou Random Forests para prever valores faltantes com base em padrões encontrados nos dados.</p></li>
+<li><p><strong>Imputação por Métodos Estatísticos:</strong> Inclui técnicas como múltiplas imputações, que criam vários conjuntos de dados imputados e combinam os resultados para uma análise mais robusta.</p></li>
+</ul>
+<p><strong>Considerações</strong></p>
+<ul>
+<li><p><strong>Qualidade dos Dados:</strong> A escolha da técnica de imputação depende da natureza dos dados e do mecanismo de ausência. Técnicas mais complexas podem ser necessárias para conjuntos de dados grandes ou para variáveis que têm relações não lineares.</p></li>
+<li><p><strong>Impacto na Análise:</strong> A imputação pode introduzir vieses ou variabilidade adicional nos dados, especialmente se as estimativas imputadas não forem precisas.</p></li>
+</ul>
+<p>A imputação de dados é uma técnica importante para preparar os dados para análise, e a escolha da técnica deve levar em conta a estrutura dos dados e o objetivo da análise. No entanto, neste caderno, não vamos abordar a imputação de dados.</p>
+<p> </p>
+<p>Para detalhes adicionais sobre <em>Imputação</em>, consulte a Wikipédia:</p>
+<p>Link: <a href="https://en.wikipedia.org/wiki/Imputation_(statistics)" class="uri">https://en.wikipedia.org/wiki/Imputation_(statistics)</a></p>
+</div>
+</div>
+<div id="dados-disponíveis" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Dados Disponíveis<a href="conjunto-de-dados.html#dados-disponíveis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para aprender e praticar análise de dados, é essencial ter acesso a conjuntos de dados variados. No R, o pacote <code>datasets</code> oferece uma coleção de dados embutidos que vem com a instalação padrão do software. Esse pacote abrange uma ampla gama de conjuntos de dados, cobrindo diversas áreas como biologia, economia e ciências sociais. Com esses dados, os usuários podem praticar técnicas de análise, visualização e modelagem, facilitando o aprendizado prático e a aplicação de conceitos estatísticos.
+Para visualizar a lista completa de conjuntos de dados disponíveis, use o comando: <code>help( package='datasets' )</code>.</p>
+<p>Para carregar um conjunto de dados em sua sessão, utilize o comando <code>data()</code> seguido do nome do conjunto. Por exemplo: <code>data( 'iris' )</code>.</p>
+<p>Além disso, a maioria dos pacotes no R inclui seus próprios conjuntos de dados. Para acessá-los, basta usar o comando <code>data( 'nome_do_dataset', package='nome_do_pacote' )</code> após a instalação do pacote.”</p>
+<p>Para facilitar o acesso aos leitores do <strong>Caderno de Quimiometria com R</strong>, selecionamos alguns conjuntos de dados específicos que podem ser especialmente úteis para iniciantes em análises quimiométricas. Apresentamos uma lista de conjuntos de dados recomendados.</p>
+<ul>
+<li><p>No pacote <code>chemometrics</code>:</p>
+<ul>
+<li><p><strong>NIR</strong>: derivada de espectros NIR e concentração de glicose e etanol para 166 mostos de fermentação alcoólica de diferentes matérias-primas (centeio, trigo e milho).</p></li>
+<li><p><strong>PAC</strong>: 209 objetos sendo um conjunto de dados X (467 variáveis = descritores moleculares) e um conjunto de dados y (1 variável = índices de retenção de GC de Compostos Aromáticos Policíclicos - PAC).</p></li>
+<li><p><strong>Phenyl</strong>: espectros de massa de 600 compostos químicos, onde 300 contêm uma subestrutura fenil (grupo 1) e 300 compostos não contêm esta subestrutura (grupo 2).</p></li>
+<li><p><strong>ash</strong>: Dados de 99 amostras de cinzas provenientes de diferentes biomassas, medidas em 9 variáveis (e mais 8 variáveis obtidas por transformação logarítmica).</p></li>
+<li><p><strong>cereal</strong>: um conjunto de dados X e Y, medidos nos mesmos objetos (cereais). Os dados X são 145 espectros infravermelhos e os dados Y são 6 propriedades químicas (valor de aquecimento, conteúdo de C, H, N, Amido, Cinza). Os cereais vêm de 5 grupos B=Cevada, M=Milho, R=Centeio, T=Triticale, W=Trigo.</p></li>
+<li><p><strong>glass</strong> e <strong>glass.grp</strong>: Uma matriz de dados com 180 objetos e 13 variáveis (13 medidas diferentes, em geral contéudo de óxidos, para 180 vasos arqueológicos de vidro de diferentes grupos).</p></li>
+</ul></li>
+<li><p>No pacote <code>pls</code>:</p>
+<ul>
+<li><p><strong>gasoline</strong>: espectros NIR e números de octanas de 60 amostras de gasolina.</p></li>
+<li><p><strong>mayonnaise</strong>: espectro NIR não processado (351 comprimentos de onda, 1100-2500 nm em passos de 4 nm) feitas em 54 amostras de maionese com base em seis tipos diferentes de óleo (soja, girassol, canola, azeitona, milho e semente de uva). As 54 amostras resultantes foram medidas em triplicado, resultando em 54 x 3 = 162 espectros diferentes (120/42 treinamento/teste).</p></li>
+<li><p><strong>oliveoil</strong>: pontuações em 6 atributos de um painel sensorial e medições de 5 parâmetros de qualidade físico-químicos em 16 amostras de azeite.</p></li>
+<li><p><strong>yarn</strong>: 21 espectros NIR de fios PET, medidos em 268 comprimentos de onda e 21 densidades correspondentes.</p></li>
+</ul></li>
+<li><p>No pacote <code>kohonen</code>:</p>
+<ul>
+<li><p><strong>degelder</strong>: Padrões de raios X de 131 estruturas cristalográficas (em pó). Os dados estão em uma lista com três componentes: o primeiro componente, “<em>patterns</em>”, é uma matriz de 131 linhas e 441 variáveis, contendo os padrões de pó; o segundo componente é “<em>thetas</em>”, os valores <em>2theta</em> nos quais as intensidades foram medidas. O componente final, “<em>properties</em>”, fornece informações sobre as propriedades cristalográficas das estruturas.</p></li>
+<li><p><strong>nir</strong>: Um objeto de dados contendo 95 espectros NIR de misturas ternárias de etanol, água e isopropanol, medidos em cinco temperaturas diferentes.</p></li>
+<li><p><strong>wines</strong>: Um <em>dataframe</em> contendo 177 linhas e treze colunas; o objeto <code>vintages</code> contém os rótulos da classe. Os dados são resultados de análises químicas de vinhos cultivados na mesma região da Itália (Piemonte), mas derivados de três cultivares diferentes: uvas Nebbiolo, Barberas e Grignolino. O vinho da uva Nebbiolo chama-se Barolo. Os dados contêm as quantidades dos vários constituintes encontrados em cada um dos três tipos de vinhos.</p></li>
+</ul></li>
+<li><p>Pacote <code>doBy</code>:</p>
+<ul>
+<li><p><strong>NIRmilk</strong>: Medições de luz infravermelha próxima (NIR) feitas em 152 comprimentos de onda em 17 amostras de leite. Cada amostra de leite foi adicionalmente analisada quanto a gordura, lactose, proteína e matéria seca.</p></li>
+<li><p><strong>codstom</strong>: Dados de conteúdo estomacal para bacalhau do Atlântico (<em>Gadus morhua</em>) no Golfo de <em>St.Lawrence</em>, leste do Canadá. São 10.000 observações em 10 variáveis.</p></li>
+<li><p><strong>cropyield</strong>: Rendimento da produção agrícola dinamarquesa de cereais e tubérculos. Um <em>dataframe</em> com 97 linhas e 7 colunas.</p></li>
+<li><p><strong>prostate</strong>: conjunto de dados de expressão genética de tumor de próstata. O conjunto de dados consiste em 52 amostras com tumores de próstata e 50 amostras normais. As classes normais e tumorais são codificadas em 0 e 1.</p></li>
+<li><p><strong>milkman</strong>: Dados de produção de leite para vacas ordenhadas manualmente. São 161836 observações e 12 variáveis.</p></li>
+</ul></li>
+<li><p>Pacote <code>cluster</code>:</p>
+<ul>
+<li><p><strong>animals</strong>: conjunto de dados coom 6 atributos binários para 20 animais.</p></li>
+<li><p><strong>flower</strong>: conjunto de dados coom 8 atributos para 18 observações.</p></li>
+<li><p><strong>plantTraits</strong>: Este conjunto de dados constitui uma descrição de 136 espécies de plantas de acordo com atributos biológicos (morfológicos ou reprodutivos - com 31 variáveis).</p></li>
+</ul></li>
+<li><p>Pacote <code>carData</code>:</p>
+<ul>
+<li><p><strong>Pottery</strong>: Os dados, 26x6, fornecem a composição química da cerâmica antiga.</p></li>
+<li><p><strong>Salaries</strong>: O salário acadêmico para professores em uma faculdade nos EUA. Os dados foram coletados para monitorar as diferenças salariais entre docentes do sexo masculino e feminino. São 397 observações em 6 variáveis.</p></li>
+<li><p><strong>Soils</strong>: Composições de características físicas e químicas do solo. São 48 observações em 14 variáveis.</p></li>
+</ul></li>
+<li><p>Pacote <code>ropls</code>:</p>
+<ul>
+<li><p><strong>cellulose</strong>: Conjunto de dados de exemplo NIR para ilustrar a calibração multivariada usando PLS. Viscosidade é a propriedade estudada de 180 amostras.</p></li>
+<li><p><strong>cornell</strong>: Medição de octanagem de 12 misturas de 7 componentes de gasolina.</p></li>
+<li><p><strong>foods</strong>: Consumo relativo de 20 itens alimentares compilado para 16 países. Os valores variam entre 0 e 100 por cento e um valor alto corresponde a um consumo elevado (O conjunto de dados contém 3 dados ausentes).</p></li>
+</ul></li>
+<li><p>Pacote <code>boot</code>:</p>
+<ul>
+<li><p><strong>urine</strong>: 79 amostras de urina num esforço para determinar se certas características físicas (7) da urina poderiam estar relacionadas com a formação de cristais de oxalato de cálcio.</p></li>
+<li><p><strong>cane</strong>: O <em>dataframe</em>, 45x7, representa um delineamento em blocos casualizados com variedades de cana-de-açúcar e 4 blocos.</p></li>
+</ul></li>
+<li><p>Pacote <code>caret</code>:</p>
+<ul>
+<li><p><strong>oil</strong>: concentrações de ácidos graxos de óleos comerciais (“Palmitic”, “Stearic”, “Oleic”, “Linoleic”, “Linolenic”, “Eicosanoic”, “Eicosenoic”, medidas por cromatografia gasosa). Os dados são usados para prever o tipo de óleo: abóbora (A), girassol (B), amendoim (C), azeitona (D), soja (E), colza (F) e milho (G).</p></li>
+<li><p><strong>tecator</strong>: dados registrados em um analisador de alimentos e rações Tecator Infratec trabalhando na faixa de comprimento de onda de 850 a 1050 nm pelo princípio de transmissão no infravermelho próximo (NIT). As amostras continham carne pura finamente picada com diferentes teores de umidade, gordura e proteína. Veja os <em>detalhes</em> de permissão caso queira utilizar esses dados!</p></li>
+</ul></li>
+<li><p>Pacote <code>ISLR</code>:</p>
+<ul>
+<li><p><strong>Auto</strong>: 392 observações em 9 variáveis sobre automóveis.</p></li>
+<li><p><strong>OJ</strong>: dados de 1070 amostras e 18 variáveis sobre compra de suco de laranja.</p></li>
+</ul></li>
+<li><p>Pacote <code>kknn</code>:</p>
+<ul>
+<li><strong>glass</strong>: dados com 214 observações, onde o problema é prever o tipo de vidro em termos de seu teor de óxido (ou seja, Na, Fe, K, etc). O estudo da classificação dos tipos de vidros foi motivado pela investigação criminológica. São 214 observações sobre 11 variáveis.</li>
+</ul></li>
+<li><p>Pacote <code>multigroup</code>:</p>
+<ul>
+<li><strong>wine</strong>: dados com 21 linhas (o número de vinhos) e 31 colunas (a primeira coluna corresponde ao rótulo de origem, a segunda coluna corresponde ao solo e as restantes correspondem aos descritores sensoriais).</li>
+</ul></li>
+<li><p>Pacote <code>speaq</code>:</p>
+<ul>
+<li><strong>Winedata</strong>: dados de 1H-NMR de 40 vinhos, de diferentes origens.</li>
+</ul></li>
+<li><p>Pacote <code>baseline</code>:</p>
+<ul>
+<li><strong>milk</strong>: Matriz de 45 espectros de valores de 21451 m/z de MALDI-TOF em amostras de leite misto. E vetor com a concentração de leite de vaca em amostras mistas de leite de vaca, cabra e ovelha.</li>
+</ul></li>
+<li><p>Pacote <code>ade4</code>:</p>
+<ul>
+<li><strong>rhone</strong>: Este conjunto de dados fornece para 39 amostras de água uma descrição de 15 variáveis físico-química com o número de datas de amostragem e as vazões de três afluentes.</li>
+</ul></li>
+<li><p>Pacote <code>mixexp</code>:</p>
+<ul>
+<li><strong>fishp</strong>: Dados, do Cornell, do famoso experimento sobre patê de peixes envolvendo variáveis de mistura e variáveis de processo. Executados sob um delineamento <em>split-plot</em>. O <em>dataframe</em> é 56 x 7.</li>
+</ul></li>
+<li><p>Pacote <code>drc</code>:</p>
+<ul>
+<li><strong>G.aparine</strong>: Plantas (<em>Galium aparine</em>) foram pulverizadas com o herbicida. Após tempo de tratamento, foi medida a matéria seca. Os dados são de 240 amostras, doses, matéria seca e formulação do herbicida.</li>
+</ul></li>
+<li><p>Pacote <code>GGally</code>:</p>
+<ul>
+<li><strong>flea</strong>: Estes dados, 74x7, contêm medições físicas em três espécies de besouros pulgas.</li>
+</ul></li>
+<li><p>Pacote <code>hyperSpec</code>:</p>
+<ul>
+<li><strong>barbiturates</strong>: 286 Espectros de barbitúricos (arquivos de exemplo: BARBITUATES.SPC da especificação de formato de arquivo ‘*.spc’ da Thermo Galactic).</li>
+</ul></li>
+<li><p>Pacote <code>ptw</code>:</p>
+<ul>
+<li><strong>gaschrom</strong>: 16 cromatogramas (GC) de calibração, medidos em 5.000 pontos no tempo. Uma versão com pico escolhido está disponível como objeto <code>gaschrom.st</code>.</li>
+</ul></li>
+<li><p>Pacote <code>robustbase</code>:</p>
+<ul>
+<li><strong>alcohol</strong>: Características físico-químicas de 44 álcoois alifáticos. O objetivo do experimento foi a previsão da solubilidade com base em 7 descritores moleculares.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>Existem algumas outras fontes disponíveis que oferecem dados químicos confiáveis de forma gratuita, permitindo que pesquisadores e estudantes acessem informações essenciais sem custos, como por exemplo:</p>
+<p><br></p>
+<ul>
+<li><p><strong><em>DataSets - Eigenvector</em></strong>: Os conjuntos de dados a seguir estão disponíveis para download no <strong><em>Eigenvector Archive</em></strong>, em: <a href="https://eigenvector.com/resources/data-sets/" class="uri">https://eigenvector.com/resources/data-sets/</a> (Todos estão armazenados como arquivos MATLAB zipados).</p>
+<ul>
+<li><p><strong>CGL_NIR</strong>, Predição de proteína de grãos por espectros NIR</p></li>
+<li><p><strong>IASIM16 Challenge</strong>, imagens NIR de melamina em glúten de trigo</p></li>
+<li><p><strong>IR Image of an Excedrin Tablet</strong>, útil para testar algoritmos de análise de imagem</p></li>
+<li><p><strong>NIR spectra of corn samples</strong>, úteis para comparação de padronização e de pré-processamento</p></li>
+<li><p><strong>Semiconductor metal etch</strong>, incluindo falhas conhecidas</p></li>
+<li><p><strong>NIR spectra of diesel fuels</strong>, para testar seleção de variáveis e algoritmos de calibração</p></li>
+<li><p><strong>Pharmaceutical tablets</strong>, o conjunto de dados “Shootout” consiste de espectros NIR de 654 comprimidos farmacêuticos de dois espectrômetros</p></li>
+<li><p><strong>ArtImageDataA</strong>, imagens NIR de tintas a óleo</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p><strong>Grupo de Quimiometria de Copenhague</strong>: há uma relação com mais de 50 conjuntos de dados livremente disponíveis em: <a href="https://ucphchemometrics.com/datasets/" class="uri">https://ucphchemometrics.com/datasets/</a> .</p>
+<ul>
+<li><p>Nota contida no site: “Aqui estão alguns conjuntos de dados públicos que podem ser usados ​​para análise multivariada de dados. Observe que quando não há extensão de arquivo, basta adicionar ‘*.zip’ ao final do arquivo baixado.”</p></li>
+<li><p>Comentário 1: muitos desses dados estão em arquivos MATLAB;</p></li>
+<li><p>Comentário 2: Como há uma variedade de dados <em>EEM</em>, o pacote <code>eemR</code> possui algumas funções específicas para essa técnica;</p></li>
+<li><p>Comentário 3: Os pacotes <code>pracma</code> e <code>matlab</code> ajudam a migração de usuárisos do Matlab para o R pois há uma quantidade significativa de comandos matlab portados para o R;</p></li>
+<li><p>Comentário 4: Para leitura de arquivos MATLAB direto no R, use a função <code>readMat()</code> do pacote <code>R.matlab</code>, para arquivos ‘*.mat’ versões 4 e 5. Para arquivos ‘*.mat’ da versão 7.3 use os pacotes <code>h5</code> e <code>rhdf5</code>.</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p><strong>Periódico <em>Data in Brief</em></strong>: <em>Data in Brief</em> é um periódico multidisciplinar, de acesso aberto e revisado por pares, que descrevem e fornecem acesso a dados de pesquisa. <em>Data in Brief</em> contribui para a ciência aberta e melhora a reprodutibilidade, tornando os dados e a pesquisa associada mais detectáveis, abrindo portas para a colaboração e reduzindo a duplicação de esforços. O <em>Data in Brief</em> apoia o <em>FAIR Data Principles</em>, que afirmam que os dados de pesquisa devem ser <em>Findable</em>, <em>Accessible</em>, <em>Interoperable</em>, and <em>Reusable</em> (<strong>Localizáveis</strong>, <strong>Acessíveis</strong>, <strong>Interoperáveis</strong> ​​e <strong>Reutilizáveis</strong>). Portanto, a missão do <em>Data in Brief</em> é tornar os dados de pesquisa acessíveis, detectáveis, citáveis, compreensíveis, revisados, reproduzíveis e reutilizáveis. Para saber mais, acesse: <a href="https://www.sciencedirect.com/journal/data-in-brief" class="uri">https://www.sciencedirect.com/journal/data-in-brief</a> . Abaixo segue exemplos de 03 artigos dos quais fornecem os dados para download.</p>
+<ul>
+<li><strong>Near-infrared spectra dataset of milk composition in transmittance mode</strong>,</li>
+</ul>
+<blockquote>
+<p>Jose A. Diaz-Olivares, Arnout van Nuenen, Martin J. Gote, Valeria Fonseca Díaz, Wouter Saeys, Ines Adriaens, Ben Aernouts,
+<br> <em>Data in Brief</em>, Volume 51, 2023,
+<br> <a href="https://doi.org/10.1016/j.dib.2023.109767" class="uri">https://doi.org/10.1016/j.dib.2023.109767</a>.
+<br> O conjunto de dados contém medições espectrais NIR no modo de transmitância na faixa de comprimento de onda de 960 nm a 1.690 nm de 1.224 amostras individuais de leite cru. Para estas medições espectrais são incluídos valores de referência laboratoriais correspondentes aos três principais componentes do leite cru (gordura, proteína e lactose), ureia e contagem de células somáticas (CCS).
+<br> <strong>Os dados estão disponíveis para download</strong></p>
+</blockquote>
+<ul>
+<li><strong>Dataset of Near-infrared spectroscopy measurement for amylose determination using PLS algorithms</strong></li>
+</ul>
+<blockquote>
+<p>P. Sampaio, A. Soares, A. Castanho, A.S. Almeida, J. Oliveira, C. Brites,
+<br> <em>Data in Brief</em>, Volume 15, 2017,
+<br> <a href="https://doi.org/10.1016/j.dib.2017.09.077" class="uri">https://doi.org/10.1016/j.dib.2017.09.077</a>.
+<br> O artigo apresenta 168 amostras de arroz compreendendo 16 variedades de arroz e 11 variedades de arroz padrão. A concentração de amilose foi avaliada com base no método do iodo, e os espectros de infravermelho próximo (NIR) foram determinados. Para avaliar a vantagem da espectroscopia no infravermelho próximo, diferentes variedades de arroz e algoritmos específicos, como Standard Normal Variate (SNV), Multiple Scatter Calibration (MSC) e filtro Savitzky-Golay foram utilizados para pré-processamento de espectros NIR.
+<br> <strong>Os dados estão disponíveis para download</strong></p>
+</blockquote>
+<ul>
+<li><strong>Fourier transform and near infrared dataset of dialdehyde celluloses used to determine the degree of oxidation with chemometric analysis</strong></li>
+</ul>
+<blockquote>
+<p>Jonas Simon, Otgontuul Tsetsgee, Nohman Arshad Iqbal, Janak Sapkota, Matti Ristolainen, Thomas Rosenau, Antje Potthast,
+<br> <em>Data in Brief</em>, Volume 40, 2022,
+<br> <a href="https://doi.org/10.1016/j.dib.2021.107757" class="uri">https://doi.org/10.1016/j.dib.2021.107757</a>.
+<br> Este conjunto de dados está relacionado ao artigo de pesquisa intitulado: <strong>A fast method to measure the degree of oxidation of dialdehyde celluloses using multivariate calibration and infrared spectroscopy</strong>. No artigo, 74 amostras de dialdeído celulose com diferentes graus de oxidação foram preparadas por oxidação de periodato e analisadas por espectroscopia de infravermelho com transformada de Fourier (FTIR) e infravermelho próximo (NIR). Os correspondentes graus de oxidação foram determinados indiretamente pelo consumo de periodato utilizando espectroscopia UV a 222 nm e pela reação quantitativa com cloridrato de hidroxilamina seguida de titulação potenciométrica. A regressão de mínimos quadrados parciais (PLSR) foi utilizada para correlacionar os dados infravermelhos com o correspondente grau de oxidação (DO). Os modelos NIR/PLSR e FTIR/PLSR desenvolvidos podem ser facilmente implementados em outros laboratórios para prever de forma rápida e confiável o grau de oxidação das celuloses de dialdeído.</p>
+<p><em>Dados disponíveis na publicação prévia:</em>
+<br> <strong>A fast method to measure the degree of oxidation of dialdehyde celluloses using multivariate calibration and infrared spectroscopy</strong>,
+<br> Jonas Simon, Otgontuul Tsetsgee, Nohman Arshad Iqbal, Janak Sapkota, Matti Ristolainen, Thomas Rosenau, Antje Potthast,
+<br> <em>Carbohydrate Polymers</em>, Volume 278, 2022,
+<br> <a href="https://doi.org/10.1016/j.carbpol.2021.118887" class="uri">https://doi.org/10.1016/j.carbpol.2021.118887</a>.
+<br> <strong>Os dados estão disponíveis para download</strong></p>
+</blockquote></li>
+</ul>
+<p><br></p>
+<p>Se você conhecer fontes confiáveis e gratuitas de dados químicos, por favor, envie um e-mail para <a href="mailto:cleber.borges@ufla.br" class="email">cleber.borges@ufla.br</a> . Sua contribuição será fundamental para enriquecer este caderno!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="comece-a-usar-o-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="visualização-de-dados.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsubsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true,
+"post_processor": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
