@@ -483,7 +483,7 @@ Cumulative Proportion  0.9152 1.00000
 </ul>
 <p> </p>
 <p><strong>Equivalência de Notação</strong></p>
-<p>As duas formas são equivalentes, pois podemos demonstrar que <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{P}\)</span> pode ser expresso como <span class="math inline">\(\mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}\)</span>. Só precisamos manipular as equações de forma a isolarmos <span class="math inline">\(\mathbf{X}\)</span>.</p>
+<p>As duas formas são equivalentes, pois podemos monstrar que <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{P}\)</span> pode ser expresso como <span class="math inline">\(\mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}\)</span>. Só precisamos manipular a equação de forma a isolarmos <span class="math inline">\(\mathbf{X}\)</span>.</p>
 <ol style="list-style-type: decimal">
 <li>Começamos com a equação original:</li>
 </ol>
@@ -516,6 +516,39 @@ Cumulative Proportion  0.9152 1.00000
 <p>Cada uma dessas abordagens oferece suas particularidades e aplicações específicas, proporcionando vantagens em diferentes contextos e tamanhos de conjuntos de dados.</p>
 <p>A seguir, apresentamos três formatos diferentes, cada um implementado por meio das seguintes abordagens:</p>
 <ol style="list-style-type: decimal">
+<li><strong>Decomposição em Autovetores e Autovalores</strong></li>
+</ol>
+<p>A decomposição matricial em autovetores e autovalores fatoriza uma matriz quadrada <span class="math inline">\(\mathbf{A}\)</span> de dimensão <span class="math inline">\(m \times m\)</span> na forma:</p>
+<p><span class="math display">\[
+\mathbf{A} = \mathbf{V} \cdot \mathbf{\Sigma} \cdot \mathbf{V^{-1}}
+\]</span></p>
+<p>       onde:</p>
+<ul>
+<ul>
+<li>
+<span class="math inline">\(\mathbf{A}\)</span> é a matriz de covariância de <span class="math inline">\(\mathbf{X}\)</span>.
+</li>
+<li>
+<span class="math inline">\(\mathbf{V}\)</span> é uma matriz <span class="math inline">\(m \times m\)</span> cujas colunas são os autovetores. <span class="math inline">\(\mathbf{V^{-1}}\)</span> é a inversa de <span class="math inline">\(\mathbf{V}\)</span>.
+</li>
+<li>
+<p><span class="math inline">\(\mathbf{\Sigma}\)</span> é uma matriz diagonal de dimensão <span class="math inline">\(m \times m\)</span> contendo os autovalores correspondentes.</p>
+</ul>
+</ul>
+<p> </p>
+<p>As matrizes (<em>loadings</em>) e (<em>scores</em>), da Análise de Componentes Principais (PCA), podem ser obtidas por:</p>
+<p> </p>
+<p><span class="math display">\[
+\mathbf{P} = \mathbf{V}
+\]</span></p>
+<p> </p>
+<p><span class="math display">\[
+\mathbf{T} = \mathbf{X} \cdot \mathbf{V}
+\]</span></p>
+<p> </p>
+<p><strong>Característica</strong>: Exige cálculo explícito tanto de <span class="math inline">\(A = X^T \cdot X\)</span> quanto de <span class="math inline">\(T = X \cdot V\)</span> , que são custosas computacionalmente (em conjunto de dados muito grandes) devido ao número de operação. O que por sua vez, acarreta em maior propagação dos erros inerentes à representação numérica na computação.</p>
+<p> </p>
+<ol start="2" style="list-style-type: decimal">
 <li><strong>Decomposição em Valores Singulares (SVD)</strong></li>
 </ol>
 <p>A decomposição matricial SVD (<em>Singular Value Decomposition</em>) é uma técnica que fatoriza uma matriz <span class="math inline">\(\mathbf{X}\)</span> de dimensões <span class="math inline">\(n \times m\)</span> em três matrizes:</p>
@@ -532,8 +565,6 @@ Cumulative Proportion  0.9152 1.00000
 </li>
 <li>
 <p><span class="math inline">\(\mathbf{\Sigma}\)</span> é uma matriz de dimensão <span class="math inline">\(n \times m\)</span> onde os valores singulares estão efetivamente organizados em uma submatriz diagonal <span class="math inline">\(r \times r\)</span>, onde <span class="math inline">\(r\)</span> é o posto da matriz <span class="math inline">\(\mathbf{X}\)</span> (o número de valores singulares não nulos e não-negativos). O valor de <span class="math inline">\(r\)</span> pode ser no máximo igual a <span class="math inline">\(min(n,m)\)</span>. Os valores singulares em <span class="math inline">\(\mathbf{\Sigma}\)</span> indicam a importância das direções representadas pelas colunas de <span class="math inline">\(\mathbf{U}\)</span> e <span class="math inline">\(\mathbf{V}\)</span>.</p>
-</ul>
-</ul>
 <p><strong>Nota</strong>: Uma matriz <span class="math inline">\(\mathbf{M}\)</span> ser ortonormal significa que suas colunas são vetores ortogonais entre si e têm norma unitária. Isso garante que:</p>
 <p><span class="math display">\[
 \mathbf{M^T} \cdot \mathbf{M} = \mathbf{I}
@@ -546,6 +577,8 @@ Cumulative Proportion  0.9152 1.00000
 </li>
 </ul>
 </ul>
+</ul>
+</ul>
 <p> </p>
 <p>Na Análise de Componentes Principais (PCA), utiliza-se da decomposição da SVD pois as matrizes <span class="math inline">\(\mathbf{P}\)</span> (<em>loadings</em>) e <span class="math inline">\(\mathbf{T}\)</span> (<em>scores</em>) podem ser diretamente obtidas pelas relações:</p>
 <p> </p>
@@ -555,45 +588,6 @@ Cumulative Proportion  0.9152 1.00000
 <p> </p>
 <p><span class="math display">\[
 \mathbf{T} = \mathbf{U} \cdot \mathbf{\Sigma}
-\]</span></p>
-<p> </p>
-<ol start="2" style="list-style-type: decimal">
-<li><strong>Decomposição de Autovetores e Autovalores</strong></li>
-</ol>
-<hr />
-<p>A decomposição matricial em autovetores e autovalores é uma técnica que fatoriza uma matriz quadrada <span class="math inline">\(\mathbf{A}\)</span> de dimensão <span class="math inline">\(n \times n\)</span> na forma:</p>
-<p><span class="math display">\[
-\mathbf{A} = \mathbf{V} \cdot \mathbf{D} \cdot \mathbf{V^{-1}}
-\]</span></p>
-<p>onde <span class="math inline">\(\mathbf{V}\)</span> é uma matriz <span class="math inline">\(n \times n\)</span> cujas colunas são os autovetores de <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(\mathbf{D}\)</span> é uma matriz diagonal de dimensão <span class="math inline">\(n \times n\)</span> contendo os autovalores correspondentes, e <span class="math inline">\(\mathbf{V^{-1}}\)</span> é a matriz inversa de <span class="math inline">\(\mathbf{V}\)</span>. Essa decomposição permite entender como a matriz <span class="math inline">\(\mathbf{A}\)</span> transforma vetores, uma vez que os autovetores representam direções invariantes sob essa transformação, enquanto os autovalores indicam a escala dessa transformação. Em contextos como a Análise de Componentes Principais (PCA), essa estrutura é crucial para identificar e preservar as direções de maior variância nos dados, facilitando a redução de dimensionalidade.</p>
-<p>A decomposição matricial em autovetores e autovalores é definida como:</p>
-<p> </p>
-<p><span class="math display">\[
-\mathbf{A} = \mathbf{V} \cdot \mathbf{D} \cdot \mathbf{V^{-1}}
-\]</span></p>
-<p>       onde:</p>
-<ul>
-<ul>
-<li>
-<span class="math inline">\(\mathbf{A}\)</span> é a matriz (quadrada) de covariância de <span class="math inline">\(\mathbf{X}\)</span>
-</li>
-<li>
-<span class="math inline">\(\mathbf{V}\)</span> é a matriz de autovetores
-</li>
-<li>
-<span class="math inline">\(\mathbf{D}\)</span> é a matriz de autovalores e é diagonal
-</li>
-</ul>
-</ul>
-<p> </p>
-<p>As matrizes (<em>loadings</em>) e (<em>scores</em>) podem ser obtidas por:</p>
-<p> </p>
-<p><span class="math display">\[
-\mathbf{P} = \mathbf{V}
-\]</span></p>
-<p> </p>
-<p><span class="math display">\[
-\mathbf{T} = \mathbf{X} \cdot \mathbf{V}
 \]</span></p>
 <p> </p>
 <ol start="3" style="list-style-type: decimal">
