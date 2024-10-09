@@ -515,45 +515,58 @@ Cumulative Proportion  0.9152 1.00000
 <p>Adotando a perpectiva da decomposição matricial, conseguimos estabelecer uma conexão natural para explorar outras decomposições matriciais já existentes e suas interconexões metodológicas. Assim sendo, ao menos os métodos mais usuais utilizados para realizar a PCA aproveitam abordagens matemáticas distintas já consolidadas.</p>
 <p>Cada uma dessas abordagens oferece suas particularidades e aplicações específicas, proporcionando vantagens em diferentes contextos e tamanhos de conjuntos de dados.</p>
 <p>A seguir, apresentamos três formatos diferentes, cada um implementado por meio das seguintes abordagens:</p>
-<p> </p>
 <ol style="list-style-type: decimal">
 <li><strong>Decomposição em Valores Singulares (SVD)</strong></li>
 </ol>
-<p>A decomposição matricial:</p>
+<p>A decomposição matricial SVD (<em>Singular Value Decomposition</em>) é uma técnica que fatoriza uma matriz <span class="math inline">\(\mathbf{X}\)</span> de dimensões <span class="math inline">\(n \times m\)</span> em três matrizes:</p>
 <p> </p>
+<p><span class="math display">\[ \mathbf{X} = \mathbf{U} \cdot \mathbf{\Sigma} \cdot \mathbf{V^T} \]</span></p>
+<p>       onde:</p>
+<ul>
+<ul>
+<li>
+<span class="math inline">\(\mathbf{U}\)</span> é uma matriz ortonormal de dimensão <span class="math inline">\(n \times n\)</span>. É a matriz de vetores singulares a esquerda.
+</li>
+<li>
+<span class="math inline">\(\mathbf{V}\)</span> é uma matriz ortonormal de dimensão <span class="math inline">\(m \times m\)</span>. É a matriz de vetores singulares a direita.
+</li>
+<li>
+<p><span class="math inline">\(\mathbf{\Sigma}\)</span> é uma matriz de dimensão <span class="math inline">\(n \times m\)</span> onde os valores singulares estão efetivamente organizados em uma submatriz diagonal <span class="math inline">\(r \times r\)</span>, onde <span class="math inline">\(r\)</span> é o posto da matriz <span class="math inline">\(\mathbf{X}\)</span> (o número de valores singulares não nulos e não-negativos). O valor de <span class="math inline">\(r\)</span> pode ser no máximo igual a <span class="math inline">\(min(n,m)\)</span>. Os valores singulares em <span class="math inline">\(\mathbf{\Sigma}\)</span> indicam a importância das direções representadas pelas colunas de <span class="math inline">\(\mathbf{U}\)</span> e <span class="math inline">\(\mathbf{V}\)</span>.</p>
+</ul>
+</ul>
+<p><strong>Nota</strong>: Uma matriz <span class="math inline">\(\mathbf{M}\)</span> ser ortonormal significa que suas colunas são vetores ortogonais entre si e têm norma unitária. Isso garante que:</p>
 <p><span class="math display">\[
-\mathbf{X} = \mathbf{U} \cdot \mathbf{D} \cdot \mathbf{V^T}
+\mathbf{M^T} \cdot \mathbf{M} = \mathbf{I}
 \]</span></p>
 <p>       onde:</p>
 <ul>
 <ul>
 <li>
-<span class="math inline">\(\mathbf{U}\)</span> é a matriz de vetores singulares a esquerda
-</li>
-<li>
-<span class="math inline">\(\mathbf{D}\)</span> é a matriz de autovetores singulares (diagonal)
-</li>
-<li>
-<span class="math inline">\(\mathbf{V}\)</span> é a matriz de vetores a direita
+<span class="math inline">\(\mathbf{I}\)</span> é a matriz identidade.
 </li>
 </ul>
 </ul>
 <p> </p>
-<ul>
-<li>Com o uso da SVD as matrizes <span class="math inline">\(\mathbf{P}\)</span> (<em>loadings</em>) e <span class="math inline">\(\mathbf{T}\)</span> (<em>scores</em>) podem ser obtidas por:</li>
-</ul>
+<p>Na Análise de Componentes Principais (PCA), utiliza-se da decomposição da SVD pois as matrizes <span class="math inline">\(\mathbf{P}\)</span> (<em>loadings</em>) e <span class="math inline">\(\mathbf{T}\)</span> (<em>scores</em>) podem ser diretamente obtidas pelas relações:</p>
+<p> </p>
 <p><span class="math display">\[
 \mathbf{P} = \mathbf{V}
 \]</span></p>
 <p> </p>
 <p><span class="math display">\[
-\mathbf{T} = \mathbf{U} \cdot \mathbf{D}
+\mathbf{T} = \mathbf{U} \cdot \mathbf{\Sigma}
 \]</span></p>
 <p> </p>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Decomposição de Autovetores e Autovalores</strong></li>
 </ol>
-<p>A decomposição matricial:</p>
+<hr />
+<p>A decomposição matricial em autovetores e autovalores é uma técnica que fatoriza uma matriz quadrada <span class="math inline">\(\mathbf{A}\)</span> de dimensão <span class="math inline">\(n \times n\)</span> na forma:</p>
+<p><span class="math display">\[
+\mathbf{A} = \mathbf{V} \cdot \mathbf{D} \cdot \mathbf{V^{-1}}
+\]</span></p>
+<p>onde <span class="math inline">\(\mathbf{V}\)</span> é uma matriz <span class="math inline">\(n \times n\)</span> cujas colunas são os autovetores de <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(\mathbf{D}\)</span> é uma matriz diagonal de dimensão <span class="math inline">\(n \times n\)</span> contendo os autovalores correspondentes, e <span class="math inline">\(\mathbf{V^{-1}}\)</span> é a matriz inversa de <span class="math inline">\(\mathbf{V}\)</span>. Essa decomposição permite entender como a matriz <span class="math inline">\(\mathbf{A}\)</span> transforma vetores, uma vez que os autovetores representam direções invariantes sob essa transformação, enquanto os autovalores indicam a escala dessa transformação. Em contextos como a Análise de Componentes Principais (PCA), essa estrutura é crucial para identificar e preservar as direções de maior variância nos dados, facilitando a redução de dimensionalidade.</p>
+<p>A decomposição matricial em autovetores e autovalores é definida como:</p>
 <p> </p>
 <p><span class="math display">\[
 \mathbf{A} = \mathbf{V} \cdot \mathbf{D} \cdot \mathbf{V^{-1}}
@@ -573,9 +586,8 @@ Cumulative Proportion  0.9152 1.00000
 </ul>
 </ul>
 <p> </p>
-<ul>
-<li>As matrizes (<em>loadings</em>) e (<em>scores</em>) podem ser obtidas por:</li>
-</ul>
+<p>As matrizes (<em>loadings</em>) e (<em>scores</em>) podem ser obtidas por:</p>
+<p> </p>
 <p><span class="math display">\[
 \mathbf{P} = \mathbf{V}
 \]</span></p>
@@ -583,12 +595,12 @@ Cumulative Proportion  0.9152 1.00000
 <p><span class="math display">\[
 \mathbf{T} = \mathbf{X} \cdot \mathbf{V}
 \]</span></p>
-<p>O algoritmo da implementação de PCA via autovetores e autovalores se constrói como:</p>
 <p> </p>
 <ol start="3" style="list-style-type: decimal">
 <li>o método <strong>NIPALS - Non-linear Iterative Partial Least Squares</strong></li>
 </ol>
 <p>E para um bônus e exibição de domínio técnico! ;-p</p>
+<p> </p>
 <ol start="4" style="list-style-type: decimal">
 <li><strong>PCoA - Principal Coordinates Analysis</strong></li>
 </ol>
