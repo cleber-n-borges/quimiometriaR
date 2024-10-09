@@ -512,16 +512,79 @@ Cumulative Proportion  0.9152 1.00000
 </div>
 <div id="principais-algoritmos" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> Principais Algoritmos<a href="pca---análise-de-componentes-principais.html#principais-algoritmos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Adotando a perpectiva da decomposição matricial, conseguimos estabelecer uma conexão natural para explorar outras decomposições matriciais já existentes e suas interconexões metodológicas. Um exemplo claro disso são os diversos algoritmos utilizados para realizar a PCA, que aproveitam abordagens matemáticas distintas já consolidadas. Cada um desses métodos é uma readaptação que oferece suas particularidades e aplicações específicas, proporcionando vantagens em diferentes contextos e tamanhos de conjuntos de dados.</p>
-<p>Esses algoritmos são, via implementação de:</p>
+<p>Adotando a perpectiva da decomposição matricial, conseguimos estabelecer uma conexão natural para explorar outras decomposições matriciais já existentes e suas interconexões metodológicas. Assim sendo, ao menos os métodos mais usuais utilizados para realizar a PCA aproveitam abordagens matemáticas distintas já consolidadas.</p>
+<p>Cada uma dessas abordagens oferece suas particularidades e aplicações específicas, proporcionando vantagens em diferentes contextos e tamanhos de conjuntos de dados.</p>
+<p>A seguir, apresentamos três formatos diferentes, cada um implementado por meio das seguintes abordagens:</p>
+<p> </p>
 <ol style="list-style-type: decimal">
-<li><strong>Decomposição de Autovetores e Autovalores</strong></li>
-</ol>
-<p>O algoritmo da implementação de PCA via autovetores e autovalores se constrói como:</p>
-<ol start="2" style="list-style-type: decimal">
 <li><strong>Decomposição em Valores Singulares (SVD)</strong></li>
 </ol>
-<p>O algoritmo da implementação de PCA via SVD se constrói como:</p>
+<p>A decomposição matricial:</p>
+<p> </p>
+<p><span class="math display">\[
+\mathbf{X} = \mathbf{U} \cdot \mathbf{D} \cdot \mathbf{V^T}
+\]</span></p>
+<p>       onde:</p>
+<ul>
+<ul>
+<li>
+<span class="math inline">\(\mathbf{U}\)</span> é a matriz de vetores singulares a esquerda
+</li>
+<li>
+<span class="math inline">\(\mathbf{D}\)</span> é a matriz de autovetores singulares (diagonal)
+</li>
+<li>
+<span class="math inline">\(\mathbf{V}\)</span> é a matriz de vetores a direita
+</li>
+</ul>
+</ul>
+<p> </p>
+<ul>
+<li>Com o uso da SVD as matrizes <span class="math inline">\(\mathbf{P}\)</span> (<em>loadings</em>) e <span class="math inline">\(\mathbf{T}\)</span> (<em>scores</em>) podem ser obtidas por:</li>
+</ul>
+<p><span class="math display">\[
+\mathbf{P} = \mathbf{V}
+\]</span></p>
+<p> </p>
+<p><span class="math display">\[
+\mathbf{T} = \mathbf{U} \cdot \mathbf{D}
+\]</span></p>
+<p> </p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Decomposição de Autovetores e Autovalores</strong></li>
+</ol>
+<p>A decomposição matricial:</p>
+<p> </p>
+<p><span class="math display">\[
+\mathbf{A} = \mathbf{V} \cdot \mathbf{D} \cdot \mathbf{V^{-1}}
+\]</span></p>
+<p>       onde:</p>
+<ul>
+<ul>
+<li>
+<span class="math inline">\(\mathbf{A}\)</span> é a matriz (quadrada) de covariância de <span class="math inline">\(\mathbf{X}\)</span>
+</li>
+<li>
+<span class="math inline">\(\mathbf{V}\)</span> é a matriz de autovetores
+</li>
+<li>
+<span class="math inline">\(\mathbf{D}\)</span> é a matriz de autovalores e é diagonal
+</li>
+</ul>
+</ul>
+<p> </p>
+<ul>
+<li>As matrizes (<em>loadings</em>) e (<em>scores</em>) podem ser obtidas por:</li>
+</ul>
+<p><span class="math display">\[
+\mathbf{P} = \mathbf{V}
+\]</span></p>
+<p> </p>
+<p><span class="math display">\[
+\mathbf{T} = \mathbf{X} \cdot \mathbf{V}
+\]</span></p>
+<p>O algoritmo da implementação de PCA via autovetores e autovalores se constrói como:</p>
+<p> </p>
 <ol start="3" style="list-style-type: decimal">
 <li>o método <strong>NIPALS - Non-linear Iterative Partial Least Squares</strong></li>
 </ol>
