@@ -526,7 +526,7 @@ Cumulative Proportion  0.9152 1.00000
 <ul>
 <ul>
 <li>
-<span class="math inline">\(\mathbf{A}\)</span> é a matriz de covariância de <span class="math inline">\(\mathbf{X}\)</span>.
+<span class="math inline">\(\mathbf{A}\)</span> é a matriz de covariância<a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> de <span class="math inline">\(\mathbf{X}\)</span>.
 </li>
 <li>
 <span class="math inline">\(\mathbf{V}\)</span> é uma matriz <span class="math inline">\(m \times m\)</span> cujas colunas são os autovetores. <span class="math inline">\(\mathbf{V^{-1}}\)</span> é a inversa de <span class="math inline">\(\mathbf{V}\)</span>.
@@ -536,7 +536,7 @@ Cumulative Proportion  0.9152 1.00000
 </ul>
 </ul>
 <p> </p>
-<p>As matrizes (<em>loadings</em>) e (<em>scores</em>), da Análise de Componentes Principais (PCA), podem ser obtidas por:</p>
+<p>As matrizes <span class="math inline">\(\mathbf{P}\)</span> (<em>loadings</em>) e <span class="math inline">\(\mathbf{T}\)</span> (<em>scores</em>), da Análise de Componentes Principais (PCA), podem ser obtidas por:</p>
 <p> </p>
 <p><span class="math display">\[
 \mathbf{P} = \mathbf{V}
@@ -546,12 +546,13 @@ Cumulative Proportion  0.9152 1.00000
 \mathbf{T} = \mathbf{X} \cdot \mathbf{V}
 \]</span></p>
 <p> </p>
-<p><strong>Característica</strong>: Exige cálculo explícito tanto de <span class="math inline">\(\mathbf{A} = \mathbf{X^T} \cdot \mathbf{X}\)</span> quanto de <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{V}\)</span> , que são custosas computacionalmente (em conjuntos de dados muito grandes) devido ao número de operação. O que por sua vez, acarreta em maior propagação dos erros inerentes à representação numérica na computação em ponto flutuante<a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a>.</p>
+<p>Uma das características intrísecas a esse método de implementação de PCA é que exige cálculo explícito tanto de <span class="math inline">\(\mathbf{A} = \mathbf{X^T} \cdot \mathbf{X}\)</span> quanto de <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{V}\)</span> , que são custosas computacionalmente (em conjuntos de dados muito grandes) devido ao número de operação. O que por sua vez, acarreta em maior propagação dos erros inerentes à representação numérica na computação em ponto flutuante<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> quanto comparável à implementação a ser mostrada em sequência por SVD.</p>
+<p>No R, existe a função <code>princomp</code> que se utiliza justamente dessa forma de abordagem para PCA. Porém a leitura do manual da função declara que a mesma existe somente por compatibilidade com o <em>software</em> S-PLUS e que deve ser um método preterido. Para saber mais detalhes, digite : <code>?princomp</code> no console do R.</p>
 <p> </p>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Decomposição em Valores Singulares (SVD)</strong></li>
 </ol>
-<p>A Decomposição em Valores Singulares (<em>Singular Value Decomposition - SVD</em>)<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> é uma técnica que fatoriza uma matriz <span class="math inline">\(\mathbf{X}\)</span> de dimensões <span class="math inline">\(n \times m\)</span> em três matrizes:</p>
+<p>A Decomposição em Valores Singulares (<em>Singular Value Decomposition - SVD</em>)<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> é considerada uma generalização da Decomposição Espectral para casos gerais de matrizes retangulares. É uma técnica que fatoriza uma matriz <span class="math inline">\(\mathbf{X}\)</span> de dimensões <span class="math inline">\(n \times m\)</span> em três matrizes:</p>
 <p> </p>
 <p><span class="math display">\[ \mathbf{X} = \mathbf{U} \cdot \mathbf{\Sigma} \cdot \mathbf{V^T} \]</span></p>
 <p>       onde:</p>
@@ -565,7 +566,7 @@ Cumulative Proportion  0.9152 1.00000
 </li>
 <li>
 <p><span class="math inline">\(\mathbf{\Sigma}\)</span> é uma matriz de dimensão <span class="math inline">\(n \times m\)</span> onde os valores singulares estão efetivamente organizados em uma submatriz diagonal <span class="math inline">\(r \times r\)</span>, onde <span class="math inline">\(r\)</span> é o posto da matriz <span class="math inline">\(\mathbf{X}\)</span> (o número de valores singulares não nulos e não-negativos). O valor de <span class="math inline">\(r\)</span> pode ser no máximo igual a <span class="math inline">\(min(n,m)\)</span>. Os valores singulares em <span class="math inline">\(\mathbf{\Sigma}\)</span> indicam a importância das direções representadas pelas colunas de <span class="math inline">\(\mathbf{U}\)</span> e <span class="math inline">\(\mathbf{V}\)</span>.</p>
-<p><strong><span class="math inline">\(\dagger\)</span>Nota</strong>: Uma matriz <span class="math inline">\(\mathbf{M}\)</span> ser ortonormal significa que suas colunas são vetores ortogonais entre si e têm norma unitária<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a>. Isso garante que <span class="math inline">\(\mathbf{M^T} \cdot \mathbf{M} = \mathbf{I}\)</span>, onde <span class="math inline">\(\mathbf{I}\)</span> é a matriz identidade.</p>
+<p><strong><span class="math inline">\(\dagger\)</span>Nota</strong>: Uma matriz <span class="math inline">\(\mathbf{M}\)</span> ser ortonormal significa que suas colunas são vetores ortogonais entre si e têm norma unitária<a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a>. Isso garante que <span class="math inline">\(\mathbf{M^T} \cdot \mathbf{M} = \mathbf{I}\)</span>, onde <span class="math inline">\(\mathbf{I}\)</span> é a matriz identidade.</p>
 </ul>
 </ul>
 <p> </p>
@@ -579,6 +580,7 @@ Cumulative Proportion  0.9152 1.00000
 \mathbf{T} = \mathbf{U} \cdot \mathbf{\Sigma}
 \]</span></p>
 <p> </p>
+<p>No R, existe a função <code>prcomp</code> que implementa PCA via SVD pela melhor precisão númerica conforme relatada no manual. Consulte o manual da função pelo comando: <code>?prcomp</code>.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>o método <strong>NIPALS - Non-linear Iterative Partial Least Squares</strong></li>
 </ol>
@@ -765,7 +767,7 @@ Z = X&#39;W
 <p><strong>Eficiência dos Algoritmos</strong></p>
 <p>O algoritmo de Golub-Reinsch é um dos mais utilizados na prática e considerado eficiente para a maioria das aplicações. Para matrizes muito grandes ou esparsas, métodos baseados em Lanczos ou bidiagonalização tendem a ser mais eficientes.</p>
 <p>A escolha do algoritmo SVD mais eficiente depende do tamanho e da estrutura da matriz que você está tratando, bem como das necessidades específicas da aplicação.</p>
-<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a>, <em>LAPACK</em><a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a>, <em>MKL</em><a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
+<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a>, <em>LAPACK</em><a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a>, <em>MKL</em><a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
 </details>
 
 </div>
@@ -784,12 +786,13 @@ Z = X&#39;W
 <li id="fn52"><p><a href="https://en.wikipedia.org/wiki/Spectral_theorem" class="uri">https://en.wikipedia.org/wiki/Spectral_theorem</a><a href="pca---análise-de-componentes-principais.html#fnref52" class="footnote-back">↩︎</a></p></li>
 <li id="fn53"><p><a href="https://pt.wikipedia.org/wiki/Autovalores_e_autovetores" class="uri">https://pt.wikipedia.org/wiki/Autovalores_e_autovetores</a><a href="pca---análise-de-componentes-principais.html#fnref53" class="footnote-back">↩︎</a></p></li>
 <li id="fn54"><p><a href="https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors" class="uri">https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors</a><a href="pca---análise-de-componentes-principais.html#fnref54" class="footnote-back">↩︎</a></p></li>
-<li id="fn55"><p><a href="https://pt.wikipedia.org/wiki/V%C3%ADrgula_flutuante" class="uri">https://pt.wikipedia.org/wiki/V%C3%ADrgula_flutuante</a><a href="pca---análise-de-componentes-principais.html#fnref55" class="footnote-back">↩︎</a></p></li>
-<li id="fn56"><p><a href="https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares" class="uri">https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares</a><a href="pca---análise-de-componentes-principais.html#fnref56" class="footnote-back">↩︎</a></p></li>
-<li id="fn57"><p><a href="https://pt.wikipedia.org/wiki/Ortonormalidade" class="uri">https://pt.wikipedia.org/wiki/Ortonormalidade</a><a href="pca---análise-de-componentes-principais.html#fnref57" class="footnote-back">↩︎</a></p></li>
-<li id="fn58"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="pca---análise-de-componentes-principais.html#fnref58" class="footnote-back">↩︎</a></p></li>
-<li id="fn59"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="pca---análise-de-componentes-principais.html#fnref59" class="footnote-back">↩︎</a></p></li>
-<li id="fn60"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="pca---análise-de-componentes-principais.html#fnref60" class="footnote-back">↩︎</a></p></li>
+<li id="fn55"><p><a href="https://pt.wikipedia.org/wiki/Covari%C3%A2ncia" class="uri">https://pt.wikipedia.org/wiki/Covari%C3%A2ncia</a><a href="pca---análise-de-componentes-principais.html#fnref55" class="footnote-back">↩︎</a></p></li>
+<li id="fn56"><p><a href="https://pt.wikipedia.org/wiki/V%C3%ADrgula_flutuante" class="uri">https://pt.wikipedia.org/wiki/V%C3%ADrgula_flutuante</a><a href="pca---análise-de-componentes-principais.html#fnref56" class="footnote-back">↩︎</a></p></li>
+<li id="fn57"><p><a href="https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares" class="uri">https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares</a><a href="pca---análise-de-componentes-principais.html#fnref57" class="footnote-back">↩︎</a></p></li>
+<li id="fn58"><p><a href="https://pt.wikipedia.org/wiki/Ortonormalidade" class="uri">https://pt.wikipedia.org/wiki/Ortonormalidade</a><a href="pca---análise-de-componentes-principais.html#fnref58" class="footnote-back">↩︎</a></p></li>
+<li id="fn59"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="pca---análise-de-componentes-principais.html#fnref59" class="footnote-back">↩︎</a></p></li>
+<li id="fn60"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="pca---análise-de-componentes-principais.html#fnref60" class="footnote-back">↩︎</a></p></li>
+<li id="fn61"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="pca---análise-de-componentes-principais.html#fnref61" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
