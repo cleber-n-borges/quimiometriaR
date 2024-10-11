@@ -546,7 +546,7 @@ Cumulative Proportion  0.9152 1.00000
 \mathbf{T} = \mathbf{X} \cdot \mathbf{V}
 \]</span></p>
 <p> </p>
-<p>Uma das características intrísecas a esse método de implementação de PCA é que exige cálculo explícito tanto de <span class="math inline">\(\mathbf{A} = \mathbf{X^T} \cdot \mathbf{X}\)</span> quanto de <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{V}\)</span> , que são custosas computacionalmente (em conjuntos de dados muito grandes) devido ao número de operação. O que por sua vez, acarreta em maior propagação dos erros inerentes à representação numérica na computação em ponto flutuante<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> quanto comparável à implementação a ser mostrada em sequência por SVD.</p>
+<p>Uma das características intrísecas a esse método de implementação de PCA é que exige cálculo explícito tanto de <span class="math inline">\(\mathbf{A} = \mathbf{X^T} \cdot \mathbf{X}\)</span> quanto de <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{V}\)</span> , que são custosas computacionalmente em conjuntos de dados muito grandes (caso das conhecidas ciências “<em>ômicas</em>” e da área de <em>Big Data</em>) devido ao número de operação. O que por sua vez, acarreta em maior propagação dos erros inerentes à representação numérica na computação em ponto flutuante<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> quanto comparável à implementação a ser mostrada em sequência por SVD. Algoritmos que implementam essa decomposição não permitem dados faltantes. Caso exista na matriz de dados, o usuário deve tratar os dados perdidos previamente.</p>
 <p>No R, existe a função <code>princomp</code> que se utiliza justamente dessa forma de abordagem para PCA. Porém a leitura do manual da função declara que a mesma existe somente por compatibilidade com o <em>software</em> S-PLUS e que deve ser um método preterido. Para saber mais detalhes, digite : <code>?princomp</code> no console do R.</p>
 <p> </p>
 <ol start="2" style="list-style-type: decimal">
@@ -580,11 +580,14 @@ Cumulative Proportion  0.9152 1.00000
 \mathbf{T} = \mathbf{U} \cdot \mathbf{\Sigma}
 \]</span></p>
 <p> </p>
-<p>No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser o método de preferência pela melhor precisão numérica conforme relatada no manual e pelo que evidencia as equações. Consulte o manual da função pelo comando: <code>?prcomp</code>.</p>
+<p>Nas implementações da decomposição SVD também não é possível ter dados faltantes. Caso exista na matriz de dados, o usuário deve tratar os dados perdidos previamente.
+No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser o método de preferência pela melhor precisão numérica conforme relatada no manual e pelo que evidencia as equações. Consulte o manual da função pelo comando: <code>?prcomp</code>.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>o método <strong>NIPALS - Non-linear Iterative Partial Least Squares</strong></li>
 </ol>
-<p>E para um bônus e exibição de domínio técnico! ;-p</p>
+<p><strong>Propriedade</strong></p>
+<p>o algoritmo NIPALS permite extrair componentes principais sem necessidade de imputar valores ausentes previamente (desde de que devidamente implementado) sendo uma vantagem significativa em relação a outros métodos que não lidam bem com dados faltantes.</p>
+<p>No R, não há função nativa mas há o método em alguns pacotes. Em especial, vale mencionar o pacote <code>nipals</code> que implementa o algoritmo com opção padrão da execução da ortogonalização de Gram-Schmidt em cada iteração. Isso é necessário pois …</p>
 <p> </p>
 <ol start="4" style="list-style-type: decimal">
 <li><strong>PCoA - Principal Coordinates Analysis</strong></li>
