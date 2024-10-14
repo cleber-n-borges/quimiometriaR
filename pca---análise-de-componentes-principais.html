@@ -555,14 +555,14 @@ Cumulative Proportion  0.9152 1.00000
 <p> </p>
 <p>Uma das características intrísecas a esse método de implementação de PCA é que exige cálculo explícito tanto de <span class="math inline">\(\mathbf{A} = \mathbf{X^T} \cdot \mathbf{X}\)</span> quanto de <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{V}\)</span> , que são custosas computacionalmente em conjuntos de dados muito grandes (caso das conhecidas ciências “<em>ômicas</em>” e da área de <em>Big Data</em>) devido ao número de operação. O que por sua vez, acarreta em maior propagação dos erros inerentes à representação numérica na computação em ponto flutuante<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> quanto comparável à implementação a ser mostrada em sequência por SVD. Algoritmos que implementam essa decomposição não permitem dados faltantes. Caso exista na matriz de dados, o usuário deve tratar os dados perdidos previamente.</p>
 <p>No R, existe a função <code>princomp</code> que se utiliza justamente dessa forma de abordagem para PCA. Porém a leitura do manual da função declara que a mesma existe somente por compatibilidade com o <em>software</em> S-PLUS e que deve ser um método preterido. Para saber mais detalhes, digite : <code>?princomp</code> no console do R.</p>
-<p>O leitor que se sinta satisafeito em saber que, uma vez tendo a solução da Decomposição Espectral da matriz A, de alguma forma, então automaticamente já teremos então a solução de PCA, pode seguir para o próximo algoritmo.</p>
+<p>O leitor que se sintir satisfeito ao saber que, uma vez obtida a solução da Decomposição Espectral da matriz <span class="math inline">\(\mathbf{A}\)</span>, a solução de PCA será automaticamente alcançada, pode pular os detalhes e prosseguir para o próximo algoritmo.</p>
 <p> </p>
 <details>
 <summary>
-😈
+😈 + Detalhes
 </summary>
-<p><br><strong>Solução para a Decomposição Espectral</strong><br><br></p>
-<p>Aqui, para o leitor curioso por ao menos ver um caso de solução, trataremos o exemplo da figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> em mais alguns detalhes.</p>
+<p><br><strong>Uma Solução para a Decomposição Espectral</strong><br><br></p>
+<p>Aqui, para o leitor curioso que deseja acompanhar um exemplo de solução, exploraremos com mais alguns detalhes o caso ilustrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a>.</p>
 <p>Para realizar a Decomposição Espectral podemos seguir os seguintes passos:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Encontrar os autovalores</strong>:
@@ -589,8 +589,8 @@ Cumulative Proportion  0.9152 1.00000
 </ol>
 <p><strong>Observação</strong>: A decomposição espectral é aplicável a matrizes que são diagonalisáveis<a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a></p>
 <p><strong>Exemplo de Resolução Numérica</strong></p>
-<p>Aqui, novamente, vamos fazer uso explicíto do ChatGPT para mostrarmos de como utilizá-lo como ajuda.</p>
-<p>Perguntando ao ChatGPT desde modo:</p>
+<p>Aqui, mais uma vez, faremos uso explícito do ChatGPT para demonstrar como utilizá-lo como ferramenta de suporte.</p>
+<p>Podemos iniciar com uma pergunta ao ChatGPT da seguinte forma:</p>
 <p> </p>
 <hr />
 <p><em>Encontre os autovalores e autovetores para a matriz abaixo:</em></p>
@@ -602,7 +602,7 @@ x2 0.8303746 1.0000000
 <p><em>Use somente elementos de álgebra. Não use funções prontas do R.</em></p>
 <hr />
 <p> </p>
-<p>Tivemos como resposta:</p>
+<p>A resposta fornecida pelo ChatGPT foi a seguinte:</p>
 <p> </p>
 <hr />
 <p>Para encontrar os autovalores e autovetores da matriz de covariância</p>
@@ -755,7 +755,26 @@ v_1 \approx -v_2
 \]</span></p>
 <hr />
 <p>Finalizar com alguns comentários:</p>
-<pre><code>&gt; sqrt( 1.830106 )
+<pre><code>&gt; eigen( cov( X ) )
+eigen() decomposition
+$values
+[1] 1.8303746 0.1696254
+
+$vectors
+          [,1]       [,2]
+[1,] 0.7071068 -0.7071068
+[2,] 0.7071068  0.7071068
+&gt;
+&gt;
+&gt; princomp( X )$loadings
+
+Loadings:
+   Comp.1 Comp.2
+x1  0.707  0.707
+x2  0.707 -0.707
+
+&gt;
+&gt; sqrt( 1.830106 )
 [1] 1.352814
 &gt; sqrt( 0.169894 )
 [1] 0.412182
@@ -765,7 +784,8 @@ v_1 \approx -v_2
 [1] 0.915053
 &gt; 0.169894 / ( 1.830106 + 0.169894 )
 [1] 0.084947
-&gt; </code></pre>
+&gt; 
+</code></pre>
 </details>
 <p> </p>
 <ol start="2" style="list-style-type: decimal">
