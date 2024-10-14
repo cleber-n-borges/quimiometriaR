@@ -609,7 +609,7 @@ x2 0.8303746 1.0000000
 <p><span class="math display">\[
 A = \begin{bmatrix} 1.0000000 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 \end{bmatrix}
 \]</span></p>
-<p>podemos proceder usando métodos da álgebra linear. O primeiro passo é encontrar os autovalores <span class="math inline">\(\lambda\)</span> resolvendo o <strong>polinômio característico</strong>.</p>
+<p>podemos proceder usando métodos da álgebra linear. O primeiro passo é encontrar os autovalores <span class="math inline">\(\lambda\)</span> resolvendo o <strong>polinômio característico</strong><a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a>.</p>
 <p><strong>Passo 1: Determinar o polinômio característico</strong></p>
 <p>O polinômio característico é dado por:</p>
 <p><span class="math display">\[
@@ -651,7 +651,7 @@ A = \begin{bmatrix} 1.0000000 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 \end{
 \lambda^2 - 2.0000000\lambda + 0.3104781 = 0
 \]</span></p>
 <p><strong>Passo 2: Resolver a equação quadrática</strong></p>
-<p>Agora, podemos resolver essa equação quadrática usando a fórmula de Bhaskara:</p>
+<p>Agora, podemos resolver essa equação quadrática usando a fórmula de Bhaskara<a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a>:</p>
 <p><span class="math display">\[
 \lambda = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 \]</span></p>
@@ -710,7 +710,7 @@ v_1 \approx -v_2
 <li>Para <span class="math inline">\(\lambda_2\)</span>: <span class="math inline">\(v_2 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}\)</span></li>
 </ul></li>
 </ul>
-<p><strong>Passo 4: Normalizar os autovetores</strong></p>
+<p><strong>Passo 4: Normalizar os autovetores<a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a></strong></p>
 <p>Para normalizar os autovetores, devemos dividir cada autovetor pela sua norma (ou módulo). A norma de um vetor <span class="math inline">\(\mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix}\)</span> é dada por:</p>
 <p><span class="math display">\[
 \|\mathbf{v}\| = \sqrt{v_1^2 + v_2^2}
@@ -791,7 +791,7 @@ x2  0.707 -0.707
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Decomposição em Valores Singulares (SVD)</strong></li>
 </ol>
-<p>A Decomposição em Valores Singulares (<em>Singular Value Decomposition - SVD</em>)<a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a> é considerada uma generalização da Decomposição Espectral para casos gerais de matrizes retangulares. É uma técnica que fatoriza uma matriz <span class="math inline">\(\mathbf{X}\)</span> de dimensões <span class="math inline">\(n \times m\)</span> em três matrizes:</p>
+<p>A Decomposição em Valores Singulares (<em>Singular Value Decomposition - SVD</em>)<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a> é considerada uma generalização da Decomposição Espectral para casos gerais de matrizes retangulares. É uma técnica que fatoriza uma matriz <span class="math inline">\(\mathbf{X}\)</span> de dimensões <span class="math inline">\(n \times m\)</span> em três matrizes:</p>
 <p> </p>
 <p><span class="math display">\[ \mathbf{X} = \mathbf{U} \cdot \mathbf{\Sigma} \cdot \mathbf{V^T} \]</span></p>
 <p>       onde:</p>
@@ -805,7 +805,7 @@ x2  0.707 -0.707
 </li>
 <li>
 <p><span class="math inline">\(\mathbf{\Sigma}\)</span> é uma matriz de dimensão <span class="math inline">\(n \times m\)</span> onde os valores singulares estão efetivamente organizados em uma submatriz diagonal <span class="math inline">\(r \times r\)</span>, onde <span class="math inline">\(r\)</span> é o posto da matriz <span class="math inline">\(\mathbf{X}\)</span> (o número de valores singulares não nulos e não-negativos). O valor de <span class="math inline">\(r\)</span> pode ser no máximo igual a <span class="math inline">\(min(n,m)\)</span>. Os valores singulares em <span class="math inline">\(\mathbf{\Sigma}\)</span> indicam a importância das direções representadas pelas colunas de <span class="math inline">\(\mathbf{U}\)</span> e <span class="math inline">\(\mathbf{V}\)</span>.</p>
-<p><strong><span class="math inline">\(\dagger\)</span>Nota</strong>: Uma matriz <span class="math inline">\(\mathbf{M}\)</span> ser ortonormal significa que suas colunas são vetores ortogonais entre si e têm norma unitária<a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a>. Isso garante que <span class="math inline">\(\mathbf{M^T} \cdot \mathbf{M} = \mathbf{I}\)</span>, onde <span class="math inline">\(\mathbf{I}\)</span> é a matriz identidade.</p>
+<p><strong><span class="math inline">\(\dagger\)</span>Nota</strong>: Uma matriz <span class="math inline">\(\mathbf{M}\)</span> ser ortonormal significa que suas colunas são vetores ortogonais entre si e têm norma unitária<a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a>. Isso garante que <span class="math inline">\(\mathbf{M^T} \cdot \mathbf{M} = \mathbf{I}\)</span>, onde <span class="math inline">\(\mathbf{I}\)</span> é a matriz identidade.</p>
 </ul>
 </ul>
 <p> </p>
@@ -1011,7 +1011,7 @@ Z = X&#39;W
 <p><strong>Eficiência dos Algoritmos</strong></p>
 <p>O algoritmo de Golub-Reinsch é um dos mais utilizados na prática e considerado eficiente para a maioria das aplicações. Para matrizes muito grandes ou esparsas, métodos baseados em Lanczos ou bidiagonalização tendem a ser mais eficientes.</p>
 <p>A escolha do algoritmo SVD mais eficiente depende do tamanho e da estrutura da matriz que você está tratando, bem como das necessidades específicas da aplicação.</p>
-<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a>, <em>LAPACK</em><a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a>, <em>MKL</em><a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
+<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a>, <em>LAPACK</em><a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a>, <em>MKL</em><a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
 </details>
 
 </div>
@@ -1034,11 +1034,14 @@ Z = X&#39;W
 <li id="fn56"><p><a href="https://pt.wikipedia.org/wiki/V%C3%ADrgula_flutuante" class="uri">https://pt.wikipedia.org/wiki/V%C3%ADrgula_flutuante</a><a href="pca---análise-de-componentes-principais.html#fnref56" class="footnote-back">↩︎</a></p></li>
 <li id="fn57"><p><a href="https://pt.wikipedia.org/wiki/Determinante" class="uri">https://pt.wikipedia.org/wiki/Determinante</a><a href="pca---análise-de-componentes-principais.html#fnref57" class="footnote-back">↩︎</a></p></li>
 <li id="fn58"><p><a href="https://pt.wikipedia.org/wiki/Matriz_diagonaliz%C3%A1vel" class="uri">https://pt.wikipedia.org/wiki/Matriz_diagonaliz%C3%A1vel</a><a href="pca---análise-de-componentes-principais.html#fnref58" class="footnote-back">↩︎</a></p></li>
-<li id="fn59"><p><a href="https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares" class="uri">https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares</a><a href="pca---análise-de-componentes-principais.html#fnref59" class="footnote-back">↩︎</a></p></li>
-<li id="fn60"><p><a href="https://pt.wikipedia.org/wiki/Ortonormalidade" class="uri">https://pt.wikipedia.org/wiki/Ortonormalidade</a><a href="pca---análise-de-componentes-principais.html#fnref60" class="footnote-back">↩︎</a></p></li>
-<li id="fn61"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="pca---análise-de-componentes-principais.html#fnref61" class="footnote-back">↩︎</a></p></li>
-<li id="fn62"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="pca---análise-de-componentes-principais.html#fnref62" class="footnote-back">↩︎</a></p></li>
-<li id="fn63"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="pca---análise-de-componentes-principais.html#fnref63" class="footnote-back">↩︎</a></p></li>
+<li id="fn59"><p><a href="https://pt.wikipedia.org/wiki/Polin%C3%B4mio_caracter%C3%ADstico" class="uri">https://pt.wikipedia.org/wiki/Polin%C3%B4mio_caracter%C3%ADstico</a><a href="pca---análise-de-componentes-principais.html#fnref59" class="footnote-back">↩︎</a></p></li>
+<li id="fn60"><p><a href="https://pt.wikipedia.org/wiki/F%C3%B3rmula_quadr%C3%A1tica" class="uri">https://pt.wikipedia.org/wiki/F%C3%B3rmula_quadr%C3%A1tica</a><a href="pca---análise-de-componentes-principais.html#fnref60" class="footnote-back">↩︎</a></p></li>
+<li id="fn61"><p><a href="https://pt.wikipedia.org/wiki/Norma_(matem%C3%A1tica)" class="uri">https://pt.wikipedia.org/wiki/Norma_(matem%C3%A1tica)</a><a href="pca---análise-de-componentes-principais.html#fnref61" class="footnote-back">↩︎</a></p></li>
+<li id="fn62"><p><a href="https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares" class="uri">https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares</a><a href="pca---análise-de-componentes-principais.html#fnref62" class="footnote-back">↩︎</a></p></li>
+<li id="fn63"><p><a href="https://pt.wikipedia.org/wiki/Ortonormalidade" class="uri">https://pt.wikipedia.org/wiki/Ortonormalidade</a><a href="pca---análise-de-componentes-principais.html#fnref63" class="footnote-back">↩︎</a></p></li>
+<li id="fn64"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="pca---análise-de-componentes-principais.html#fnref64" class="footnote-back">↩︎</a></p></li>
+<li id="fn65"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="pca---análise-de-componentes-principais.html#fnref65" class="footnote-back">↩︎</a></p></li>
+<li id="fn66"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="pca---análise-de-componentes-principais.html#fnref66" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
