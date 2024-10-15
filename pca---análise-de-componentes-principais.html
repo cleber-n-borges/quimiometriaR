@@ -614,9 +614,9 @@ A = \begin{bmatrix} 1.0000000 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 \end{
 <p><strong>Passo 1: Determinar o polinômio característico</strong></p>
 <p>O polinômio característico é dado por:</p>
 <p><span class="math display">\[
-\text{det}(A - \lambda I) = 0
+\text{det}( \mathbf{A} - \lambda \mathbf{I}) = 0
 \]</span></p>
-<p>onde <span class="math inline">\(I\)</span> é a matriz identidade de mesma ordem que <span class="math inline">\(A\)</span>, e <span class="math inline">\(\lambda\)</span> são os autovalores. Assim, temos:</p>
+<p>onde <span class="math inline">\(\mathbf{I}\)</span> é a matriz identidade de mesma ordem que <span class="math inline">\(\mathbf{A}\)</span>, e <span class="math inline">\(\lambda\)</span> são os autovalores. Assim, temos:</p>
 <p><span class="math display">\[
 \text{det} \left( \begin{bmatrix} 1.0000000 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 \end{bmatrix} - \lambda \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix} \right) = 0
 \]</span></p>
@@ -628,7 +628,7 @@ A = \begin{bmatrix} 1.0000000 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 \end{
 <p><span class="math display">\[
 \text{det}(A) = (a_{11} \cdot a_{22}) - (a_{12} \cdot a_{21})
 \]</span></p>
-<p>Aplicando isso à matriz <span class="math inline">\(A - \lambda I\)</span>:</p>
+<p>Aplicando isso à matriz <span class="math inline">\(\mathbf{A} - \lambda \mathbf{I}\)</span>:</p>
 <p><span class="math display">\[
 (1.0000000 - \lambda)(1.0000000 - \lambda) - (0.8303746 \cdot 0.8303746) = 0
 \]</span></p>
@@ -647,7 +647,7 @@ A = \begin{bmatrix} 1.0000000 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 \end{
 <p><span class="math display">\[
 1 - 2.0000000\lambda + \lambda^2 - 0.6895219 = 0
 \]</span></p>
-<p>Simplifique:</p>
+<p>Simplifique para chegar na forma canônica do <strong>polinômio característico</strong>:</p>
 <p><span class="math display">\[
 \lambda^2 - 2.0000000\lambda + 0.3104781 = 0
 \]</span></p>
@@ -677,7 +677,7 @@ A = \begin{bmatrix} 1.0000000 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 \end{
 <p><strong>Passo 3: Encontrar os autovetores</strong></p>
 <p>Agora que temos os autovalores <span class="math inline">\(\lambda_1 = 1.830106\)</span> e <span class="math inline">\(\lambda_2 = 0.169894\)</span>, podemos encontrar os autovetores resolvendo o sistema <span class="math inline">\((A - \lambda I)v = 0\)</span> para cada autovalor.</p>
 <p><strong>Para <span class="math inline">\(\lambda_1 = 1.830106\)</span>:</strong></p>
-<p>A equação <span class="math inline">\((A - \lambda_1 I)v = 0\)</span> é:</p>
+<p>A equação <span class="math inline">\(( \mathbf{A} - \lambda_1 \mathbf{I})\mathbf{v} = 0\)</span> é:</p>
 <p><span class="math display">\[
 \begin{bmatrix} 1.0000000 - 1.830106 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 - 1.830106 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = 0
 \]</span></p>
@@ -756,6 +756,10 @@ v_1 \approx -v_2
 \]</span></p>
 <hr />
 <p>Finalizar com alguns comentários:</p>
+<p><strong>Não assuma que o resultado dado pelo ChatGPT esteja correto!</strong></p>
+<p>O resultado servirá como um guia de estudo e quase sempre vai demandar de ajustes…</p>
+<p>A procura pelos ajustes será um ótimo exercício para aprendizado!</p>
+<p>Confira o resultado e vá lapidando onde contenha erros</p>
 <pre><code>&gt; eigen( cov( X ) )
 eigen() decomposition
 $values
