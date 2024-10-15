@@ -845,51 +845,59 @@ x2  0.707 -0.707
 <p>Nas implementações da decomposição SVD também não é possível ter dados faltantes. Caso exista na matriz de dados, o usuário deve tratar os dados perdidos previamente.
 No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser o método de preferência pela melhor precisão numérica conforme relatada no manual e pelo que evidencia as equações. Consulte o manual da função pelo comando: <code>?prcomp</code>.</p>
 <p> </p>
-<p> </p>
 <details>
 <summary>
-😈 + Detalhes
+😈 + Detalhes 1
 </summary>
-<h4>
-Conceitualmente pode e é legal… Numericamente seria um desastre!!!!
-</h4>
-<p>A decomposição SVD (Singular Value Decomposition) de uma matriz é uma técnica poderosa em álgebra linear. Aqui estão os passos para realizá-la:</p>
+<p> </p>
+<p><strong>Relação entre as decomposições SVD e Espectral</strong></p>
+<p>Conforme já mencionado, a decomposição SVD pode ser vista como uma generalização da Decomposição Espectral para matrizes retangulares. Para entender a SVD, podemos conceitualmente derivá-la a partir da Decomposição Espectral, aplicando-a de maneira adequada às matrizes que não são quadradas.</p>
+<p> </p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Defina a matriz</strong>: Considere uma matriz <span class="math inline">\(A\)</span> de tamanho <span class="math inline">\(m \times n\)</span>.</p></li>
-<li><p><strong>Calcule <span class="math inline">\(A^T A\)</span> e <span class="math inline">\(AA^T\)</span></strong>:</p>
+<li><strong>Defina a matriz de dados</strong>:
 <ul>
-<li>Compute <span class="math inline">\(A^T A\)</span> (matriz <span class="math inline">\(n \times n\)</span>) e <span class="math inline">\(AA^T\)</span> (matriz <span class="math inline">\(m \times m\)</span>).</li>
+<li>Considere uma matriz <span class="math inline">\(\mathbf{X}\)</span> de tamanho <span class="math inline">\(n \times m\)</span>.</li>
 </ul></li>
-<li><p><strong>Encontre os autovalores</strong>:</p>
+<li><strong>Calcule <span class="math inline">\(\mathbf{X^TX}\)</span> e <span class="math inline">\(\mathbf{XX^T}\)</span></strong>:
 <ul>
-<li>Calcule os autovalores de <span class="math inline">\(A^T A\)</span> e <span class="math inline">\(AA^T\)</span>. Os autovalores não negativos de <span class="math inline">\(A^T A\)</span> são os quadrados dos valores singulares de <span class="math inline">\(A\)</span>.</li>
+<li>Compute <span class="math inline">\(\mathbf{X^TX}\)</span> (matriz <span class="math inline">\(m \times m\)</span>) e <span class="math inline">\(\mathbf{XX^T}\)</span> (matriz <span class="math inline">\(n \times n\)</span>).</li>
 </ul></li>
-<li><p><strong>Calcule os vetores próprios</strong>:</p>
+<li><strong>Encontre os autovalores</strong>:
 <ul>
-<li>Encontre os vetores próprios correspondentes aos autovalores de <span class="math inline">\(A^T A\)</span> (que formarão a matriz <span class="math inline">\(V\)</span>) e de <span class="math inline">\(AA^T\)</span> (que formarão a matriz <span class="math inline">\(U\)</span>).</li>
+<li>Calcule os autovalores de <span class="math inline">\(\mathbf{X^TX}\)</span> e <span class="math inline">\(\mathbf{XX^T}\)</span>.</li>
+<li>Os autovalores não negativos de <span class="math inline">\(\mathbf{X^TX}\)</span> são os quadrados dos valores singulares de <span class="math inline">\(\mathbf{X}\)</span>.</li>
 </ul></li>
-<li><p><strong>Organize os valores singulares</strong>:</p>
+<li><strong>Calcule os vetores próprios</strong>:
 <ul>
-<li>Os valores singulares <span class="math inline">\(\sigma_i\)</span> são as raízes quadradas dos autovalores. Organize-os em ordem decrescente.</li>
+<li>Encontre os vetores próprios correspondentes aos autovalores de:
+<ul>
+<li><span class="math inline">\(\mathbf{X^TX}\)</span> (que formarão a matriz <span class="math inline">\(\mathbf{V}\)</span>) e de;</li>
+<li><span class="math inline">\(\mathbf{XX^T}\)</span> (que formarão a matriz <span class="math inline">\(\mathbf{U}\)</span>).</li>
 </ul></li>
-<li><p><strong>Construa as matrizes <span class="math inline">\(U\)</span>, <span class="math inline">\(\Sigma\)</span> e <span class="math inline">\(V\)</span></strong>:</p>
-<ul>
-<li><span class="math inline">\(U\)</span> é formado pelos vetores próprios de <span class="math inline">\(AA^T\)</span>.</li>
-<li><span class="math inline">\(V\)</span> é formado pelos vetores próprios de <span class="math inline">\(A^T A\)</span>.</li>
-<li><span class="math inline">\(\Sigma\)</span> é uma matriz diagonal onde os valores singulares <span class="math inline">\(\sigma_i\)</span> estão dispostos na diagonal.</li>
 </ul></li>
-<li><p><strong>Monte a decomposição</strong>:</p>
+<li><strong>Organize os valores singulares</strong>:
 <ul>
-<li>A decomposição SVD é dada por <span class="math inline">\(A = U \Sigma V^T\)</span>.</li>
+<li>Os valores singulares <span class="math inline">\(\sigma_i\)</span> são as raízes quadradas dos autovalores.</li>
+<li>Organize-os em ordem decrescente.</li>
 </ul></li>
-<li><p><strong>Verifique a decomposição</strong>:</p>
+<li><strong>Construa as matrizes <span class="math inline">\(\mathbf{U}\)</span>, <span class="math inline">\(\mathbf{\Sigma}\)</span> e <span class="math inline">\(\mathbf{V}\)</span></strong>:
 <ul>
-<li>Multiplique as matrizes <span class="math inline">\(U\)</span>, <span class="math inline">\(\Sigma\)</span> e <span class="math inline">\(V^T\)</span> para garantir que você retorna à matriz original <span class="math inline">\(A\)</span>.</li>
+<li><span class="math inline">\(\mathbf{U}\)</span> é formado pelos vetores próprios de <span class="math inline">\(\mathbf{XX^T}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{V}\)</span> é formado pelos vetores próprios de <span class="math inline">\(\mathbf{X^TX}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{\Sigma}\)</span> é uma matriz diagonal onde os valores singulares <span class="math inline">\(\sigma_i\)</span> estão dispostos na diagonal.</li>
+</ul></li>
+<li><strong>Monte a decomposição</strong>:
+<ul>
+<li>A decomposição SVD é dada por <span class="math inline">\(\mathbf{A} = \mathbf{U \Sigma V^T}\)</span>.</li>
+</ul></li>
+<li><strong>Verifique a decomposição</strong>:
+<ul>
+<li>Multiplique as matrizes <span class="math inline">\(\mathbf{U}\)</span>, <span class="math inline">\(\mathbf{\Sigma}\)</span> e <span class="math inline">\(\mathbf{V^T}\)</span> para garantir que você retorna à matriz original <span class="math inline">\(\mathbf{X}\)</span>.</li>
 </ul></li>
 </ol>
-<p>Esses passos proporcionam a decomposição SVD de uma matriz, útil em diversas aplicações, como compressão de dados e redução de dimensionalidade.</p>
-</details>
 <p> </p>
+<p>Entretanto, essa relação deve ser vista apenas como uma ferramenta de compreensão, e não deve ser utilizada para a implementação numérica, especialmente em matrizes de grandes dimensões.</p>
+</details>
 <p> </p>
 <ol start="3" style="list-style-type: decimal">
 <li>o método <strong>NIPALS - Non-linear Iterative Partial Least Squares</strong></li>
@@ -908,51 +916,6 @@ Conceitualmente pode e é legal… Numericamente seria um desastre!!!!
 <p> </p>
 <p> </p>
 <p> </p>
-<p><strong>EXERCÍCIO para entender resolução númerica</strong></p>
-<p>Desenvolvimento das equações de PCA, incluindo como obter <span class="math inline">\(W\)</span> de forma explícita:</p>
-<p>1a. <strong>Centralização dos dados:</strong>
-<span class="math display">\[
-   X&#39; = X - \mu
-   \]</span>
-onde <span class="math inline">\(\mu\)</span> é o vetor das médias de cada coluna de <span class="math inline">\(X\)</span>.</p>
-<p>Passo a passo para extrair os autovetores correspondentes aos autovalores para formar a matriz <span class="math inline">\(W\)</span>:</p>
-<p>1b. <strong>Cálculo da matriz de covariância:</strong>
-<span class="math display">\[
-   C = \frac{1}{n-1} X&#39;^{T} X&#39;
-   \]</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li><strong>Resolução da equação característica:</strong>
-<ul>
-<li>Calcule os autovalores <span class="math inline">\(\lambda\)</span> resolvendo:
-<span class="math display">\[
-\text{det}(C - \lambda I) = 0
-\]</span>
-Isso lhe dará uma lista de autovalores.</li>
-</ul></li>
-<li><strong>Cálculo dos autovetores:</strong>
-<ul>
-<li>Para cada autovalor <span class="math inline">\(\lambda_i\)</span>, resolva o sistema:
-<span class="math display">\[
-(C - \lambda_i I) \mathbf{v}_i = 0
-\]</span>
-onde <span class="math inline">\(\mathbf{v}_i\)</span> é o autovetor correspondente a <span class="math inline">\(\lambda_i\)</span>.</li>
-<li>Este sistema pode ser resolvido usando métodos como eliminação gaussiana ou decomposição de valores singulares (SVD).</li>
-</ul></li>
-<li><strong>Formação da matriz <span class="math inline">\(W\)</span>:</strong>
-<ul>
-<li>Organize os autovalores <span class="math inline">\(\lambda_i\)</span> em ordem decrescente.</li>
-<li>Extraia os autovetores correspondentes a esses autovalores e os coloque em colunas para formar a matriz <span class="math inline">\(W\)</span>:
-<span class="math display">\[
-W = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_k]
-\]</span>
-onde <span class="math inline">\(k\)</span> é o número de componentes principais que você deseja manter.</li>
-</ul></li>
-<li><strong>Projeção dos dados:</strong>
-<span class="math display">\[
-Z = X&#39;W
-\]</span></li>
-</ol>
-<p>Esse processo permite que você extraia os autovetores e construa a matriz <span class="math inline">\(W\)</span> para a Análise de Componentes Principais (PCA).</p>
 </div>
 </div>
 <div id="variância-por-pc" class="section level2 hasAnchor" number="6.6">
