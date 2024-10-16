@@ -840,7 +840,7 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <p> </p>
 <details>
 <summary>
-😈 + Detalhes 1
+😈 + Detalhes
 </summary>
 <p> </p>
 <p><strong>Relação entre as decomposições SVD e Espectral</strong></p>
@@ -890,6 +890,37 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 </ol>
 <p> </p>
 <p>Entretanto, essa relação deve ser vista apenas como uma ferramenta de compreensão, e não deve ser utilizada para a implementação numérica, especialmente em matrizes de grandes dimensões.</p>
+<p> </p>
+<p><strong>Verificação Numérica da Equivalência</strong></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="pca---análise-de-componentes-principais.html#cb39-1" tabindex="-1"></a><span class="co"># Criar uma matriz de exemplo X</span></span>
+<span id="cb39-2"><a href="pca---análise-de-componentes-principais.html#cb39-2" tabindex="-1"></a><span class="fu">set.seed</span>( <span class="dv">42</span> )</span>
+<span id="cb39-3"><a href="pca---análise-de-componentes-principais.html#cb39-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb39-4"><a href="pca---análise-de-componentes-principais.html#cb39-4" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb39-5"><a href="pca---análise-de-componentes-principais.html#cb39-5" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">round</span>( <span class="fu">matrix</span>( <span class="fu">rnorm</span>( n<span class="sc">*</span>m ), n, m ), <span class="dv">2</span> )</span>
+<span id="cb39-6"><a href="pca---análise-de-componentes-principais.html#cb39-6" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="pca---análise-de-componentes-principais.html#cb39-7" tabindex="-1"></a><span class="co"># Calcula a SVD de X</span></span>
+<span id="cb39-8"><a href="pca---análise-de-componentes-principais.html#cb39-8" tabindex="-1"></a>svd_decomp <span class="ot">&lt;-</span> <span class="fu">La.svd</span>( X )</span>
+<span id="cb39-9"><a href="pca---análise-de-componentes-principais.html#cb39-9" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="pca---análise-de-componentes-principais.html#cb39-10" tabindex="-1"></a><span class="co"># Calcular X^T X e XX^T</span></span>
+<span id="cb39-11"><a href="pca---análise-de-componentes-principais.html#cb39-11" tabindex="-1"></a>XtX <span class="ot">&lt;-</span> <span class="fu">crossprod</span>( X )</span>
+<span id="cb39-12"><a href="pca---análise-de-componentes-principais.html#cb39-12" tabindex="-1"></a>XXt <span class="ot">&lt;-</span> <span class="fu">tcrossprod</span>( X )</span>
+<span id="cb39-13"><a href="pca---análise-de-componentes-principais.html#cb39-13" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="pca---análise-de-componentes-principais.html#cb39-14" tabindex="-1"></a><span class="co"># Matriz U via eigen()</span></span>
+<span id="cb39-15"><a href="pca---análise-de-componentes-principais.html#cb39-15" tabindex="-1"></a>U <span class="ot">&lt;-</span> <span class="fu">eigen</span>(XXt)<span class="sc">$</span>vectors</span>
+<span id="cb39-16"><a href="pca---análise-de-componentes-principais.html#cb39-16" tabindex="-1"></a>U <span class="ot">&lt;-</span> <span class="fu">abs</span>( U ) <span class="sc">*</span> <span class="fu">sign</span>( svd_decomp<span class="sc">$</span>u )</span>
+<span id="cb39-17"><a href="pca---análise-de-componentes-principais.html#cb39-17" tabindex="-1"></a></span>
+<span id="cb39-18"><a href="pca---análise-de-componentes-principais.html#cb39-18" tabindex="-1"></a><span class="co"># Matriz V via eigen()</span></span>
+<span id="cb39-19"><a href="pca---análise-de-componentes-principais.html#cb39-19" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">eigen</span>(XtX)<span class="sc">$</span>vectors</span>
+<span id="cb39-20"><a href="pca---análise-de-componentes-principais.html#cb39-20" tabindex="-1"></a>V[, <span class="dv">1</span><span class="sc">:</span>n ] <span class="ot">&lt;-</span> <span class="fu">abs</span>( V[, <span class="dv">1</span><span class="sc">:</span>n ] ) <span class="sc">*</span> <span class="fu">sign</span>( <span class="fu">t</span>( svd_decomp<span class="sc">$</span>vt ) )</span>
+<span id="cb39-21"><a href="pca---análise-de-componentes-principais.html#cb39-21" tabindex="-1"></a></span>
+<span id="cb39-22"><a href="pca---análise-de-componentes-principais.html#cb39-22" tabindex="-1"></a><span class="co"># Matriz Sigma via eigen()</span></span>
+<span id="cb39-23"><a href="pca---análise-de-componentes-principais.html#cb39-23" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="dv">0</span>, n, m )</span>
+<span id="cb39-24"><a href="pca---análise-de-componentes-principais.html#cb39-24" tabindex="-1"></a><span class="fu">diag</span>(Sigma) <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">round</span>(<span class="fu">eigen</span>(XtX)<span class="sc">$</span>values,<span class="dv">12</span>))[ <span class="dv">1</span><span class="sc">:</span>n ]</span>
+<span id="cb39-25"><a href="pca---análise-de-componentes-principais.html#cb39-25" tabindex="-1"></a></span>
+<span id="cb39-26"><a href="pca---análise-de-componentes-principais.html#cb39-26" tabindex="-1"></a><span class="co">#Compara ( U %*% Sigma %*% t(V) ) com X</span></span>
+<span id="cb39-27"><a href="pca---análise-de-componentes-principais.html#cb39-27" tabindex="-1"></a><span class="fu">all.equal</span>( ( U <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> <span class="fu">t</span>(V) ), X  )</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Desde que o resultado final seja <strong>TRUE</strong>, fica também demonstrado numericamente a equivalência entre a Decomposição Espectral e a Decomposição SVD.</p>
 <center>
 △
 </center>
@@ -952,93 +983,93 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 </summary>
 <p><br><strong>O algoritmo apresentado abaixo é apenas uma possibilidade dentre vários</strong><br><br></p>
 <p>O método de Jacobi é uma abordagem iterativa que pode ser aplicada à SVD, embora não seja a mais eficiente para matrizes grandes. É apresentado para incentivar o conhecimento de se ter ao menos uma alternativa de resolução do problema com apenas conceitos básicos de álgebra. Ou seja, sem o uso de funções prontas e abordagem <strong>caixa-preta</strong>.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="pca---análise-de-componentes-principais.html#cb40-1" tabindex="-1"></a><span class="co"># Função para calcular SVD usando o método de Jacobi</span></span>
-<span id="cb40-2"><a href="pca---análise-de-componentes-principais.html#cb40-2" tabindex="-1"></a>jacobi_svd <span class="ot">&lt;-</span> <span class="cf">function</span>(A, <span class="at">tol =</span> <span class="fl">1e-10</span>, <span class="at">max_iter =</span> <span class="dv">100</span>) {</span>
-<span id="cb40-3"><a href="pca---análise-de-componentes-principais.html#cb40-3" tabindex="-1"></a>  <span class="co"># Inicialização</span></span>
-<span id="cb40-4"><a href="pca---análise-de-componentes-principais.html#cb40-4" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(A)</span>
-<span id="cb40-5"><a href="pca---análise-de-componentes-principais.html#cb40-5" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">ncol</span>(A)</span>
-<span id="cb40-6"><a href="pca---análise-de-componentes-principais.html#cb40-6" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
-<span id="cb40-7"><a href="pca---análise-de-componentes-principais.html#cb40-7" tabindex="-1"></a>  V <span class="ot">&lt;-</span> <span class="fu">diag</span>(m)</span>
-<span id="cb40-8"><a href="pca---análise-de-componentes-principais.html#cb40-8" tabindex="-1"></a>  </span>
-<span id="cb40-9"><a href="pca---análise-de-componentes-principais.html#cb40-9" tabindex="-1"></a>  <span class="co"># Calcular A^T A</span></span>
-<span id="cb40-10"><a href="pca---análise-de-componentes-principais.html#cb40-10" tabindex="-1"></a>  ATA <span class="ot">&lt;-</span> <span class="fu">t</span>(A) <span class="sc">%*%</span> A</span>
-<span id="cb40-11"><a href="pca---análise-de-componentes-principais.html#cb40-11" tabindex="-1"></a>  </span>
-<span id="cb40-12"><a href="pca---análise-de-componentes-principais.html#cb40-12" tabindex="-1"></a>  <span class="co"># Iterações de Jacobi</span></span>
-<span id="cb40-13"><a href="pca---análise-de-componentes-principais.html#cb40-13" tabindex="-1"></a>  <span class="cf">for</span> (iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_iter) {</span>
-<span id="cb40-14"><a href="pca---análise-de-componentes-principais.html#cb40-14" tabindex="-1"></a>    <span class="co"># Encontrar o maior elemento fora da diagonal</span></span>
-<span id="cb40-15"><a href="pca---análise-de-componentes-principais.html#cb40-15" tabindex="-1"></a>    off_diag <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(ATA) <span class="sc">&gt;</span> tol, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-16"><a href="pca---análise-de-componentes-principais.html#cb40-16" tabindex="-1"></a>    off_diag <span class="ot">&lt;-</span> off_diag[off_diag[, <span class="dv">1</span>] <span class="sc">!=</span> off_diag[, <span class="dv">2</span>], ]</span>
-<span id="cb40-17"><a href="pca---análise-de-componentes-principais.html#cb40-17" tabindex="-1"></a>    </span>
-<span id="cb40-18"><a href="pca---análise-de-componentes-principais.html#cb40-18" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(off_diag) <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb40-19"><a href="pca---análise-de-componentes-principais.html#cb40-19" tabindex="-1"></a>      <span class="cf">break</span>  <span class="co"># Convergido</span></span>
-<span id="cb40-20"><a href="pca---análise-de-componentes-principais.html#cb40-20" tabindex="-1"></a>    }</span>
-<span id="cb40-21"><a href="pca---análise-de-componentes-principais.html#cb40-21" tabindex="-1"></a>    </span>
-<span id="cb40-22"><a href="pca---análise-de-componentes-principais.html#cb40-22" tabindex="-1"></a>    <span class="co"># Selecionar o primeiro elemento fora da diagonal</span></span>
-<span id="cb40-23"><a href="pca---análise-de-componentes-principais.html#cb40-23" tabindex="-1"></a>    p <span class="ot">&lt;-</span> off_diag[<span class="dv">1</span>, <span class="dv">1</span>]</span>
-<span id="cb40-24"><a href="pca---análise-de-componentes-principais.html#cb40-24" tabindex="-1"></a>    q <span class="ot">&lt;-</span> off_diag[<span class="dv">1</span>, <span class="dv">2</span>]</span>
-<span id="cb40-25"><a href="pca---análise-de-componentes-principais.html#cb40-25" tabindex="-1"></a>    </span>
-<span id="cb40-26"><a href="pca---análise-de-componentes-principais.html#cb40-26" tabindex="-1"></a>    <span class="co"># Cálculo dos ângulos de rotação</span></span>
-<span id="cb40-27"><a href="pca---análise-de-componentes-principais.html#cb40-27" tabindex="-1"></a>    <span class="cf">if</span> (ATA[p, p] <span class="sc">==</span> ATA[q, q]) {</span>
-<span id="cb40-28"><a href="pca---análise-de-componentes-principais.html#cb40-28" tabindex="-1"></a>      theta <span class="ot">&lt;-</span> pi <span class="sc">/</span> <span class="dv">4</span></span>
-<span id="cb40-29"><a href="pca---análise-de-componentes-principais.html#cb40-29" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb40-30"><a href="pca---análise-de-componentes-principais.html#cb40-30" tabindex="-1"></a>      theta <span class="ot">&lt;-</span> <span class="fu">atan</span>(<span class="dv">2</span> <span class="sc">*</span> ATA[p, q] <span class="sc">/</span> (ATA[p, p] <span class="sc">-</span> ATA[q, q])) <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb40-31"><a href="pca---análise-de-componentes-principais.html#cb40-31" tabindex="-1"></a>    }</span>
-<span id="cb40-32"><a href="pca---análise-de-componentes-principais.html#cb40-32" tabindex="-1"></a>    </span>
-<span id="cb40-33"><a href="pca---análise-de-componentes-principais.html#cb40-33" tabindex="-1"></a>    <span class="co"># Matriz de rotação</span></span>
-<span id="cb40-34"><a href="pca---análise-de-componentes-principais.html#cb40-34" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="fu">cos</span>(theta)</span>
-<span id="cb40-35"><a href="pca---análise-de-componentes-principais.html#cb40-35" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="fu">sin</span>(theta)</span>
-<span id="cb40-36"><a href="pca---análise-de-componentes-principais.html#cb40-36" tabindex="-1"></a>    </span>
-<span id="cb40-37"><a href="pca---análise-de-componentes-principais.html#cb40-37" tabindex="-1"></a>    <span class="co"># Atualizar ATA</span></span>
-<span id="cb40-38"><a href="pca---análise-de-componentes-principais.html#cb40-38" tabindex="-1"></a>    R <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
-<span id="cb40-39"><a href="pca---análise-de-componentes-principais.html#cb40-39" tabindex="-1"></a>    R[<span class="fu">c</span>(p, q), <span class="fu">c</span>(p, q)] <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(c, <span class="sc">-</span>s, s, c), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb40-40"><a href="pca---análise-de-componentes-principais.html#cb40-40" tabindex="-1"></a>    </span>
-<span id="cb40-41"><a href="pca---análise-de-componentes-principais.html#cb40-41" tabindex="-1"></a>    ATA <span class="ot">&lt;-</span> <span class="fu">t</span>(R) <span class="sc">%*%</span> ATA <span class="sc">%*%</span> R</span>
-<span id="cb40-42"><a href="pca---análise-de-componentes-principais.html#cb40-42" tabindex="-1"></a>    V <span class="ot">&lt;-</span> V <span class="sc">%*%</span> R</span>
-<span id="cb40-43"><a href="pca---análise-de-componentes-principais.html#cb40-43" tabindex="-1"></a>    </span>
-<span id="cb40-44"><a href="pca---análise-de-componentes-principais.html#cb40-44" tabindex="-1"></a>    <span class="co"># Calcular os autovalores</span></span>
-<span id="cb40-45"><a href="pca---análise-de-componentes-principais.html#cb40-45" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">abs</span>(ATA[off_diag]) <span class="sc">&lt;</span> tol)) {</span>
-<span id="cb40-46"><a href="pca---análise-de-componentes-principais.html#cb40-46" tabindex="-1"></a>      <span class="cf">break</span></span>
-<span id="cb40-47"><a href="pca---análise-de-componentes-principais.html#cb40-47" tabindex="-1"></a>    }</span>
-<span id="cb40-48"><a href="pca---análise-de-componentes-principais.html#cb40-48" tabindex="-1"></a>  }</span>
-<span id="cb40-49"><a href="pca---análise-de-componentes-principais.html#cb40-49" tabindex="-1"></a>  </span>
-<span id="cb40-50"><a href="pca---análise-de-componentes-principais.html#cb40-50" tabindex="-1"></a>  <span class="co"># Valores singulares</span></span>
-<span id="cb40-51"><a href="pca---análise-de-componentes-principais.html#cb40-51" tabindex="-1"></a>  singular_values <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(ATA))</span>
-<span id="cb40-52"><a href="pca---análise-de-componentes-principais.html#cb40-52" tabindex="-1"></a>  </span>
-<span id="cb40-53"><a href="pca---análise-de-componentes-principais.html#cb40-53" tabindex="-1"></a>  <span class="co"># Calcular U</span></span>
-<span id="cb40-54"><a href="pca---análise-de-componentes-principais.html#cb40-54" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb40-55"><a href="pca---análise-de-componentes-principais.html#cb40-55" tabindex="-1"></a>    <span class="cf">if</span> (singular_values[i] <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb40-56"><a href="pca---análise-de-componentes-principais.html#cb40-56" tabindex="-1"></a>      U[, i] <span class="ot">&lt;-</span> A <span class="sc">%*%</span> V[, i] <span class="sc">/</span> singular_values[i]</span>
-<span id="cb40-57"><a href="pca---análise-de-componentes-principais.html#cb40-57" tabindex="-1"></a>    }</span>
-<span id="cb40-58"><a href="pca---análise-de-componentes-principais.html#cb40-58" tabindex="-1"></a>  }</span>
-<span id="cb40-59"><a href="pca---análise-de-componentes-principais.html#cb40-59" tabindex="-1"></a>  </span>
-<span id="cb40-60"><a href="pca---análise-de-componentes-principais.html#cb40-60" tabindex="-1"></a>  <span class="co"># Retornar os resultados</span></span>
-<span id="cb40-61"><a href="pca---análise-de-componentes-principais.html#cb40-61" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">U =</span> U, <span class="at">D =</span> <span class="fu">diag</span>(singular_values), <span class="at">V =</span> V))</span>
-<span id="cb40-62"><a href="pca---análise-de-componentes-principais.html#cb40-62" tabindex="-1"></a>}</span>
-<span id="cb40-63"><a href="pca---análise-de-componentes-principais.html#cb40-63" tabindex="-1"></a></span>
-<span id="cb40-64"><a href="pca---análise-de-componentes-principais.html#cb40-64" tabindex="-1"></a><span class="co"># Matriz exemplo</span></span>
-<span id="cb40-65"><a href="pca---análise-de-componentes-principais.html#cb40-65" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-66"><a href="pca---análise-de-componentes-principais.html#cb40-66" tabindex="-1"></a></span>
-<span id="cb40-67"><a href="pca---análise-de-componentes-principais.html#cb40-67" tabindex="-1"></a><span class="co"># Chamar a função</span></span>
-<span id="cb40-68"><a href="pca---análise-de-componentes-principais.html#cb40-68" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">jacobi_svd</span>(A)</span>
-<span id="cb40-69"><a href="pca---análise-de-componentes-principais.html#cb40-69" tabindex="-1"></a></span>
-<span id="cb40-70"><a href="pca---análise-de-componentes-principais.html#cb40-70" tabindex="-1"></a><span class="co"># Resultados</span></span>
-<span id="cb40-71"><a href="pca---análise-de-componentes-principais.html#cb40-71" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Matriz U:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="pca---análise-de-componentes-principais.html#cb42-1" tabindex="-1"></a><span class="co"># Função para calcular SVD usando o método de Jacobi</span></span>
+<span id="cb42-2"><a href="pca---análise-de-componentes-principais.html#cb42-2" tabindex="-1"></a>jacobi_svd <span class="ot">&lt;-</span> <span class="cf">function</span>(A, <span class="at">tol =</span> <span class="fl">1e-10</span>, <span class="at">max_iter =</span> <span class="dv">100</span>) {</span>
+<span id="cb42-3"><a href="pca---análise-de-componentes-principais.html#cb42-3" tabindex="-1"></a>  <span class="co"># Inicialização</span></span>
+<span id="cb42-4"><a href="pca---análise-de-componentes-principais.html#cb42-4" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(A)</span>
+<span id="cb42-5"><a href="pca---análise-de-componentes-principais.html#cb42-5" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">ncol</span>(A)</span>
+<span id="cb42-6"><a href="pca---análise-de-componentes-principais.html#cb42-6" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
+<span id="cb42-7"><a href="pca---análise-de-componentes-principais.html#cb42-7" tabindex="-1"></a>  V <span class="ot">&lt;-</span> <span class="fu">diag</span>(m)</span>
+<span id="cb42-8"><a href="pca---análise-de-componentes-principais.html#cb42-8" tabindex="-1"></a>  </span>
+<span id="cb42-9"><a href="pca---análise-de-componentes-principais.html#cb42-9" tabindex="-1"></a>  <span class="co"># Calcular A^T A</span></span>
+<span id="cb42-10"><a href="pca---análise-de-componentes-principais.html#cb42-10" tabindex="-1"></a>  ATA <span class="ot">&lt;-</span> <span class="fu">t</span>(A) <span class="sc">%*%</span> A</span>
+<span id="cb42-11"><a href="pca---análise-de-componentes-principais.html#cb42-11" tabindex="-1"></a>  </span>
+<span id="cb42-12"><a href="pca---análise-de-componentes-principais.html#cb42-12" tabindex="-1"></a>  <span class="co"># Iterações de Jacobi</span></span>
+<span id="cb42-13"><a href="pca---análise-de-componentes-principais.html#cb42-13" tabindex="-1"></a>  <span class="cf">for</span> (iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_iter) {</span>
+<span id="cb42-14"><a href="pca---análise-de-componentes-principais.html#cb42-14" tabindex="-1"></a>    <span class="co"># Encontrar o maior elemento fora da diagonal</span></span>
+<span id="cb42-15"><a href="pca---análise-de-componentes-principais.html#cb42-15" tabindex="-1"></a>    off_diag <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(ATA) <span class="sc">&gt;</span> tol, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-16"><a href="pca---análise-de-componentes-principais.html#cb42-16" tabindex="-1"></a>    off_diag <span class="ot">&lt;-</span> off_diag[off_diag[, <span class="dv">1</span>] <span class="sc">!=</span> off_diag[, <span class="dv">2</span>], ]</span>
+<span id="cb42-17"><a href="pca---análise-de-componentes-principais.html#cb42-17" tabindex="-1"></a>    </span>
+<span id="cb42-18"><a href="pca---análise-de-componentes-principais.html#cb42-18" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(off_diag) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb42-19"><a href="pca---análise-de-componentes-principais.html#cb42-19" tabindex="-1"></a>      <span class="cf">break</span>  <span class="co"># Convergido</span></span>
+<span id="cb42-20"><a href="pca---análise-de-componentes-principais.html#cb42-20" tabindex="-1"></a>    }</span>
+<span id="cb42-21"><a href="pca---análise-de-componentes-principais.html#cb42-21" tabindex="-1"></a>    </span>
+<span id="cb42-22"><a href="pca---análise-de-componentes-principais.html#cb42-22" tabindex="-1"></a>    <span class="co"># Selecionar o primeiro elemento fora da diagonal</span></span>
+<span id="cb42-23"><a href="pca---análise-de-componentes-principais.html#cb42-23" tabindex="-1"></a>    p <span class="ot">&lt;-</span> off_diag[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb42-24"><a href="pca---análise-de-componentes-principais.html#cb42-24" tabindex="-1"></a>    q <span class="ot">&lt;-</span> off_diag[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb42-25"><a href="pca---análise-de-componentes-principais.html#cb42-25" tabindex="-1"></a>    </span>
+<span id="cb42-26"><a href="pca---análise-de-componentes-principais.html#cb42-26" tabindex="-1"></a>    <span class="co"># Cálculo dos ângulos de rotação</span></span>
+<span id="cb42-27"><a href="pca---análise-de-componentes-principais.html#cb42-27" tabindex="-1"></a>    <span class="cf">if</span> (ATA[p, p] <span class="sc">==</span> ATA[q, q]) {</span>
+<span id="cb42-28"><a href="pca---análise-de-componentes-principais.html#cb42-28" tabindex="-1"></a>      theta <span class="ot">&lt;-</span> pi <span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb42-29"><a href="pca---análise-de-componentes-principais.html#cb42-29" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb42-30"><a href="pca---análise-de-componentes-principais.html#cb42-30" tabindex="-1"></a>      theta <span class="ot">&lt;-</span> <span class="fu">atan</span>(<span class="dv">2</span> <span class="sc">*</span> ATA[p, q] <span class="sc">/</span> (ATA[p, p] <span class="sc">-</span> ATA[q, q])) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb42-31"><a href="pca---análise-de-componentes-principais.html#cb42-31" tabindex="-1"></a>    }</span>
+<span id="cb42-32"><a href="pca---análise-de-componentes-principais.html#cb42-32" tabindex="-1"></a>    </span>
+<span id="cb42-33"><a href="pca---análise-de-componentes-principais.html#cb42-33" tabindex="-1"></a>    <span class="co"># Matriz de rotação</span></span>
+<span id="cb42-34"><a href="pca---análise-de-componentes-principais.html#cb42-34" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="fu">cos</span>(theta)</span>
+<span id="cb42-35"><a href="pca---análise-de-componentes-principais.html#cb42-35" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="fu">sin</span>(theta)</span>
+<span id="cb42-36"><a href="pca---análise-de-componentes-principais.html#cb42-36" tabindex="-1"></a>    </span>
+<span id="cb42-37"><a href="pca---análise-de-componentes-principais.html#cb42-37" tabindex="-1"></a>    <span class="co"># Atualizar ATA</span></span>
+<span id="cb42-38"><a href="pca---análise-de-componentes-principais.html#cb42-38" tabindex="-1"></a>    R <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
+<span id="cb42-39"><a href="pca---análise-de-componentes-principais.html#cb42-39" tabindex="-1"></a>    R[<span class="fu">c</span>(p, q), <span class="fu">c</span>(p, q)] <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(c, <span class="sc">-</span>s, s, c), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb42-40"><a href="pca---análise-de-componentes-principais.html#cb42-40" tabindex="-1"></a>    </span>
+<span id="cb42-41"><a href="pca---análise-de-componentes-principais.html#cb42-41" tabindex="-1"></a>    ATA <span class="ot">&lt;-</span> <span class="fu">t</span>(R) <span class="sc">%*%</span> ATA <span class="sc">%*%</span> R</span>
+<span id="cb42-42"><a href="pca---análise-de-componentes-principais.html#cb42-42" tabindex="-1"></a>    V <span class="ot">&lt;-</span> V <span class="sc">%*%</span> R</span>
+<span id="cb42-43"><a href="pca---análise-de-componentes-principais.html#cb42-43" tabindex="-1"></a>    </span>
+<span id="cb42-44"><a href="pca---análise-de-componentes-principais.html#cb42-44" tabindex="-1"></a>    <span class="co"># Calcular os autovalores</span></span>
+<span id="cb42-45"><a href="pca---análise-de-componentes-principais.html#cb42-45" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">abs</span>(ATA[off_diag]) <span class="sc">&lt;</span> tol)) {</span>
+<span id="cb42-46"><a href="pca---análise-de-componentes-principais.html#cb42-46" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb42-47"><a href="pca---análise-de-componentes-principais.html#cb42-47" tabindex="-1"></a>    }</span>
+<span id="cb42-48"><a href="pca---análise-de-componentes-principais.html#cb42-48" tabindex="-1"></a>  }</span>
+<span id="cb42-49"><a href="pca---análise-de-componentes-principais.html#cb42-49" tabindex="-1"></a>  </span>
+<span id="cb42-50"><a href="pca---análise-de-componentes-principais.html#cb42-50" tabindex="-1"></a>  <span class="co"># Valores singulares</span></span>
+<span id="cb42-51"><a href="pca---análise-de-componentes-principais.html#cb42-51" tabindex="-1"></a>  singular_values <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(ATA))</span>
+<span id="cb42-52"><a href="pca---análise-de-componentes-principais.html#cb42-52" tabindex="-1"></a>  </span>
+<span id="cb42-53"><a href="pca---análise-de-componentes-principais.html#cb42-53" tabindex="-1"></a>  <span class="co"># Calcular U</span></span>
+<span id="cb42-54"><a href="pca---análise-de-componentes-principais.html#cb42-54" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb42-55"><a href="pca---análise-de-componentes-principais.html#cb42-55" tabindex="-1"></a>    <span class="cf">if</span> (singular_values[i] <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb42-56"><a href="pca---análise-de-componentes-principais.html#cb42-56" tabindex="-1"></a>      U[, i] <span class="ot">&lt;-</span> A <span class="sc">%*%</span> V[, i] <span class="sc">/</span> singular_values[i]</span>
+<span id="cb42-57"><a href="pca---análise-de-componentes-principais.html#cb42-57" tabindex="-1"></a>    }</span>
+<span id="cb42-58"><a href="pca---análise-de-componentes-principais.html#cb42-58" tabindex="-1"></a>  }</span>
+<span id="cb42-59"><a href="pca---análise-de-componentes-principais.html#cb42-59" tabindex="-1"></a>  </span>
+<span id="cb42-60"><a href="pca---análise-de-componentes-principais.html#cb42-60" tabindex="-1"></a>  <span class="co"># Retornar os resultados</span></span>
+<span id="cb42-61"><a href="pca---análise-de-componentes-principais.html#cb42-61" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">U =</span> U, <span class="at">D =</span> <span class="fu">diag</span>(singular_values), <span class="at">V =</span> V))</span>
+<span id="cb42-62"><a href="pca---análise-de-componentes-principais.html#cb42-62" tabindex="-1"></a>}</span>
+<span id="cb42-63"><a href="pca---análise-de-componentes-principais.html#cb42-63" tabindex="-1"></a></span>
+<span id="cb42-64"><a href="pca---análise-de-componentes-principais.html#cb42-64" tabindex="-1"></a><span class="co"># Matriz exemplo</span></span>
+<span id="cb42-65"><a href="pca---análise-de-componentes-principais.html#cb42-65" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-66"><a href="pca---análise-de-componentes-principais.html#cb42-66" tabindex="-1"></a></span>
+<span id="cb42-67"><a href="pca---análise-de-componentes-principais.html#cb42-67" tabindex="-1"></a><span class="co"># Chamar a função</span></span>
+<span id="cb42-68"><a href="pca---análise-de-componentes-principais.html#cb42-68" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">jacobi_svd</span>(A)</span>
+<span id="cb42-69"><a href="pca---análise-de-componentes-principais.html#cb42-69" tabindex="-1"></a></span>
+<span id="cb42-70"><a href="pca---análise-de-componentes-principais.html#cb42-70" tabindex="-1"></a><span class="co"># Resultados</span></span>
+<span id="cb42-71"><a href="pca---análise-de-componentes-principais.html#cb42-71" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Matriz U:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## Matriz U:</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="pca---análise-de-componentes-principais.html#cb42-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>U)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="pca---análise-de-componentes-principais.html#cb44-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>U)</span></code></pre></div>
 <pre><code>##            [,1]       [,2]
 ## [1,]  0.8944272 -0.4472136
 ## [2,] -0.4472136 -0.8944272</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="pca---análise-de-componentes-principais.html#cb44-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz D (valores singulares):</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="pca---análise-de-componentes-principais.html#cb46-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz D (valores singulares):</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## Matriz D (valores singulares):</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="pca---análise-de-componentes-principais.html#cb46-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>D)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="pca---análise-de-componentes-principais.html#cb48-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>D)</span></code></pre></div>
 <pre><code>##          [,1]     [,2]
 ## [1,] 3.162278 0.000000
 ## [2,] 0.000000 6.324555</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="pca---análise-de-componentes-principais.html#cb48-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz V:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="pca---análise-de-componentes-principais.html#cb50-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz V:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## Matriz V:</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="pca---análise-de-componentes-principais.html#cb50-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>V)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="pca---análise-de-componentes-principais.html#cb52-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>V)</span></code></pre></div>
 <pre><code>##           [,1]       [,2]
 ## [1,] 0.7071068 -0.7071068
 ## [2,] 0.7071068  0.7071068</code></pre>
