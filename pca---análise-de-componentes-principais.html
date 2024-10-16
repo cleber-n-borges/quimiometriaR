@@ -836,7 +836,7 @@ x2  0.707 -0.707
 \]</span></p>
 <p> </p>
 <p>Nas implementações da decomposição SVD também não é possível ter dados faltantes. Caso exista na matriz de dados, o usuário deve tratar os dados perdidos previamente.
-No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser o método de preferência pela melhor precisão numérica conforme relatada no manual e pelo que evidencia as equações. Consulte o manual da função pelo comando: <code>?prcomp</code>.</p>
+No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser o método de preferência pela melhor precisão numérica conforme relatada no manual e pelo que evidencia as equações. Consulte o manual da função pelo comando: <nobr><code>?prcomp</code>.</nobr></p>
 <p> </p>
 <details>
 <summary>
@@ -892,7 +892,7 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <p>Entretanto, essa relação deve ser vista apenas como uma ferramenta de compreensão, e não deve ser utilizada para a implementação numérica, especialmente em matrizes de grandes dimensões.</p>
 <p> </p>
 <p><strong>Verificação Numérica da Equivalência</strong></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="pca---análise-de-componentes-principais.html#cb39-1" tabindex="-1"></a><span class="co"># Criar uma matriz de exemplo X</span></span>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="pca---análise-de-componentes-principais.html#cb39-1" tabindex="-1"></a><span class="co"># Cria uma matriz de exemplo X</span></span>
 <span id="cb39-2"><a href="pca---análise-de-componentes-principais.html#cb39-2" tabindex="-1"></a><span class="fu">set.seed</span>( <span class="dv">42</span> )</span>
 <span id="cb39-3"><a href="pca---análise-de-componentes-principais.html#cb39-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb39-4"><a href="pca---análise-de-componentes-principais.html#cb39-4" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">8</span></span>
@@ -901,7 +901,7 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <span id="cb39-7"><a href="pca---análise-de-componentes-principais.html#cb39-7" tabindex="-1"></a><span class="co"># Calcula a SVD de X</span></span>
 <span id="cb39-8"><a href="pca---análise-de-componentes-principais.html#cb39-8" tabindex="-1"></a>svd_decomp <span class="ot">&lt;-</span> <span class="fu">La.svd</span>( X )</span>
 <span id="cb39-9"><a href="pca---análise-de-componentes-principais.html#cb39-9" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="pca---análise-de-componentes-principais.html#cb39-10" tabindex="-1"></a><span class="co"># Calcular X^T X e XX^T</span></span>
+<span id="cb39-10"><a href="pca---análise-de-componentes-principais.html#cb39-10" tabindex="-1"></a><span class="co"># Calcula X^T X e XX^T</span></span>
 <span id="cb39-11"><a href="pca---análise-de-componentes-principais.html#cb39-11" tabindex="-1"></a>XtX <span class="ot">&lt;-</span> <span class="fu">crossprod</span>( X )</span>
 <span id="cb39-12"><a href="pca---análise-de-componentes-principais.html#cb39-12" tabindex="-1"></a>XXt <span class="ot">&lt;-</span> <span class="fu">tcrossprod</span>( X )</span>
 <span id="cb39-13"><a href="pca---análise-de-componentes-principais.html#cb39-13" tabindex="-1"></a></span>
@@ -917,8 +917,8 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <span id="cb39-23"><a href="pca---análise-de-componentes-principais.html#cb39-23" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="dv">0</span>, n, m )</span>
 <span id="cb39-24"><a href="pca---análise-de-componentes-principais.html#cb39-24" tabindex="-1"></a><span class="fu">diag</span>(Sigma) <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">round</span>(<span class="fu">eigen</span>(XtX)<span class="sc">$</span>values,<span class="dv">12</span>))[ <span class="dv">1</span><span class="sc">:</span>n ]</span>
 <span id="cb39-25"><a href="pca---análise-de-componentes-principais.html#cb39-25" tabindex="-1"></a></span>
-<span id="cb39-26"><a href="pca---análise-de-componentes-principais.html#cb39-26" tabindex="-1"></a><span class="co">#Compara ( U %*% Sigma %*% t(V) ) com X</span></span>
-<span id="cb39-27"><a href="pca---análise-de-componentes-principais.html#cb39-27" tabindex="-1"></a><span class="fu">all.equal</span>( ( U <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> <span class="fu">t</span>(V) ), X  )</span></code></pre></div>
+<span id="cb39-26"><a href="pca---análise-de-componentes-principais.html#cb39-26" tabindex="-1"></a><span class="co"># Compara ( U %*% Sigma %*% t(V) ) com X</span></span>
+<span id="cb39-27"><a href="pca---análise-de-componentes-principais.html#cb39-27" tabindex="-1"></a><span class="fu">all.equal</span>( ( U <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> <span class="fu">t</span>(V) ), X )</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Desde que o resultado final seja <strong>TRUE</strong>, fica também demonstrado numericamente a equivalência entre a Decomposição Espectral e a Decomposição SVD.</p>
 <center>

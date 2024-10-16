@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>&#8474;&#8477; 12 Compara ( U %% Sigma %% t(V) ) com X | Caderno de Quimiometria com R</title>
+  <meta name="description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="&#8474;&#8477; 12 Compara ( U %% Sigma %% t(V) ) com X | Caderno de Quimiometria com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+  <meta property="og:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="github-repo" content="cleber-n-borges/quimiometriaR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="&#8474;&#8477; 12 Compara ( U %% Sigma %% t(V) ) com X | Caderno de Quimiometria com R" />
+  
+  <meta name="twitter:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
+  <meta name="twitter:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+<link rel="prev" href="matriz-sigma-via-eigen.html"/>
+<link rel="next" href="hca---análise-de-agrupamento-hierárquico.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJVXYW1C58"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YJVXYW1C58');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">&#8474;&#8477; Quimiometria com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bem-vindos!</a></li>
+<li class="chapter" data-level="" data-path="útil-para-você.html"><a href="útil-para-você.html"><i class="fa fa-check"></i>Útil para Você!</a></li>
+<li class="chapter" data-level="" data-path="pergunte-ao-chatgpt.html"><a href="pergunte-ao-chatgpt.html"><i class="fa fa-check"></i>Pergunte ao ChatGPT</a></li>
+<li class="chapter" data-level="" data-path="estrutura-do-caderno.html"><a href="estrutura-do-caderno.html"><i class="fa fa-check"></i>Estrutura do Caderno</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html"><i class="fa fa-check"></i>PARTE I - Ponto de Partida</a>
+<ul>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#primeiro-passo"><i class="fa fa-check"></i>Primeiro Passo</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#o-que-é-quimiometria"><i class="fa fa-check"></i>O que é Quimiometria?</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#aplicações-do-r-na-quimiometria"><i class="fa fa-check"></i>Aplicações do R na Quimiometria</a></li>
+<li class="chapter" data-level="" data-path="parte-i---ponto-de-partida.html"><a href="parte-i---ponto-de-partida.html#contribuições-do-chatgpt"><i class="fa fa-check"></i>Contribuições do ChatGPT</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html"><i class="fa fa-check"></i><b>1</b> Comece a Usar o R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-o-r-e-rstudio"><i class="fa fa-check"></i><b>1.1</b> Instale o R e RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conheça-o-básico-do-r"><i class="fa fa-check"></i><b>1.2</b> Conheça o Básico do R</a></li>
+<li class="chapter" data-level="1.3" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#realize-análises-simples"><i class="fa fa-check"></i><b>1.3</b> Realize Análises Simples</a></li>
+<li class="chapter" data-level="1.4" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#a-conveniência-do-help"><i class="fa fa-check"></i><b>1.4</b> A Conveniência do <code>help()</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#como-usar-o-comando-help"><i class="fa fa-check"></i>Como Usar o Comando <code>help()</code>:</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#conveniência-da-prática"><i class="fa fa-check"></i>Conveniência da Prática</a></li>
+<li class="chapter" data-level="" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#exemplo-de-uso"><i class="fa fa-check"></i>Exemplo de Uso</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#manuseie-arquivos"><i class="fa fa-check"></i><b>1.5</b> Manuseie Arquivos</a></li>
+<li class="chapter" data-level="1.6" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#salve-e-restaure-seu-workspace"><i class="fa fa-check"></i><b>1.6</b> Salve e Restaure seu <i>Workspace</i></a></li>
+<li class="chapter" data-level="1.7" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#instale-pacotes-r"><i class="fa fa-check"></i><b>1.7</b> Instale Pacotes R</a></li>
+<li class="chapter" data-level="1.8" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#aprenda-mais-e-pratique"><i class="fa fa-check"></i><b>1.8</b> Aprenda Mais e Pratique</a></li>
+<li class="chapter" data-level="1.9" data-path="comece-a-usar-o-r.html"><a href="comece-a-usar-o-r.html#participar-de-comunidades"><i class="fa fa-check"></i><b>1.9</b> Participar de Comunidades</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html"><i class="fa fa-check"></i><b>2</b> Conjunto de Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#organização-e-notação"><i class="fa fa-check"></i><b>2.1</b> Organização e Notação</a></li>
+<li class="chapter" data-level="2.2" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#valores-faltantes-na"><i class="fa fa-check"></i><b>2.2</b> Valores faltantes: <code>NA</code></a></li>
+<li class="chapter" data-level="2.3" data-path="conjunto-de-dados.html"><a href="conjunto-de-dados.html#dados-disponíveis"><i class="fa fa-check"></i><b>2.3</b> Dados Disponíveis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html"><i class="fa fa-check"></i><b>3</b> Visualização de Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#gráficos-com-o-r"><i class="fa fa-check"></i><b>3.1</b> Gráficos com o R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#funções-nativas"><i class="fa fa-check"></i><b>3.1.1</b> Funções nativas</a></li>
+<li class="chapter" data-level="3.1.2" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-animation"><i class="fa fa-check"></i><b>3.1.2</b> Pacote <code>animation</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-ggplot2"><i class="fa fa-check"></i><b>3.1.3</b> Pacote <code>ggplot2</code></a></li>
+<li class="chapter" data-level="3.1.4" data-path="visualização-de-dados.html"><a href="visualização-de-dados.html#pacote-plotly"><i class="fa fa-check"></i><b>3.1.4</b> Pacote <code>plotly</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-ii---tratamento-dos-dados.html"><a href="parte-ii---tratamento-dos-dados.html"><i class="fa fa-check"></i>PARTE II - Tratamento dos Dados</a></li>
+<li class="chapter" data-level="4" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html"><i class="fa fa-check"></i><b>4</b> Pré-Processamento de Variáveis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#autoescalamento"><i class="fa fa-check"></i><b>4.1</b> Autoescalamento</a></li>
+<li class="chapter" data-level="4.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#normalização-min-max"><i class="fa fa-check"></i><b>4.2</b> Normalização Min-Max:</a></li>
+<li class="chapter" data-level="4.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformações"><i class="fa fa-check"></i><b>4.3</b> Transformações</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logarítmica-e-raiz-quadrada"><i class="fa fa-check"></i><b>4.3.1</b> Logarítmica e Raiz Quadrada</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#transformação-box-cox"><i class="fa fa-check"></i><b>4.3.2</b> Transformação Box-Cox</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pré-processamento-de-variáveis.html"><a href="pré-processamento-de-variáveis.html#logística-e-logit"><i class="fa fa-check"></i><b>4.3.3</b> Logística e <em>Logit</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html"><i class="fa fa-check"></i><b>5</b> Pré-Processamento de Amostras</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pré-processamento-de-amostras.html"><a href="pré-processamento-de-amostras.html#todo"><i class="fa fa-check"></i><b>5.1</b> TODO</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="parte-iii---análise-exploratória-de-dados.html"><a href="parte-iii---análise-exploratória-de-dados.html"><i class="fa fa-check"></i>PARTE III - Análise Exploratória de Dados</a></li>
+<li class="chapter" data-level="6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html"><i class="fa fa-check"></i><b>6</b> PCA - Análise de Componentes Principais</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#desenvolvimento-histórico"><i class="fa fa-check"></i><b>6.1</b> Desenvolvimento histórico</a></li>
+<li class="chapter" data-level="6.2" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#definição"><i class="fa fa-check"></i><b>6.2</b> Definição</a></li>
+<li class="chapter" data-level="6.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#interpretação-geométrica"><i class="fa fa-check"></i><b>6.3</b> Interpretação Geométrica</a></li>
+<li class="chapter" data-level="6.4" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#objetivo"><i class="fa fa-check"></i><b>6.4</b> Objetivo</a></li>
+<li class="chapter" data-level="6.5" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#pca-como-decomposição-matricial"><i class="fa fa-check"></i><b>6.5</b> PCA como Decomposição Matricial</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#principais-algoritmos"><i class="fa fa-check"></i><b>6.5.1</b> Principais Algoritmos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="calcula-a-svd-de-x.html"><a href="calcula-a-svd-de-x.html"><i class="fa fa-check"></i><b>7</b> Calcula a SVD de X</a></li>
+<li class="chapter" data-level="8" data-path="calcula-xt-x-e-xxt.html"><a href="calcula-xt-x-e-xxt.html"><i class="fa fa-check"></i><b>8</b> Calcula X^T X e XX^T</a></li>
+<li class="chapter" data-level="9" data-path="matriz-u-via-eigen.html"><a href="matriz-u-via-eigen.html"><i class="fa fa-check"></i><b>9</b> Matriz U via eigen()</a></li>
+<li class="chapter" data-level="10" data-path="matriz-v-via-eigen.html"><a href="matriz-v-via-eigen.html"><i class="fa fa-check"></i><b>10</b> Matriz V via eigen()</a></li>
+<li class="chapter" data-level="11" data-path="matriz-sigma-via-eigen.html"><a href="matriz-sigma-via-eigen.html"><i class="fa fa-check"></i><b>11</b> Matriz Sigma via eigen()</a></li>
+<li class="chapter" data-level="12" data-path="compara-u-sigma-tv-com-x.html"><a href="compara-u-sigma-tv-com-x.html"><i class="fa fa-check"></i><b>12</b> Compara ( U %<em>% Sigma %</em>% t(V) ) com X</a></li>
+<li class="chapter" data-level="13" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>13</b> HCA - Análise de Agrupamento Hierárquico</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/cleber-n-borges/quimiometriaR" target="blank">&#8474;&#8477; Repositório GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Caderno de Quimiometria com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="compara-u-sigma-tv-com-x" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">&#8474;&#8477; 12</span> Compara ( U %<em>% Sigma %</em>% t(V) ) com X<a href="compara-u-sigma-tv-com-x.html#compara-u-sigma-tv-com-x" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>all.equal( ( U %<em>% Sigma %</em>% t(V) ), X )</p>
+<pre><code>
+Desde que o resultado final seja **TRUE**, fica também demonstrado numericamente a equivalência entre a Decomposição Espectral e a Decomposição SVD.
+
+
+
+&lt;center&gt;&amp;#9651;&lt;/center&gt;
+&lt;/details&gt;
+
+
+&amp;nbsp;
+
+
+
+3. o método **NIPALS - Non-linear Iterative Partial Least Squares**
+
+
+**Propriedade**
+
+o algoritmo NIPALS permite extrair componentes principais sem necessidade de imputar valores ausentes previamente (desde de que devidamente implementado) sendo uma vantagem significativa em relação a outros métodos que não lidam bem com dados faltantes.
+
+No R, não há função nativa mas há o método em alguns pacotes. Em especial, vale mencionar o pacote `nipals` que implementa o algoritmo com opção padrão da execução da ortogonalização de Gram-Schmidt em cada iteração. Isso é necessário pois ...
+
+&amp;nbsp;
+
+4. **PCoA - Principal Coordinates Analysis**
+
+&amp;nbsp;
+
+- PCA e PCoA se equivalem quando a distância a ser preservada é a euclidiana.
+
+- Atualmente, o PCoA é mais comumente conhecido como Escalonamento Multidimensional Clássico[^MDWikip] (*Classical Multidimensional Scaling*)
+
+[^MDWikip]: https://en.wikipedia.org/wiki/Multidimensional_scaling
+
+&amp;nbsp;
+
+**TODO (texto a ser desenvolvido)**
+
+&amp;nbsp;
+
+
+
+
+## Variância por PC
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+Considerando o exemplo ilustrado na figura \@ref(fig:pca-rot)
+
+~~~
+&gt;
+&gt; 1.830106 / ( 1.830106 + 0.169894 )
+[1] 0.915053
+&gt; 0.169894 / ( 1.830106 + 0.169894 )
+[1] 0.084947
+&gt;
+~~~
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+https://pt.wikipedia.org/wiki/Matrizes_semelhantes
+
+
+
+
+## Aplicação Típica
+
+
+
+
+
+&lt;!--
+1) O que é SVD?
+2) Mostre o passo a passo para se fazer essa decomposição - SVD -  de uma matriz 2x2. Exemplifique e explique as etapas.
+3) Resolva o exemplo anterior usando o método de Jacobi.
+4) Do exemplo anterior, resolução de SVD pelo método de Jacobi, faça um função em R puro, para esse exemplo.
+5) Forneça a matrix usada anterior para aplicar a função anterior em código R
+--&gt;
+
+
+
+
+
+
+
+
+
+
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+
+
+&lt;details&gt;
+&lt;summary&gt;&amp;#x1F608;Algoritmo para SVD&lt;/summary&gt;
+&lt;br&gt;**O algoritmo apresentado abaixo é apenas uma possibilidade dentre vários**&lt;br&gt;&lt;br&gt;
+
+O método de Jacobi é uma abordagem iterativa que pode ser aplicada à SVD, embora não seja a mais eficiente para matrizes grandes. É apresentado para incentivar o conhecimento de se ter ao menos uma alternativa de resolução do problema com apenas conceitos básicos de álgebra. Ou seja, sem o uso de funções prontas e abordagem **caixa-preta**.
+
+
+``` r
+# Função para calcular SVD usando o método de Jacobi
+jacobi_svd &lt;- function(A, tol = 1e-10, max_iter = 100) {
+  # Inicialização
+  n &lt;- nrow(A)
+  m &lt;- ncol(A)
+  U &lt;- diag(n)
+  V &lt;- diag(m)
+  
+  # Calcular A^T A
+  ATA &lt;- t(A) %*% A
+  
+  # Iterações de Jacobi
+  for (iter in 1:max_iter) {
+    # Encontrar o maior elemento fora da diagonal
+    off_diag &lt;- which(abs(ATA) &gt; tol, arr.ind = TRUE)
+    off_diag &lt;- off_diag[off_diag[, 1] != off_diag[, 2], ]
+    
+    if (nrow(off_diag) == 0) {
+      break  # Convergido
+    }
+    
+    # Selecionar o primeiro elemento fora da diagonal
+    p &lt;- off_diag[1, 1]
+    q &lt;- off_diag[1, 2]
+    
+    # Cálculo dos ângulos de rotação
+    if (ATA[p, p] == ATA[q, q]) {
+      theta &lt;- pi / 4
+    } else {
+      theta &lt;- atan(2 * ATA[p, q] / (ATA[p, p] - ATA[q, q])) / 2
+    }
+    
+    # Matriz de rotação
+    c &lt;- cos(theta)
+    s &lt;- sin(theta)
+    
+    # Atualizar ATA
+    R &lt;- diag(n)
+    R[c(p, q), c(p, q)] &lt;- matrix(c(c, -s, s, c), nrow = 2)
+    
+    ATA &lt;- t(R) %*% ATA %*% R
+    V &lt;- V %*% R
+    
+    # Calcular os autovalores
+    if (all(abs(ATA[off_diag]) &lt; tol)) {
+      break
+    }
+  }
+  
+  # Valores singulares
+  singular_values &lt;- sqrt(diag(ATA))
+  
+  # Calcular U
+  for (i in 1:n) {
+    if (singular_values[i] &gt; 0) {
+      U[, i] &lt;- A %*% V[, i] / singular_values[i]
+    }
+  }
+  
+  # Retornar os resultados
+  return(list(U = U, D = diag(singular_values), V = V))
+}
+
+# Matriz exemplo
+A &lt;- matrix(c(4, 0, 3, -5), nrow = 2, byrow = TRUE)
+
+# Chamar a função
+result &lt;- jacobi_svd(A)
+
+# Resultados
+cat(&quot;Matriz U:\n&quot;)</code></pre>
+<pre><code>## Matriz U:</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="compara-u-sigma-tv-com-x.html#cb41-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>U)</span></code></pre></div>
+<pre><code>##            [,1]       [,2]
+## [1,]  0.8944272 -0.4472136
+## [2,] -0.4472136 -0.8944272</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="compara-u-sigma-tv-com-x.html#cb43-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz D (valores singulares):</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Matriz D (valores singulares):</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="compara-u-sigma-tv-com-x.html#cb45-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>D)</span></code></pre></div>
+<pre><code>##          [,1]     [,2]
+## [1,] 3.162278 0.000000
+## [2,] 0.000000 6.324555</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="compara-u-sigma-tv-com-x.html#cb47-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz V:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Matriz V:</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="compara-u-sigma-tv-com-x.html#cb49-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>V)</span></code></pre></div>
+<pre><code>##           [,1]       [,2]
+## [1,] 0.7071068 -0.7071068
+## [2,] 0.7071068  0.7071068</code></pre>
+<p><strong>Algoritmos para SVD</strong></p>
+<p>Existem vários algoritmos para calcular a SVD, incluindo:</p>
+<ul>
+<li>Método de Jacobi: Uma abordagem iterativa, mas geralmente mais lenta para matrizes grandes.</li>
+<li>Algoritmo de Golub-Reinsch: Um método mais eficiente que combina a decomposição QR e o método de Jacobi.</li>
+<li>Algoritmo de Lanczos: Usado para matrizes grandes e esparsas; baseia-se em métodos de subespaço.</li>
+<li>SVD baseado em bidiagonalização: Usa decomposições bidiagonais, seguido por uma SVD da matriz bidiagonal.</li>
+<li>Algoritmos de fatoração de matrizes de baixa-rank: Técnicas como o método de potência e métodos estocásticos.</li>
+</ul>
+<p><strong>Eficiência dos Algoritmos</strong></p>
+<p>O algoritmo de Golub-Reinsch é um dos mais utilizados na prática e considerado eficiente para a maioria das aplicações. Para matrizes muito grandes ou esparsas, métodos baseados em Lanczos ou bidiagonalização tendem a ser mais eficientes.</p>
+<p>A escolha do algoritmo SVD mais eficiente depende do tamanho e da estrutura da matriz que você está tratando, bem como das necessidades específicas da aplicação.</p>
+<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a>, <em>LAPACK</em><a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a>, <em>MKL</em><a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
+<center>
+△
+</center>
+</details>
+
+</div>
+<div class="footnotes">
+<hr />
+<ol start="64">
+<li id="fn64"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="compara-u-sigma-tv-com-x.html#fnref64" class="footnote-back">↩︎</a></p></li>
+<li id="fn65"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="compara-u-sigma-tv-com-x.html#fnref65" class="footnote-back">↩︎</a></p></li>
+<li id="fn66"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="compara-u-sigma-tv-com-x.html#fnref66" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="matriz-sigma-via-eigen.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hca---análise-de-agrupamento-hierárquico.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsubsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true,
+"post_processor": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
