@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>&#8474;&#8477; 6 PCA - Análise de Componentes Principais | Caderno de Quimiometria com R</title>
   <meta name="description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="&#8474;&#8477; 6 PCA - Análise de Componentes Principais | Caderno de Quimiometria com R" />
   <meta property="og:type" content="book" />
@@ -860,9 +860,9 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <li>Calcule os autovalores de <span class="math inline">\(\mathbf{X^TX}\)</span> e <span class="math inline">\(\mathbf{XX^T}\)</span>.</li>
 <li>Os autovalores não negativos de <span class="math inline">\(\mathbf{X^TX}\)</span> são os quadrados dos valores singulares de <span class="math inline">\(\mathbf{X}\)</span>.</li>
 </ul></li>
-<li><strong>Calcule os vetores próprios</strong>:
+<li><strong>Calcule os autovetores</strong>:
 <ul>
-<li>Encontre os vetores próprios correspondentes aos autovalores de:
+<li>Encontre os autovetores correspondentes aos autovalores de:
 <ul>
 <li><span class="math inline">\(\mathbf{X^TX}\)</span> (que formarão a matriz <span class="math inline">\(\mathbf{V}\)</span>) e de;</li>
 <li><span class="math inline">\(\mathbf{XX^T}\)</span> (que formarão a matriz <span class="math inline">\(\mathbf{U}\)</span>).</li>
@@ -875,13 +875,13 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 </ul></li>
 <li><strong>Construa as matrizes <span class="math inline">\(\mathbf{U}\)</span>, <span class="math inline">\(\mathbf{\Sigma}\)</span> e <span class="math inline">\(\mathbf{V}\)</span></strong>:
 <ul>
-<li><span class="math inline">\(\mathbf{U}\)</span> é formado pelos vetores próprios de <span class="math inline">\(\mathbf{XX^T}\)</span>.</li>
-<li><span class="math inline">\(\mathbf{V}\)</span> é formado pelos vetores próprios de <span class="math inline">\(\mathbf{X^TX}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{U}\)</span> é formado pelos autovetores de <span class="math inline">\(\mathbf{XX^T}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{V}\)</span> é formado pelos autovetores de <span class="math inline">\(\mathbf{X^TX}\)</span>.</li>
 <li><span class="math inline">\(\mathbf{\Sigma}\)</span> é uma matriz diagonal onde os valores singulares <span class="math inline">\(\sigma_i\)</span> estão dispostos na diagonal.</li>
 </ul></li>
 <li><strong>Monte a decomposição</strong>:
 <ul>
-<li>A decomposição SVD é dada por <span class="math inline">\(\mathbf{A} = \mathbf{U \Sigma V^T}\)</span>.</li>
+<li>A decomposição SVD é dada por <span class="math inline">\(\mathbf{X} = \mathbf{U \Sigma V^T}\)</span>.</li>
 </ul></li>
 <li><strong>Verifique a decomposição</strong>:
 <ul>
@@ -905,12 +905,13 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <ol start="4" style="list-style-type: decimal">
 <li><strong>PCoA - Principal Coordinates Analysis</strong></li>
 </ol>
-<p>PCA é PCoA se equivalem quando a distância a ser preservada é a euclidiana.</p>
-<p>XX </p>
-<p>XX </p>
-<p>XX </p>
 <p> </p>
+<ul>
+<li><p>PCA e PCoA se equivalem quando a distância a ser preservada é a euclidiana.</p></li>
+<li><p>Atualmente, o PCoA é mais comumente conhecido como Escalonamento Multidimensional Clássico<a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a> (<em>Classical Multidimensional Scaling</em>)</p></li>
+</ul>
 <p> </p>
+<p><strong>TODO (texto a ser desenvolvido)</strong></p>
 <p> </p>
 </div>
 </div>
@@ -1053,7 +1054,7 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <p><strong>Eficiência dos Algoritmos</strong></p>
 <p>O algoritmo de Golub-Reinsch é um dos mais utilizados na prática e considerado eficiente para a maioria das aplicações. Para matrizes muito grandes ou esparsas, métodos baseados em Lanczos ou bidiagonalização tendem a ser mais eficientes.</p>
 <p>A escolha do algoritmo SVD mais eficiente depende do tamanho e da estrutura da matriz que você está tratando, bem como das necessidades específicas da aplicação.</p>
-<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a>, <em>LAPACK</em><a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a>, <em>MKL</em><a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
+<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a>, <em>LAPACK</em><a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a>, <em>MKL</em><a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
 <center>
 △
 </center>
@@ -1084,9 +1085,10 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <li id="fn61"><p><a href="https://pt.wikipedia.org/wiki/Norma_(matem%C3%A1tica)" class="uri">https://pt.wikipedia.org/wiki/Norma_(matem%C3%A1tica)</a><a href="pca---análise-de-componentes-principais.html#fnref61" class="footnote-back">↩︎</a></p></li>
 <li id="fn62"><p><a href="https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares" class="uri">https://pt.wikipedia.org/wiki/Decomposi%C3%A7%C3%A3o_em_valores_singulares</a><a href="pca---análise-de-componentes-principais.html#fnref62" class="footnote-back">↩︎</a></p></li>
 <li id="fn63"><p><a href="https://pt.wikipedia.org/wiki/Ortonormalidade" class="uri">https://pt.wikipedia.org/wiki/Ortonormalidade</a><a href="pca---análise-de-componentes-principais.html#fnref63" class="footnote-back">↩︎</a></p></li>
-<li id="fn64"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="pca---análise-de-componentes-principais.html#fnref64" class="footnote-back">↩︎</a></p></li>
-<li id="fn65"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="pca---análise-de-componentes-principais.html#fnref65" class="footnote-back">↩︎</a></p></li>
-<li id="fn66"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="pca---análise-de-componentes-principais.html#fnref66" class="footnote-back">↩︎</a></p></li>
+<li id="fn64"><p><a href="https://en.wikipedia.org/wiki/Multidimensional_scaling" class="uri">https://en.wikipedia.org/wiki/Multidimensional_scaling</a><a href="pca---análise-de-componentes-principais.html#fnref64" class="footnote-back">↩︎</a></p></li>
+<li id="fn65"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="pca---análise-de-componentes-principais.html#fnref65" class="footnote-back">↩︎</a></p></li>
+<li id="fn66"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="pca---análise-de-componentes-principais.html#fnref66" class="footnote-back">↩︎</a></p></li>
+<li id="fn67"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="pca---análise-de-componentes-principais.html#fnref67" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
