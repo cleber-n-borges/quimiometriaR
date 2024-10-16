@@ -416,6 +416,9 @@ Cumulative Proportion  0.9152 1.00000
 <iframe src="img/parte03/plotly/pca_rot.html" width="80%" height="400px" data-external="1">
 </iframe>
 </center>
+<center>
+△
+</center>
 </details>
 <p> </p>
 <p>A figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> mostra 4 gráficos, com o primeiro mostrando apenas a dispersão dos pontos nas variáveis originais. No segundo, a reta em azul representa a direção da primeira componente principal capturando a maior variabilidade dos dados. Ou seja, está na direção onde há a maior dispersão da informação contida nos dados. A reta vermelha no terceiro gráfico indica a segunda componente principal, que é perpendicular à primeira e por sua vez é a direção que captura a maior parte da dispersão que a primeira componente não consegue representar. O quarto gráfico usa as duas primeiras componentes principais como sistema de coordenadas e assim é possível visualizar e entender que essa transformação consistiu na rotação do sistema dos eixos originais.</p>
@@ -775,8 +778,8 @@ $vectors
 [2,] 0.7071068  0.7071068
 &gt;</code></pre>
 <p>Aqui, podemos observar que nossa solução utilizando o polinômio característico está alinhada com o <em>output</em> fornecido pelo console do R, com uma pequena exceção!</p>
-<p>O segundo autovetor apresenta sinais trocados, o que é uma característica inerente à Análise de Componentes Principais (PCA). Esse fenômeno é conhecido como <strong>rotação livre</strong> dos autovetores. Não é possível garantir quais sinais serão gerados como resultado, mas, se necessário para um contexto específico, podemos multiplicar esse autovetor por -1 sem que isso altere a interpretação da análise. Quanto aos autovalores estão com plena concordânica a menos de pequeno erro de aproximações numéricas.</p>
-<p>Esse fato, rotação livre, é corroborado pelo uso de outra função do R, a <code>princomp</code>, que também gera resultados com sinais trocados. Veja abaixo:</p>
+<p>O segundo autovetor apresenta sinais invertidos, o que é uma característica inerente à Análise de Componentes Principais (PCA). Não é possível prever a direção exata dada pelos sinais gerados, mas, se necessário para um contexto específico, podemos multiplicar esse autovetor por -1 sem que isso altere a interpretação da análise. Quanto aos autovalores, os mesmos estão com plena concordânica a menos de pequeno erro de aproximações numéricas.</p>
+<p>A inversão dos sinais é corroborada pelo uso de outra função do R, a <code>princomp</code>. Veja abaixo:</p>
 <pre><code>&gt; princomp( X )$loadings
 
 Loadings:
@@ -796,6 +799,9 @@ x2  0.707 -0.707
 &gt; </code></pre>
 <p>Como detalhe adicional, é importante ressaltar para os iniciantes que a abordagem adotada nesta resolução é puramente didática. O desenvolvimento de algoritmos numéricos e eficientes envolve técnicas complexas e avançadas, que vão muito além do escopo deste texto introdutório. O objetivo aqui é proporcionar uma compreensão básica dos conceitos, preparando o terreno para estudos mais aprofundados no futuro.</p>
 <p>Os algoritmos utilizados em <em>softwares</em> especializados são significativamente mais avançados e sofisticados. Eles são projetados para lidar com uma ampla variedade de situações, levando em consideração fatores como eficiência computacional e precisão dos resultados.</p>
+<center>
+△
+</center>
 </details>
 <p> </p>
 <ol start="2" style="list-style-type: decimal">
@@ -884,6 +890,9 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 </ol>
 <p> </p>
 <p>Entretanto, essa relação deve ser vista apenas como uma ferramenta de compreensão, e não deve ser utilizada para a implementação numérica, especialmente em matrizes de grandes dimensões.</p>
+<center>
+△
+</center>
 </details>
 <p> </p>
 <ol start="3" style="list-style-type: decimal">
@@ -1045,6 +1054,9 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <p>O algoritmo de Golub-Reinsch é um dos mais utilizados na prática e considerado eficiente para a maioria das aplicações. Para matrizes muito grandes ou esparsas, métodos baseados em Lanczos ou bidiagonalização tendem a ser mais eficientes.</p>
 <p>A escolha do algoritmo SVD mais eficiente depende do tamanho e da estrutura da matriz que você está tratando, bem como das necessidades específicas da aplicação.</p>
 <p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a>, <em>LAPACK</em><a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a>, <em>MKL</em><a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
+<center>
+△
+</center>
 </details>
 
 </div>
