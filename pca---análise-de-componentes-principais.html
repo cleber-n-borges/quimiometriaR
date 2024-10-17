@@ -929,7 +929,110 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <div id="algoritmo-nipals" class="section level4 hasAnchor" number="6.5.1.3">
 <h4><span class="header-section-number">6.5.1.3</span> Algoritmo NIPALS<a href="pca---análise-de-componentes-principais.html#algoritmo-nipals" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>O algoritmo NIPALS, <em>Non-linear Iterative Partial Least Squares</em>,</p>
-<p><strong>Algoritmo</strong></p>
+<p><strong>Histórico</strong></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<details>
+<summary>
+😈 + <strong>Explicação dos passos do algoritmo</strong>
+</summary>
+<p> </p>
+<p>Aqui estão os principais passos do algoritmo:</p>
+<ol style="list-style-type: decimal">
+<li>Inicialização:</li>
+</ol>
+<p>Comece com uma matriz de dados <span class="math inline">\(X\)</span> de tamanho <span class="math inline">\(n \times p\)</span>, onde:
+- <span class="math inline">\(n\)</span> é o número de observações.
+- <span class="math inline">\(p\)</span> é o número de variáveis.</p>
+<p>Defina um número de componentes latentes <span class="math inline">\(k\)</span> que você deseja extrair.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Ciclo de Iteração:</li>
+</ol>
+<p>Para cada componente <span class="math inline">\(j\)</span> (de 1 até <span class="math inline">\(k\)</span>):</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Escolha de um vetor:
+Inicie com um vetor de peso aleatório <span class="math inline">\(w_j\)</span> (pode ser uma coluna da matriz <span class="math inline">\(X\)</span> ou um vetor aleatório).</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Cálculo da pontuação <span class="math inline">\(t_j\)</span>:
+Calcule o vetor de pontuação <span class="math inline">\(t_j\)</span> como a projeção de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(w_j\)</span>:</li>
+</ol></li>
+</ul>
+<p><span class="math display">\[
+t_j = X w_j
+\]</span></p>
+<ul>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Cálculo do vetor de carga <span class="math inline">\(p_j\)</span>:
+Calcule <span class="math inline">\(p_j\)</span> como a correlação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(t_j\)</span>:</li>
+</ol></li>
+</ul>
+<p><span class="math display">\[
+p_j = \frac{X^T t_j}{t_j^T t_j}
+\]</span></p>
+<ul>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li>Normalização do vetor de carga:
+Normalize <span class="math inline">\(p_j\)</span> se necessário.</li>
+</ol></li>
+<li><ol start="5" style="list-style-type: lower-alpha">
+<li>Cálculo do vetor de peso atualizado <span class="math inline">\(w_j\)</span>:
+Atualize <span class="math inline">\(w_j\)</span> com base em <span class="math inline">\(p_j\)</span>:</li>
+</ol></li>
+</ul>
+<p><span class="math display">\[
+w_j = \frac{X^T t_j}{t_j^T t_j}
+\]</span></p>
+<ul>
+<li><ol start="6" style="list-style-type: lower-alpha">
+<li>Cálculo do vetor de pontuação atualizado <span class="math inline">\(t_j\)</span>:
+Calcule novamente <span class="math inline">\(t_j\)</span> usando o novo <span class="math inline">\(w_j\)</span>.</li>
+</ol></li>
+<li><ol start="7" style="list-style-type: lower-alpha">
+<li>Cálculo da matriz de resíduos
+Calcule a matriz de resíduos <span class="math inline">\(R\)</span>:</li>
+</ol></li>
+</ul>
+<p><span class="math display">\[
+R = X - t_j p_j^T
+\]</span></p>
+<p>Utilize essa matriz para a próxima iteração.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Convergência:</li>
+</ol>
+<p>Continue iterando até que os vetores de peso <span class="math inline">\(w_j\)</span> e as pontuações <span class="math inline">\(t_j\)</span> se estabilizem ou até que um número máximo de iterações seja alcançado.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Construção do modelo
+Depois de extrair os componentes desejados, você pode usar os vetores de carga e pontuação para construir um modelo de regressão ou realizar a análise desejada.</p></li>
+<li><p>Validação
+Valide o modelo obtido utilizando técnicas como validação cruzada para garantir a robustez dos resultados.</p></li>
+</ol>
+<center>
+△
+</center>
+</details>
+<p> </p>
+<details>
+<summary>
+😈 + <strong>O algoritmo NIPALS</strong>
+</summary>
+<p> </p>
+<p>Abaixo segue uma implementação tradicional do algoritmo NIPALS na linguagem R.
+A implementação tem propósito meramente didático, podendo gerar imprecisões nos <em>loadings</em> e <em>scores</em> ao requisitar a determinação de mais que duas componentes principais em matrizes grandes.</p>
+<p>A implementação tem como parâmetros:</p>
+<ol style="list-style-type: decimal">
+<li><p>a necessidade da matriz <code>x</code> dos dados;</p></li>
+<li><p><code>npc</code>: o número de componentes a serem determinadas;</p></li>
+<li><p><code>tol</code>: a tolerância para a convergência;</p></li>
+<li><p><code>maxiter</code>: o número máximo de interações por componente;</p></li>
+<li><p><code>verbose</code>: imprimir em tela o estágio da interação.</p></li>
+</ol>
+<p>A escolha dos parâmetros <code>tol</code> e <code>maxiter</code> em grande influência nos resultados.</p>
+<p> </p>
+<p><strong>Código R</strong></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="pca---análise-de-componentes-principais.html#cb41-1" tabindex="-1"></a>nipals <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">npc =</span> <span class="dv">2</span>, <span class="at">tol =</span> <span class="fl">1e-10</span>, <span class="at">maxiter =</span> <span class="dv">500</span>, <span class="at">verbose=</span><span class="cn">TRUE</span>) {</span>
 <span id="cb41-2"><a href="pca---análise-de-componentes-principais.html#cb41-2" tabindex="-1"></a>  <span class="co"># Inicializa as matrizes de loadings e scores</span></span>
 <span id="cb41-3"><a href="pca---análise-de-componentes-principais.html#cb41-3" tabindex="-1"></a>  T <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(x), <span class="at">ncol =</span> npc)</span>
@@ -981,15 +1084,23 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <span id="cb41-49"><a href="pca---análise-de-componentes-principais.html#cb41-49" tabindex="-1"></a>    <span class="at">maxiter =</span> maxiter</span>
 <span id="cb41-50"><a href="pca---análise-de-componentes-principais.html#cb41-50" tabindex="-1"></a>  ))</span>
 <span id="cb41-51"><a href="pca---análise-de-componentes-principais.html#cb41-51" tabindex="-1"></a>}</span></code></pre></div>
+<p> </p>
+<center>
+△
+</center>
+</details>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
 <p><strong>Teste</strong></p>
 <pre><code>i &lt;- 7000
-
 j &lt;- 150
 
 X &lt;- matrix(rnorm( i*j), nrow = i, ncol = j)
 X &lt;- scale( X )
 
-res &lt;- nipals1( X, npc=5, verbose=F, maxiter=2000 )
+res &lt;- nipals( X, npc=5, verbose=F, maxiter=2000 )
 pca&lt;-prcomp(X)
 
 head( pca$x[,1:5] )
