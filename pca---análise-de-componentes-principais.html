@@ -237,7 +237,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.5.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#algoritmo-nipals"><i class="fa fa-check"></i><b>6.5.3</b> Algoritmo NIPALS</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.6</b> Variância por PC</a></li>
-<li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.7</b> Aplicação Típica</a></li>
+<li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#importância-das-variáveis"><i class="fa fa-check"></i><b>6.7</b> Importância das Variáveis</a></li>
+<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.8</b> Aplicação Típica</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>7</b> HCA - Análise de Agrupamento Hierárquico</a></li>
 <li class="divider"></li>
@@ -1156,18 +1157,41 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 </div>
 <div id="variância-por-pc" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> Variância por PC<a href="pca---análise-de-componentes-principais.html#variância-por-pc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Considerando o exemplo ilustrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a></p>
-<pre><code>&gt;
-&gt; 1.830106 / ( 1.830106 + 0.169894 )
-[1] 0.915053
-&gt; 0.169894 / ( 1.830106 + 0.169894 )
-[1] 0.084947
-&gt;</code></pre>
-<p><a href="https://pt.wikipedia.org/wiki/Matrizes_semelhantes" class="uri">https://pt.wikipedia.org/wiki/Matrizes_semelhantes</a></p>
+<p>Quando projetamos os dados originais nas componentes principais, estamos essencialmente transformando os dados para novas direções. Cada componente representa uma direção específica no espaço dos dados.</p>
+<p>Cada autovalor associado a um autovetor (que representa uma componente) mede a quantidade de variabilidade que é capturada ao longo daquela direção. Em outras palavras, a variância de cada componente principal é representada pelo valor de seu autovalor. Assim, autovalores maiores significam que a respectiva direção (componente) captura mais variação nos dados.</p>
+<p>Resumindo, a variância de cada componente principal é igual ao autovalor correspondente, e isso nos ajuda a identificar quais direções nos dados são mais informativas.</p>
+<p>Considerando o exemplo ilustrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> e pelos resultados numéricos expostos na sessão intitulada <em>Uma Solução para a Decomposição Espectral</em>, os valores respectivos dos primeiro e segundo autovalores foram: <span class="math inline">\(\lambda_1 \approx 1.830106\)</span> e <span class="math inline">\(\lambda_2 \approx 0.169894\)</span>. Portanto, segue que a variância da primeira componente é de <span class="math inline">\(\approx 1.83\)</span> e a variância da segunda componente é de <span class="math inline">\(\approx 0.17\)</span>.</p>
+<p>Para determinar a quantidade de informação que cada componente retém em relação aos dados originais, calculamos a proporção que cada uma representa do valor total. A primeira componente possui aproximadamente <span class="math inline">\(\approx 91.5\%\)</span> da informação original, calculada como <span class="math inline">\(( 1.83 / ( 1.83 + 0.17 ) )\)</span>, enquanto a segunda componente representa cerca de <span class="math inline">\(\approx 8.5\%\)</span>, conforme <span class="math inline">\(( 0.17 / ( 1.83 + 0.17 ) )\)</span>.</p>
+<p><strong>Caso para quando o NIPALS calcula poucas PC’s</strong></p>
+<p>O algoritmo NIPALS pode ser finalizado de duas formas: 1) após um número pré-determinado de componentes, sendo este menor do que o total possível, ou 2) quando atingir um valor parcial pré-determinado da variância total.</p>
+<p>No entanto, não podemos utilizar a estratégia mencionada anteriormente, pois ela se baseia na soma de todos os autovalores (o que não está disponível nesses dois casos). Portanto, em ambas as situações, precisamos obrigatoriamente adotar uma abordagem alternativa.</p>
+<p>A abordagem alternativa está refletida na seguinte linha do código <em>Nipals no R</em>:</p>
+<pre><code>VarExpl = colSums(T^2) / sum(x^2)</code></pre>
+<p>Onde:</p>
+<ul>
+<li><p><code>sum(x^2)</code> representa o traço da matriz de covariância de X, que equivale à soma quadrática de X e é proporcional à variância total de X.</p></li>
+<li><p><code>colSums(T^2)</code> representa a soma quadrática de cada componente, proporcional à variância de cada componente.</p></li>
+<li><p>A razão entre essas duas quantidades corresponde à variância explicada por cada componente.</p></li>
+</ul>
+<h6>
+Fundamento da Abordagem:
+</h6>
+<p><em>O traço de uma matriz é invariante em uma operação de similaridade</em><a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a>.</p>
+<p>Essa é uma propriedade fundamental da álgebra matricial! Essa invariância implica que o traço, que está relacionado à soma dos autovalores de uma matriz, permanece inalterado, independentemente da representação da matriz. Essa característica é útil em diversas aplicações, como na análise de componentes principais.</p>
+<p>De uma perspectiva geométrica, podemos interpretar essa afirmação da seguinte maneira: a rotação da matriz não altera seu traço. Assim, evitamos depender da álgebra explicitamente, uma vez que as relações entre os pontos e, consequentemente, sua dispersão permanecem inalteradas.</p>
+<p>Neste ponto, não temos mais novidades, pois já abordamos a perspectiva geométrica anteriormente!</p>
+</div>
+<div id="importância-das-variáveis" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Importância das Variáveis<a href="pca---análise-de-componentes-principais.html#importância-das-variáveis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Focando nas componentes mais significativas — aquelas com os maiores autovalores — podemos determinar quais variáveis são essenciais para a variabilidade dos dados. Se uma componente que captura muita variabilidade é fortemente influenciada por certas variáveis, isso indica que elas são cruciais para entender o fenômeno analisado.</p>
+<p>Podemos identificar quais variáveis originais têm maior impacto nas componentes principais, analisando os coeficientes dos autovetores (ou <em>loadings</em>). Esses coeficientes mostram a contribuição de cada variável para as novas dimensões criadas.</p>
+<p>Assim, ao reconhecer as variáveis que mais contribuem para as componentes principais, conseguimos identificar quais são mais relevantes, facilitando a interpretação dos resultados da análise.</p>
+<p>Novamente, considerando o exemplo ilustrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> e seus resultados numéricos</p>
+<p>……….colocar gráfico dos loadings e scores</p>
 <p> </p>
 </div>
-<div id="aplicação-típica" class="section level2 hasAnchor" number="6.7">
-<h2><span class="header-section-number">6.7</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="aplicação-típica" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
@@ -1199,6 +1223,7 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 <li id="fn66"><p>M. Andrecut, <em>Parallel GPU Implementation of Iterative PCA Algorithms</em>,
 <strong>Journal of Computational Biology</strong>, 2009 16:11, 1593-1599,
 <a href="https://www.liebertpub.com/doi/10.1089/cmb.2008.0221" class="uri">https://www.liebertpub.com/doi/10.1089/cmb.2008.0221</a><a href="pca---análise-de-componentes-principais.html#fnref66" class="footnote-back">↩︎</a></p></li>
+<li id="fn67"><p><a href="https://pt.wikipedia.org/wiki/Matrizes_semelhantes" class="uri">https://pt.wikipedia.org/wiki/Matrizes_semelhantes</a><a href="pca---análise-de-componentes-principais.html#fnref67" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

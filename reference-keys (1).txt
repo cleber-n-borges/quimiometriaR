@@ -41,10 +41,9 @@ definição
 interpretação-geométrica
 objetivo
 pca-como-decomposição-matricial
-principais-algoritmos
 decomposição-espectral
 decomposição-em-valores-singulares-svd
 algoritmo-nipals
-variância-por-pc
+variância-e-importância
 aplicação-típica
 hca---análise-de-agrupamento-hierárquico

@@ -45,5 +45,6 @@ decomposição-espectral
 decomposição-em-valores-singulares-svd
 algoritmo-nipals
 variância-por-pc
+importância-das-variáveis
 aplicação-típica
 hca---análise-de-agrupamento-hierárquico
