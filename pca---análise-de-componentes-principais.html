@@ -232,12 +232,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#objetivo"><i class="fa fa-check"></i><b>6.4</b> Objetivo</a></li>
 <li class="chapter" data-level="6.5" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#pca-como-decomposição-matricial"><i class="fa fa-check"></i><b>6.5</b> PCA como Decomposição Matricial</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#principais-algoritmos"><i class="fa fa-check"></i><b>6.5.1</b> Principais Algoritmos</a>
-<ul>
-<li class="chapter" data-level="6.5.1.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#decomposição-espectral"><i class="fa fa-check"></i><b>6.5.1.1</b> Decomposição Espectral</a></li>
-<li class="chapter" data-level="6.5.1.2" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#decomposição-em-valores-singulares-svd"><i class="fa fa-check"></i><b>6.5.1.2</b> Decomposição em Valores Singulares (SVD)</a></li>
-<li class="chapter" data-level="6.5.1.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#algoritmo-nipals"><i class="fa fa-check"></i><b>6.5.1.3</b> Algoritmo NIPALS</a></li>
-</ul></li>
+<li class="chapter" data-level="6.5.1" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#decomposição-espectral"><i class="fa fa-check"></i><b>6.5.1</b> Decomposição Espectral</a></li>
+<li class="chapter" data-level="6.5.2" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#decomposição-em-valores-singulares-svd"><i class="fa fa-check"></i><b>6.5.2</b> Decomposição em Valores Singulares (SVD)</a></li>
+<li class="chapter" data-level="6.5.3" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#algoritmo-nipals"><i class="fa fa-check"></i><b>6.5.3</b> Algoritmo NIPALS</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.6</b> Variância por PC</a></li>
 <li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.7</b> Aplicação Típica</a></li>
@@ -365,29 +362,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="interpretação-geométrica" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Interpretação Geométrica<a href="pca---análise-de-componentes-principais.html#interpretação-geométrica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A explicação anterior tratou do PCA sob uma perspectiva algébrica. No entanto, também podemos compreendê-lo geometricamente, destacando que a transformação resultante da combinação linear pode ser vista como uma rotação dos eixos originais. Essa rotação é realizada de forma a maximizar a captura da variabilidade dos dados, mantendo a ortogonalidade das novas direções, conforme já definido. No caso de duas variáveis, essa rotação se torna facilmente visualizável e imediatamente reconhecível, permitindo uma compreensão intuitiva do processo.</p>
-<p>Para facilitar a ilustração e a visualização, consideraremos uma matriz <span class="math inline">\(\mathbf{X}_{100,2}\)</span>​ composta por duas variáveis, <span class="math inline">\(\mathbf{x}_1\)</span>​ e <span class="math inline">\(\mathbf{x}_{2}\)</span>​, contendo 100 linhas de valores aleatórios. O processo de transformar as variáveis originais em duas novas componentes principais pode ser ilustrado no gráfico a seguir:</p>
+<p>Para facilitar a ilustração e a visualização, consideraremos uma matriz <span class="math inline">\(\mathbf{X}_{100,2}\)</span> composta por duas variáveis, <span class="math inline">\(\mathbf{x}_1\)</span> e <span class="math inline">\(\mathbf{x}_{2}\)</span>, contendo 100 linhas de valores aleatórios. O processo de transformar as variáveis originais em duas novas componentes principais pode ser ilustrado no gráfico a seguir:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-rot"></span>
 <img src="img/parte03/pca_interpreta_Geo_Rot.png" alt="PCA como rotação dos dados" width="95%" />
 <p class="caption">
 Figure 6.1: PCA como rotação dos dados
 </p>
 </div>
+<p> </p>
 <details>
 <summary>
-😈 + Detalhes
+😈 + <strong>Valores Numéricos dos Dados e outros detalhes</strong>
 </summary>
-<p><br><strong>Suplemento: Mais detalhes sobre a matriz X[100,2]</strong><br><br></p>
-<p><em>Outpu</em> do R para:</p>
-<ol style="list-style-type: decimal">
-<li>Correlação de <span class="math inline">\(\mathbf{X}\)</span></li>
-<li>Dados originais</li>
-<li>Resumo sobre PCA, de <span class="math inline">\(\mathbf{X}\)</span></li>
-</ol>
-<pre><code># correlação
-&gt; cov( X )
-          x1        x2
-x1 1.0000000 0.8303746
-x2 0.8303746 1.0000000
+<p> </p>
+<p>São apresentados abaixos algumas informações sobre os dados mostrados na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a>.</p>
+<p><em>Output</em> do R para:</p>
+<ul>
+<li>Valores Numéricos dos Dados originais, <span class="math inline">\(\mathbf{X}\)</span>;</li>
+<li>Correlação de <span class="math inline">\(\mathbf{X}\)</span>;</li>
+<li>Resumo sobre PCA, de <span class="math inline">\(\mathbf{X}\)</span>;</li>
+<li>Valores dos <em>loadings</em>;</li>
+<li>Primeiros seis valores dos <em>scores</em>;</li>
+</ul>
+<pre><code>&gt;
 &gt;
 # Dados Originais
 &gt; round(as.numeric( X[,1]),3)
@@ -414,20 +411,51 @@ x2 0.8303746 1.0000000
  [81] -0.253  0.500 -0.630  2.147  0.930  1.141  1.076 -0.201  0.082  0.098
  [91] -0.561 -1.067  1.548 -0.299 -0.148  0.723 -0.073  1.054 -0.858 -0.668
 &gt;
-# PCA
-&gt; summary( prcomp( X ) )
+&gt;
+# correlação
+&gt; cov( X )
+          x1        x2
+x1 1.0000000 0.8303746
+x2 0.8303746 1.0000000
+&gt;
+&gt;
+# PCA da matriz X
+pcaX &lt;- prcomp( X )
+&gt;
+# Resumo
+&gt; summary( pcaX )
 Importance of components:
                           PC1     PC2
 Standard deviation     1.3529 0.41186
 Proportion of Variance 0.9152 0.08481
 Cumulative Proportion  0.9152 1.00000
+&gt;
+# Valores dos loadings
+&gt; summary( pcaX )$rotation
+          PC1        PC2
+x1 -0.7071068 -0.7071068
+x2 -0.7071068  0.7071068
+&gt; 
+# Primeiros seis valores dos scores
+&gt; head( summary( pcaX )$x )
+            PC1         PC2
+[1,] -0.4525456  0.02078074
+[2,] -0.0511711 -0.53782783
+[3,]  0.2507027  0.19903762
+[4,]  1.3220534 -0.43564836
+[5,] -0.4429756 -0.01461739
+[6,]  2.5467590  0.07067936
+&gt; 
 &gt;</code></pre>
 <p> </p>
 <p><strong>Gráfico interativo</strong></p>
+<p>O gráfico interativo permitir explorar os valores numéricos caso necessário.</p>
+<p> </p>
 <center>
 <iframe src="img/parte03/plotly/pca_rot.html" width="80%" height="400px" data-external="1">
 </iframe>
 </center>
+<p> </p>
 <center>
 △
 </center>
@@ -505,7 +533,11 @@ Cumulative Proportion  0.9152 1.00000
 <li><p>Os <em>loadings</em>, por outro lado, representam a contribuição de cada variável original para os componentes principais. Eles indicam a correlação entre as variáveis originais e os componentes principais. Os <em>loadings</em> ajudam a entender como as variáveis influenciam a formação dos novos eixos e, consequentemente, os <em>scores</em>. Em geral, um <em>loading</em> alto (positivo ou negativo) para uma variável em um componente principal sugere que essa variável tem uma forte influência nesse componente.</p></li>
 </ul>
 <p> </p>
-<p><strong>Equivalência de Notação</strong></p>
+<details>
+<summary>
+😈 + <strong>Equivalência de Notação</strong>
+</summary>
+<p> </p>
 <p>As duas formas são equivalentes, pois podemos monstrar que <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{P}\)</span> pode ser expresso como <span class="math inline">\(\mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}\)</span>. Só precisamos manipular a equação de forma a isolarmos <span class="math inline">\(\mathbf{X}\)</span>.</p>
 <ol style="list-style-type: decimal">
 <li>Começamos com a equação original:</li>
@@ -532,13 +564,20 @@ Cumulative Proportion  0.9152 1.00000
 \mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}
 \]</span></p>
 <p>Assim, está demonstrado que, sob a condição de que <span class="math inline">\(\mathbf{P}\)</span> sendo uma matriz ortogonal, a relação <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{P}\)</span> implica em <span class="math inline">\(\mathbf{X} = \mathbf{T} \cdot \mathbf{P^T}\)</span> e que o ponto de vista sobre PCA ser uma decomposição matricial é factível.</p>
-<div id="principais-algoritmos" class="section level3 hasAnchor" number="6.5.1">
-<h3><span class="header-section-number">6.5.1</span> Principais Algoritmos<a href="pca---análise-de-componentes-principais.html#principais-algoritmos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p> </p>
+<center>
+△
+</center>
+</details>
+<p> </p>
+<h3>
+Principais Algoritmos
+</h3>
 <p>Adotando a perpectiva da decomposição matricial, conseguimos estabelecer uma conexão natural para explorar outras decomposições matriciais já existentes e suas interconexões metodológicas. Assim sendo, ao menos os métodos mais usuais utilizados para realizar a PCA aproveitam abordagens matemáticas distintas já consolidadas.</p>
 <p>Cada uma dessas abordagens oferece suas particularidades e aplicações específicas, proporcionando vantagens em diferentes contextos e tamanhos de conjuntos de dados.</p>
 <p>A seguir, apresentamos três formatos diferentes, cada um implementado por meio das seguintes abordagens:</p>
-<div id="decomposição-espectral" class="section level4 hasAnchor" number="6.5.1.1">
-<h4><span class="header-section-number">6.5.1.1</span> Decomposição Espectral<a href="pca---análise-de-componentes-principais.html#decomposição-espectral" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="decomposição-espectral" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Decomposição Espectral<a href="pca---análise-de-componentes-principais.html#decomposição-espectral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A Decomposição Espectral<a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a><sup>,</sup><a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> também conhecida como Decomposição em Autovetores e Autovalores<a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a><sup>,</sup><a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> decompõe uma matriz quadrada <span class="math inline">\(\mathbf{A}\)</span> de dimensão <span class="math inline">\(m \times m\)</span> na forma:</p>
 <p><span class="math display">\[
 \mathbf{A} = \mathbf{V} \cdot \mathbf{\Sigma} \cdot \mathbf{V^{-1}}
@@ -573,9 +612,9 @@ Cumulative Proportion  0.9152 1.00000
 <p> </p>
 <details>
 <summary>
-😈 + Detalhes
+😈 + <strong>Uma Solução para a Decomposição Espectral</strong>
 </summary>
-<p><br><strong>Uma Solução para a Decomposição Espectral</strong><br><br></p>
+<p> </p>
 <p>Para realizar a Decomposição Espectral podemos seguir os seguintes passos:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Encontrar os autovalores</strong>:
@@ -810,14 +849,15 @@ x2  0.707 -0.707
 &gt; </code></pre>
 <p>Como detalhe adicional, é importante ressaltar para os iniciantes que a abordagem adotada nesta resolução é puramente didática. O desenvolvimento de algoritmos numéricos e eficientes envolve técnicas complexas e avançadas, que vão muito além do escopo deste texto introdutório. O objetivo aqui é proporcionar uma compreensão básica dos conceitos, preparando o terreno para estudos mais aprofundados no futuro.</p>
 <p>Os algoritmos utilizados em <em>softwares</em> especializados são significativamente mais avançados e sofisticados. Eles são projetados para lidar com uma ampla variedade de situações, levando em consideração fatores como eficiência computacional e precisão dos resultados.</p>
+<p> </p>
 <center>
 △
 </center>
 </details>
 <p> </p>
 </div>
-<div id="decomposição-em-valores-singulares-svd" class="section level4 hasAnchor" number="6.5.1.2">
-<h4><span class="header-section-number">6.5.1.2</span> Decomposição em Valores Singulares (SVD)<a href="pca---análise-de-componentes-principais.html#decomposição-em-valores-singulares-svd" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="decomposição-em-valores-singulares-svd" class="section level3 hasAnchor" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> Decomposição em Valores Singulares (SVD)<a href="pca---análise-de-componentes-principais.html#decomposição-em-valores-singulares-svd" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A Decomposição em Valores Singulares (<em>Singular Value Decomposition - SVD</em>)<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a> é considerada uma generalização da Decomposição Espectral para casos gerais de matrizes retangulares. É uma técnica que fatoriza uma matriz <span class="math inline">\(\mathbf{X}\)</span> de dimensões <span class="math inline">\(n \times m\)</span> em três matrizes:</p>
 <p> </p>
 <p><span class="math display">\[ \mathbf{X} = \mathbf{U} \cdot \mathbf{\Sigma} \cdot \mathbf{V^T} \]</span></p>
@@ -851,10 +891,9 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <p> </p>
 <details>
 <summary>
-😈 + Detalhes
+😈 + <strong>Relação entre as decomposições SVD e Espectral</strong>
 </summary>
 <p> </p>
-<p><strong>Relação entre as decomposições SVD e Espectral</strong></p>
 <p>Conforme já mencionado, a decomposição SVD pode ser vista como uma generalização da Decomposição Espectral para matrizes retangulares. Para entender a SVD, podemos conceitualmente derivá-la a partir da Decomposição Espectral, aplicando-a de maneira adequada às matrizes que não são quadradas.</p>
 <p> </p>
 <ol style="list-style-type: decimal">
@@ -932,14 +971,15 @@ No R, existe a função <code>prcomp</code> que implementa PCA via SVD. Deve ser
 <span id="cb39-27"><a href="pca---análise-de-componentes-principais.html#cb39-27" tabindex="-1"></a><span class="fu">all.equal</span>( ( U <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> <span class="fu">t</span>(V) ), X )</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Desde que o resultado final seja <strong>TRUE</strong>, fica também demonstrado numericamente a equivalência entre a Decomposição Espectral e a Decomposição SVD.</p>
+<p> </p>
 <center>
 △
 </center>
 </details>
 <p> </p>
 </div>
-<div id="algoritmo-nipals" class="section level4 hasAnchor" number="6.5.1.3">
-<h4><span class="header-section-number">6.5.1.3</span> Algoritmo NIPALS<a href="pca---análise-de-componentes-principais.html#algoritmo-nipals" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="algoritmo-nipals" class="section level3 hasAnchor" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> Algoritmo NIPALS<a href="pca---análise-de-componentes-principais.html#algoritmo-nipals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O algoritmo NIPALS, um acrônimo de <em>Non-linear Iterative Partial Least Squares</em>, implementa a análise de componentes principais de forma direta.</p>
 <p>O método foi desenvolvido como uma adaptação do Método das Potências<a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a>. Para facilitar a compreensão, é importante entender sua estratégia, uma vez que o núcleo do NIPALS se baseia nesse método.</p>
 <p><strong>Método das Potências</strong></p>
@@ -976,7 +1016,7 @@ pode ser facilmente determinado, pois corresponde à variância do autovetor.</p
 <p>A seguir, é apresentada uma implementação didática do Método de Potências na linguagem R.</p>
 <p>Os parâmetros são:</p>
 <ol style="list-style-type: decimal">
-<li><p><code>x</code>: matriz dos dados;</p></li>
+<li><p><code>X</code>: matriz dos dados;</p></li>
 <li><p><code>tol</code>: a tolerância para a convergência;</p></li>
 </ol>
 <p> </p>
@@ -1090,30 +1130,32 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 </center>
 </details>
 <p> </p>
-<p>Um ponto de destaque do algoritmo NIPALS é permitir a determinação das componentes principais na ordem decrescente como critério obrigatório. O mesmo não é possível nos dois primeiros métodos discutidos anteriormente. Neles, todas as possíveis componentes devem ser obtidas e somente após está obtenção é que se procede a reordenação das mesmas.</p>
-<p>Dito isso, uma característica importante do NIPALS é poder, a priori, determinar o número de componentes a serem calculadas bem como determinar qual é a variância que se quer representar e assumida satisfatória. Desde modo, por fim, tempo de cálculo computacional pode ser poupado.</p>
+<p>Um aspecto notável do algoritmo NIPALS é sua capacidade de determinar as componentes principais em ordem decrescente, o que é um critério obrigatório. Isso não ocorre nos dois primeiros métodos discutidos anteriormente, onde todas as componentes possíveis devem ser inicialmente extraídas (sem conhecimento da ordem) e, em seguida, reordenadas. Com isso, uma característica importante do NIPALS é a capacidade de definir, a priori, o número de componentes a serem calculadas, bem como a variância que se deseja representar e considerada satisfatória. Assim, é possível economizar tempo de cálculo computacional.</p>
 <p>Outro ponto, é que o algoritmo NIPALS permite extrair componentes principais sem necessidade de imputar valores ausentes previamente (desde de que devidamente implementado) sendo uma vantagem significativa em relação a outros métodos que não lidam bem com dados faltantes. Como desvantagem, é conhecido que o algoritmo tem lenta convergência.</p>
 <p>No R, não há função nativa mas há o método em alguns pacotes. Em especial, vale mencionar o pacote <code>nipals</code> que implementa o algoritmo com opção padrão da execução da ortogonalização de Gram-Schmidt em cada iteração. Isso é necessário pois, devido ao acúmulo de erros de ponto flutuante, a ortogonalidade dos componentes principais é rapidamente perdida à medida que o número de componentes aumenta. A versão modificada do NIPALS, NIPALS-GS<a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a>, com o processo de Gram-Schmidt, re-ortogonaliza tanto os <em>scores</em> quanto os <em>loadings</em> de forma a estabilizá-los. Com a versão tradicional do NIPALS apenas as primeiras componentes devem ser consideradas e de matrizes não muito grandes.</p>
-<p> </p>
-<ol start="4" style="list-style-type: decimal">
-<li><strong>PCoA - Principal Coordinates Analysis</strong></li>
-</ol>
-<p> </p>
-<ul>
-<li><p>PCA e PCoA se equivalem quando a distância a ser preservada é a euclidiana.</p></li>
-<li><p>Atualmente, o PCoA é mais comumente conhecido como Escalonamento Multidimensional Clássico<a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a> (<em>Classical Multidimensional Scaling</em>)</p></li>
-</ul>
-<p> </p>
-<p><strong>TODO (texto a ser desenvolvido)</strong></p>
-<p> </p>
-</div>
+<!--
+
+4. **PCoA - Principal Coordinates Analysis**
+
+&nbsp;
+
+- PCA e PCoA se equivalem quando a distância a ser preservada é a euclidiana.
+
+- Atualmente, o PCoA é mais comumente conhecido como Escalonamento Multidimensional Clássico[^MDWikip] (*Classical Multidimensional Scaling*)
+
+[^MDWikip]: https://en.wikipedia.org/wiki/Multidimensional_scaling
+
+&nbsp;
+
+**TODO (texto a ser desenvolvido)**
+
+&nbsp;
+
+-->
 </div>
 </div>
 <div id="variância-por-pc" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> Variância por PC<a href="pca---análise-de-componentes-principais.html#variância-por-pc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p> </p>
-<p> </p>
-<p> </p>
 <p>Considerando o exemplo ilustrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a></p>
 <pre><code>&gt;
 &gt; 1.830106 / ( 1.830106 + 0.169894 )
@@ -1121,138 +1163,11 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 &gt; 0.169894 / ( 1.830106 + 0.169894 )
 [1] 0.084947
 &gt;</code></pre>
-<p> </p>
-<p> </p>
-<p> </p>
 <p><a href="https://pt.wikipedia.org/wiki/Matrizes_semelhantes" class="uri">https://pt.wikipedia.org/wiki/Matrizes_semelhantes</a></p>
+<p> </p>
 </div>
 <div id="aplicação-típica" class="section level2 hasAnchor" number="6.7">
 <h2><span class="header-section-number">6.7</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<!--
-1) O que é SVD?
-2) Mostre o passo a passo para se fazer essa decomposição - SVD -  de uma matriz 2x2. Exemplifique e explique as etapas.
-3) Resolva o exemplo anterior usando o método de Jacobi.
-4) Do exemplo anterior, resolução de SVD pelo método de Jacobi, faça um função em R puro, para esse exemplo.
-5) Forneça a matrix usada anterior para aplicar a função anterior em código R
--->
-<p> </p>
-<p> </p>
-<p> </p>
-<p> </p>
-<p> </p>
-<details>
-<summary>
-😈Algoritmo para SVD
-</summary>
-<p><br><strong>O algoritmo apresentado abaixo é apenas uma possibilidade dentre vários</strong><br><br></p>
-<p>O método de Jacobi é uma abordagem iterativa que pode ser aplicada à SVD, embora não seja a mais eficiente para matrizes grandes. É apresentado para incentivar o conhecimento de se ter ao menos uma alternativa de resolução do problema com apenas conceitos básicos de álgebra. Ou seja, sem o uso de funções prontas e abordagem <strong>caixa-preta</strong>.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="pca---análise-de-componentes-principais.html#cb44-1" tabindex="-1"></a><span class="co"># Função para calcular SVD usando o método de Jacobi</span></span>
-<span id="cb44-2"><a href="pca---análise-de-componentes-principais.html#cb44-2" tabindex="-1"></a>jacobi_svd <span class="ot">&lt;-</span> <span class="cf">function</span>(A, <span class="at">tol =</span> <span class="fl">1e-10</span>, <span class="at">max_iter =</span> <span class="dv">100</span>) {</span>
-<span id="cb44-3"><a href="pca---análise-de-componentes-principais.html#cb44-3" tabindex="-1"></a>  <span class="co"># Inicialização</span></span>
-<span id="cb44-4"><a href="pca---análise-de-componentes-principais.html#cb44-4" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(A)</span>
-<span id="cb44-5"><a href="pca---análise-de-componentes-principais.html#cb44-5" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">ncol</span>(A)</span>
-<span id="cb44-6"><a href="pca---análise-de-componentes-principais.html#cb44-6" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
-<span id="cb44-7"><a href="pca---análise-de-componentes-principais.html#cb44-7" tabindex="-1"></a>  V <span class="ot">&lt;-</span> <span class="fu">diag</span>(m)</span>
-<span id="cb44-8"><a href="pca---análise-de-componentes-principais.html#cb44-8" tabindex="-1"></a>  </span>
-<span id="cb44-9"><a href="pca---análise-de-componentes-principais.html#cb44-9" tabindex="-1"></a>  <span class="co"># Calcular A^T A</span></span>
-<span id="cb44-10"><a href="pca---análise-de-componentes-principais.html#cb44-10" tabindex="-1"></a>  ATA <span class="ot">&lt;-</span> <span class="fu">t</span>(A) <span class="sc">%*%</span> A</span>
-<span id="cb44-11"><a href="pca---análise-de-componentes-principais.html#cb44-11" tabindex="-1"></a>  </span>
-<span id="cb44-12"><a href="pca---análise-de-componentes-principais.html#cb44-12" tabindex="-1"></a>  <span class="co"># Iterações de Jacobi</span></span>
-<span id="cb44-13"><a href="pca---análise-de-componentes-principais.html#cb44-13" tabindex="-1"></a>  <span class="cf">for</span> (iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_iter) {</span>
-<span id="cb44-14"><a href="pca---análise-de-componentes-principais.html#cb44-14" tabindex="-1"></a>    <span class="co"># Encontrar o maior elemento fora da diagonal</span></span>
-<span id="cb44-15"><a href="pca---análise-de-componentes-principais.html#cb44-15" tabindex="-1"></a>    off_diag <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(ATA) <span class="sc">&gt;</span> tol, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb44-16"><a href="pca---análise-de-componentes-principais.html#cb44-16" tabindex="-1"></a>    off_diag <span class="ot">&lt;-</span> off_diag[off_diag[, <span class="dv">1</span>] <span class="sc">!=</span> off_diag[, <span class="dv">2</span>], ]</span>
-<span id="cb44-17"><a href="pca---análise-de-componentes-principais.html#cb44-17" tabindex="-1"></a>    </span>
-<span id="cb44-18"><a href="pca---análise-de-componentes-principais.html#cb44-18" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(off_diag) <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb44-19"><a href="pca---análise-de-componentes-principais.html#cb44-19" tabindex="-1"></a>      <span class="cf">break</span>  <span class="co"># Convergido</span></span>
-<span id="cb44-20"><a href="pca---análise-de-componentes-principais.html#cb44-20" tabindex="-1"></a>    }</span>
-<span id="cb44-21"><a href="pca---análise-de-componentes-principais.html#cb44-21" tabindex="-1"></a>    </span>
-<span id="cb44-22"><a href="pca---análise-de-componentes-principais.html#cb44-22" tabindex="-1"></a>    <span class="co"># Selecionar o primeiro elemento fora da diagonal</span></span>
-<span id="cb44-23"><a href="pca---análise-de-componentes-principais.html#cb44-23" tabindex="-1"></a>    p <span class="ot">&lt;-</span> off_diag[<span class="dv">1</span>, <span class="dv">1</span>]</span>
-<span id="cb44-24"><a href="pca---análise-de-componentes-principais.html#cb44-24" tabindex="-1"></a>    q <span class="ot">&lt;-</span> off_diag[<span class="dv">1</span>, <span class="dv">2</span>]</span>
-<span id="cb44-25"><a href="pca---análise-de-componentes-principais.html#cb44-25" tabindex="-1"></a>    </span>
-<span id="cb44-26"><a href="pca---análise-de-componentes-principais.html#cb44-26" tabindex="-1"></a>    <span class="co"># Cálculo dos ângulos de rotação</span></span>
-<span id="cb44-27"><a href="pca---análise-de-componentes-principais.html#cb44-27" tabindex="-1"></a>    <span class="cf">if</span> (ATA[p, p] <span class="sc">==</span> ATA[q, q]) {</span>
-<span id="cb44-28"><a href="pca---análise-de-componentes-principais.html#cb44-28" tabindex="-1"></a>      theta <span class="ot">&lt;-</span> pi <span class="sc">/</span> <span class="dv">4</span></span>
-<span id="cb44-29"><a href="pca---análise-de-componentes-principais.html#cb44-29" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb44-30"><a href="pca---análise-de-componentes-principais.html#cb44-30" tabindex="-1"></a>      theta <span class="ot">&lt;-</span> <span class="fu">atan</span>(<span class="dv">2</span> <span class="sc">*</span> ATA[p, q] <span class="sc">/</span> (ATA[p, p] <span class="sc">-</span> ATA[q, q])) <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb44-31"><a href="pca---análise-de-componentes-principais.html#cb44-31" tabindex="-1"></a>    }</span>
-<span id="cb44-32"><a href="pca---análise-de-componentes-principais.html#cb44-32" tabindex="-1"></a>    </span>
-<span id="cb44-33"><a href="pca---análise-de-componentes-principais.html#cb44-33" tabindex="-1"></a>    <span class="co"># Matriz de rotação</span></span>
-<span id="cb44-34"><a href="pca---análise-de-componentes-principais.html#cb44-34" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="fu">cos</span>(theta)</span>
-<span id="cb44-35"><a href="pca---análise-de-componentes-principais.html#cb44-35" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="fu">sin</span>(theta)</span>
-<span id="cb44-36"><a href="pca---análise-de-componentes-principais.html#cb44-36" tabindex="-1"></a>    </span>
-<span id="cb44-37"><a href="pca---análise-de-componentes-principais.html#cb44-37" tabindex="-1"></a>    <span class="co"># Atualizar ATA</span></span>
-<span id="cb44-38"><a href="pca---análise-de-componentes-principais.html#cb44-38" tabindex="-1"></a>    R <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
-<span id="cb44-39"><a href="pca---análise-de-componentes-principais.html#cb44-39" tabindex="-1"></a>    R[<span class="fu">c</span>(p, q), <span class="fu">c</span>(p, q)] <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(c, <span class="sc">-</span>s, s, c), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb44-40"><a href="pca---análise-de-componentes-principais.html#cb44-40" tabindex="-1"></a>    </span>
-<span id="cb44-41"><a href="pca---análise-de-componentes-principais.html#cb44-41" tabindex="-1"></a>    ATA <span class="ot">&lt;-</span> <span class="fu">t</span>(R) <span class="sc">%*%</span> ATA <span class="sc">%*%</span> R</span>
-<span id="cb44-42"><a href="pca---análise-de-componentes-principais.html#cb44-42" tabindex="-1"></a>    V <span class="ot">&lt;-</span> V <span class="sc">%*%</span> R</span>
-<span id="cb44-43"><a href="pca---análise-de-componentes-principais.html#cb44-43" tabindex="-1"></a>    </span>
-<span id="cb44-44"><a href="pca---análise-de-componentes-principais.html#cb44-44" tabindex="-1"></a>    <span class="co"># Calcular os autovalores</span></span>
-<span id="cb44-45"><a href="pca---análise-de-componentes-principais.html#cb44-45" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">abs</span>(ATA[off_diag]) <span class="sc">&lt;</span> tol)) {</span>
-<span id="cb44-46"><a href="pca---análise-de-componentes-principais.html#cb44-46" tabindex="-1"></a>      <span class="cf">break</span></span>
-<span id="cb44-47"><a href="pca---análise-de-componentes-principais.html#cb44-47" tabindex="-1"></a>    }</span>
-<span id="cb44-48"><a href="pca---análise-de-componentes-principais.html#cb44-48" tabindex="-1"></a>  }</span>
-<span id="cb44-49"><a href="pca---análise-de-componentes-principais.html#cb44-49" tabindex="-1"></a>  </span>
-<span id="cb44-50"><a href="pca---análise-de-componentes-principais.html#cb44-50" tabindex="-1"></a>  <span class="co"># Valores singulares</span></span>
-<span id="cb44-51"><a href="pca---análise-de-componentes-principais.html#cb44-51" tabindex="-1"></a>  singular_values <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(ATA))</span>
-<span id="cb44-52"><a href="pca---análise-de-componentes-principais.html#cb44-52" tabindex="-1"></a>  </span>
-<span id="cb44-53"><a href="pca---análise-de-componentes-principais.html#cb44-53" tabindex="-1"></a>  <span class="co"># Calcular U</span></span>
-<span id="cb44-54"><a href="pca---análise-de-componentes-principais.html#cb44-54" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb44-55"><a href="pca---análise-de-componentes-principais.html#cb44-55" tabindex="-1"></a>    <span class="cf">if</span> (singular_values[i] <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb44-56"><a href="pca---análise-de-componentes-principais.html#cb44-56" tabindex="-1"></a>      U[, i] <span class="ot">&lt;-</span> A <span class="sc">%*%</span> V[, i] <span class="sc">/</span> singular_values[i]</span>
-<span id="cb44-57"><a href="pca---análise-de-componentes-principais.html#cb44-57" tabindex="-1"></a>    }</span>
-<span id="cb44-58"><a href="pca---análise-de-componentes-principais.html#cb44-58" tabindex="-1"></a>  }</span>
-<span id="cb44-59"><a href="pca---análise-de-componentes-principais.html#cb44-59" tabindex="-1"></a>  </span>
-<span id="cb44-60"><a href="pca---análise-de-componentes-principais.html#cb44-60" tabindex="-1"></a>  <span class="co"># Retornar os resultados</span></span>
-<span id="cb44-61"><a href="pca---análise-de-componentes-principais.html#cb44-61" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">U =</span> U, <span class="at">D =</span> <span class="fu">diag</span>(singular_values), <span class="at">V =</span> V))</span>
-<span id="cb44-62"><a href="pca---análise-de-componentes-principais.html#cb44-62" tabindex="-1"></a>}</span>
-<span id="cb44-63"><a href="pca---análise-de-componentes-principais.html#cb44-63" tabindex="-1"></a></span>
-<span id="cb44-64"><a href="pca---análise-de-componentes-principais.html#cb44-64" tabindex="-1"></a><span class="co"># Matriz exemplo</span></span>
-<span id="cb44-65"><a href="pca---análise-de-componentes-principais.html#cb44-65" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb44-66"><a href="pca---análise-de-componentes-principais.html#cb44-66" tabindex="-1"></a></span>
-<span id="cb44-67"><a href="pca---análise-de-componentes-principais.html#cb44-67" tabindex="-1"></a><span class="co"># Chamar a função</span></span>
-<span id="cb44-68"><a href="pca---análise-de-componentes-principais.html#cb44-68" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">jacobi_svd</span>(A)</span>
-<span id="cb44-69"><a href="pca---análise-de-componentes-principais.html#cb44-69" tabindex="-1"></a></span>
-<span id="cb44-70"><a href="pca---análise-de-componentes-principais.html#cb44-70" tabindex="-1"></a><span class="co"># Resultados</span></span>
-<span id="cb44-71"><a href="pca---análise-de-componentes-principais.html#cb44-71" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Matriz U:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<pre><code>## Matriz U:</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="pca---análise-de-componentes-principais.html#cb46-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>U)</span></code></pre></div>
-<pre><code>##            [,1]       [,2]
-## [1,]  0.8944272 -0.4472136
-## [2,] -0.4472136 -0.8944272</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="pca---análise-de-componentes-principais.html#cb48-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz D (valores singulares):</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## Matriz D (valores singulares):</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="pca---análise-de-componentes-principais.html#cb50-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>D)</span></code></pre></div>
-<pre><code>##          [,1]     [,2]
-## [1,] 3.162278 0.000000
-## [2,] 0.000000 6.324555</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="pca---análise-de-componentes-principais.html#cb52-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Matriz V:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## Matriz V:</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="pca---análise-de-componentes-principais.html#cb54-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>V)</span></code></pre></div>
-<pre><code>##           [,1]       [,2]
-## [1,] 0.7071068 -0.7071068
-## [2,] 0.7071068  0.7071068</code></pre>
-<p><strong>Algoritmos para SVD</strong></p>
-<p>Existem vários algoritmos para calcular a SVD, incluindo:</p>
-<ul>
-<li>Método de Jacobi: Uma abordagem iterativa, mas geralmente mais lenta para matrizes grandes.</li>
-<li>Algoritmo de Golub-Reinsch: Um método mais eficiente que combina a decomposição QR e o método de Jacobi.</li>
-<li>Algoritmo de Lanczos: Usado para matrizes grandes e esparsas; baseia-se em métodos de subespaço.</li>
-<li>SVD baseado em bidiagonalização: Usa decomposições bidiagonais, seguido por uma SVD da matriz bidiagonal.</li>
-<li>Algoritmos de fatoração de matrizes de baixa-rank: Técnicas como o método de potência e métodos estocásticos.</li>
-</ul>
-<p><strong>Eficiência dos Algoritmos</strong></p>
-<p>O algoritmo de Golub-Reinsch é um dos mais utilizados na prática e considerado eficiente para a maioria das aplicações. Para matrizes muito grandes ou esparsas, métodos baseados em Lanczos ou bidiagonalização tendem a ser mais eficientes.</p>
-<p>A escolha do algoritmo SVD mais eficiente depende do tamanho e da estrutura da matriz que você está tratando, bem como das necessidades específicas da aplicação.</p>
-<p>Em bibliotecas computacionais otimizadas, tais como <em>BLAS</em><a href="#fn68" class="footnote-ref" id="fnref68"><sup>68</sup></a>, <em>LAPACK</em><a href="#fn69" class="footnote-ref" id="fnref69"><sup>69</sup></a>, <em>MKL</em><a href="#fn70" class="footnote-ref" id="fnref70"><sup>70</sup></a> em geral as funções implementadas trazem esses diversos algoritmos e alguma análise inicial da matriz determina o algoritmo mais adequado para a situação específica.</p>
-<center>
-△
-</center>
-</details>
 
 </div>
 </div>
@@ -1284,10 +1199,6 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 <li id="fn66"><p>M. Andrecut, <em>Parallel GPU Implementation of Iterative PCA Algorithms</em>,
 <strong>Journal of Computational Biology</strong>, 2009 16:11, 1593-1599,
 <a href="https://www.liebertpub.com/doi/10.1089/cmb.2008.0221" class="uri">https://www.liebertpub.com/doi/10.1089/cmb.2008.0221</a><a href="pca---análise-de-componentes-principais.html#fnref66" class="footnote-back">↩︎</a></p></li>
-<li id="fn67"><p><a href="https://en.wikipedia.org/wiki/Multidimensional_scaling" class="uri">https://en.wikipedia.org/wiki/Multidimensional_scaling</a><a href="pca---análise-de-componentes-principais.html#fnref67" class="footnote-back">↩︎</a></p></li>
-<li id="fn68"><p><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" class="uri">https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms</a><a href="pca---análise-de-componentes-principais.html#fnref68" class="footnote-back">↩︎</a></p></li>
-<li id="fn69"><p><a href="https://en.wikipedia.org/wiki/LAPACK" class="uri">https://en.wikipedia.org/wiki/LAPACK</a><a href="pca---análise-de-componentes-principais.html#fnref69" class="footnote-back">↩︎</a></p></li>
-<li id="fn70"><p><a href="https://en.wikipedia.org/wiki/Math_Kernel_Library" class="uri">https://en.wikipedia.org/wiki/Math_Kernel_Library</a><a href="pca---análise-de-componentes-principais.html#fnref70" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
