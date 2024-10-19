@@ -6,6 +6,7 @@ fig:unnamed-chunk-114
 fig:unnamed-chunk-116
 fig:unnamed-chunk-118
 fig:pca-rot
+fig:pca-LoadScor
 comece-a-usar-o-r
 instale-o-r-e-rstudio
 conheça-o-básico-do-r

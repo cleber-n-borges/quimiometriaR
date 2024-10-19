@@ -1184,14 +1184,30 @@ Fundamento da Abordagem:
 <div id="importância-das-variáveis" class="section level2 hasAnchor" number="6.7">
 <h2><span class="header-section-number">6.7</span> Importância das Variáveis<a href="pca---análise-de-componentes-principais.html#importância-das-variáveis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Focando nas componentes mais significativas — aquelas com os maiores autovalores — podemos determinar quais variáveis são essenciais para a variabilidade dos dados. Se uma componente que captura muita variabilidade é fortemente influenciada por certas variáveis, isso indica que elas são cruciais para entender o fenômeno analisado.</p>
-<p>Podemos identificar quais variáveis originais têm maior impacto nas componentes principais, analisando os coeficientes dos autovetores (ou <em>loadings</em>). Esses coeficientes mostram a contribuição de cada variável para as novas dimensões criadas.</p>
+<p>Podemos identificar quais variáveis originais têm maior impacto nas componentes principais, analisando os valores dos autovetores (ou <em>loadings</em>). Esses valores representam a contribuição de cada variável para as novas dimensões criadas.</p>
 <p>Assim, ao reconhecer as variáveis que mais contribuem para as componentes principais, conseguimos identificar quais são mais relevantes, facilitando a interpretação dos resultados da análise.</p>
-<p>Novamente, considerando o exemplo ilustrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> e seus resultados numéricos</p>
-<p>……….colocar gráfico dos loadings e scores</p>
-<p> </p>
+<p>Considerando novamente o exemplo ilustrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> e seus resultados numéricos, observamos que a variável <span class="math inline">\(\mathbf{x1}\)</span> possui um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(-0.7\)</span> em PC2. Por outro lado, a variável <span class="math inline">\(\mathbf{x2}\)</span> apresenta um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(0.7\)</span> em PC2.</p>
+<p>Essas informações são mais rapidamente assimiladas por meio de representações gráficas, especialmente em contextos com várias variáveis, onde o objetivo é identificar tendências gerais.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-LoadScor"></span>
+<img src="img/parte03/PCA/pca_rot_Load_Score.png" alt="Scores e Loadings" width="95%" />
+<p class="caption">
+Figure 6.2: Scores e Loadings
+</p>
+</div>
+<p>A figura <a href="pca---análise-de-componentes-principais.html#fig:pca-LoadScor">6.2</a> mostra os valores dos <em>scores</em> e <em>loadings</em> do PCA obtido dos dados do nosso exemplo, figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a>.</p>
+<p>É possível concluir que, neste caso específico com duas variáveis, a contribuição de ambas para as duas componentes é equivalente, apenas invertendo suas posições.</p>
+<p>O padrão observado nos <em>loadings</em> pode ser explicado alto valor da correlação, <span class="math inline">\(0.83\)</span>, entre as duas variáveis. Em outras palavras, é a combinação dessas variáveis que revela a dispersão observada.</p>
 </div>
 <div id="aplicação-típica" class="section level2 hasAnchor" number="6.8">
 <h2><span class="header-section-number">6.8</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>TODO</strong></p>
+<p> </p>
+<p><strong>TODO</strong></p>
+<p> </p>
+<p><strong>TODO</strong></p>
+<p> </p>
+<p><strong>TODO</strong></p>
+<p> </p>
 
 </div>
 </div>
