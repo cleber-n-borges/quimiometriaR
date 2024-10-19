@@ -365,7 +365,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A explicação anterior tratou do PCA sob uma perspectiva algébrica. No entanto, também podemos compreendê-lo geometricamente, destacando que a transformação resultante da combinação linear pode ser vista como uma rotação dos eixos originais. Essa rotação é realizada de forma a maximizar a captura da variabilidade dos dados, mantendo a ortogonalidade das novas direções, conforme já definido. No caso de duas variáveis, essa rotação se torna facilmente visualizável e imediatamente reconhecível, permitindo uma compreensão intuitiva do processo.</p>
 <p>Para facilitar a ilustração e a visualização, consideraremos uma matriz <span class="math inline">\(\mathbf{X}_{100,2}\)</span> composta por duas variáveis, <span class="math inline">\(\mathbf{x}_1\)</span> e <span class="math inline">\(\mathbf{x}_{2}\)</span>, contendo 100 linhas de valores aleatórios. O processo de transformar as variáveis originais em duas novas componentes principais pode ser ilustrado no gráfico a seguir:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-rot"></span>
-<img src="img/parte03/pca_interpreta_Geo_Rot.png" alt="PCA como rotação dos dados" width="95%" />
+<img src="img/parte03/PCA/pca_interpreta_Geo_Rot.png" alt="PCA como rotação dos dados" width="95%" />
 <p class="caption">
 Figure 6.1: PCA como rotação dos dados
 </p>
@@ -1169,7 +1169,7 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 <pre><code>VarExpl = colSums(T^2) / sum(x^2)</code></pre>
 <p>Onde:</p>
 <ul>
-<li><p><code>sum(x^2)</code> representa o traço da matriz de covariância de X, que equivale à soma quadrática de X e é proporcional à variância total de X.</p></li>
+<li><p><code>sum(x^2)</code> representa o traço da matriz de covariância de <span class="math inline">\(\mathbf{X}\)</span>, que equivale à soma quadrática de <span class="math inline">\(\mathbf{X}\)</span> e é proporcional à variância total de <span class="math inline">\(\mathbf{X}\)</span>.</p></li>
 <li><p><code>colSums(T^2)</code> representa a soma quadrática de cada componente, proporcional à variância de cada componente.</p></li>
 <li><p>A razão entre essas duas quantidades corresponde à variância explicada por cada componente.</p></li>
 </ul>
@@ -1183,20 +1183,21 @@ Fundamento da Abordagem:
 </div>
 <div id="importância-das-variáveis" class="section level2 hasAnchor" number="6.7">
 <h2><span class="header-section-number">6.7</span> Importância das Variáveis<a href="pca---análise-de-componentes-principais.html#importância-das-variáveis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Focando nas componentes mais significativas — aquelas com os maiores autovalores — podemos determinar quais variáveis são essenciais para a variabilidade dos dados. Se uma componente que captura muita variabilidade é fortemente influenciada por certas variáveis, isso indica que elas são cruciais para entender o fenômeno analisado.</p>
+<p>Focando componentes mais significativas — aquelas com os maiores autovalores / variância — podemos determinar quais variáveis são essenciais para a variabilidade dos dados. Se uma componente que captura muita variabilidade é fortemente influenciada por certas variáveis, isso indica que elas são cruciais para entender o fenômeno analisado.</p>
 <p>Podemos identificar quais variáveis originais têm maior impacto nas componentes principais, analisando os valores dos autovetores (ou <em>loadings</em>). Esses valores representam a contribuição de cada variável para as novas dimensões criadas.</p>
 <p>Assim, ao reconhecer as variáveis que mais contribuem para as componentes principais, conseguimos identificar quais são mais relevantes, facilitando a interpretação dos resultados da análise.</p>
-<p>Considerando novamente o exemplo ilustrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a> e seus resultados numéricos, observamos que a variável <span class="math inline">\(\mathbf{x1}\)</span> possui um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(-0.7\)</span> em PC2. Por outro lado, a variável <span class="math inline">\(\mathbf{x2}\)</span> apresenta um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(0.7\)</span> em PC2.</p>
 <p>Essas informações são mais rapidamente assimiladas por meio de representações gráficas, especialmente em contextos com várias variáveis, onde o objetivo é identificar tendências gerais.</p>
+<p>A análise de apenas duas variáveis correlacionadas restringe nossa capacidade de explorar como os <em>loadings</em> podem ser utilizados para avaliar a influência das variáveis originais. Com isso em mente, voltemos ao exemplo apresentado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a>, agora acompanhada da representação gráfica dos <em>loadings</em>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-LoadScor"></span>
-<img src="img/parte03/PCA/pca_rot_Load_Score.png" alt="Scores e Loadings" width="95%" />
+<img src="img/parte03/PCA/pca_rot_Load_Score.png" alt=" Dados, *Loadings* e *Scores* (Componentes Principais)" width="95%" />
 <p class="caption">
-Figure 6.2: Scores e Loadings
+Figure 6.2:  Dados, <em>Loadings</em> e <em>Scores</em> (Componentes Principais)
 </p>
 </div>
-<p>A figura <a href="pca---análise-de-componentes-principais.html#fig:pca-LoadScor">6.2</a> mostra os valores dos <em>scores</em> e <em>loadings</em> do PCA obtido dos dados do nosso exemplo, figura <a href="pca---análise-de-componentes-principais.html#fig:pca-rot">6.1</a>.</p>
-<p>É possível concluir que, neste caso específico com duas variáveis, a contribuição de ambas para as duas componentes é equivalente, apenas invertendo suas posições.</p>
-<p>O padrão observado nos <em>loadings</em> pode ser explicado alto valor da correlação, <span class="math inline">\(0.83\)</span>, entre as duas variáveis. Em outras palavras, é a combinação dessas variáveis que revela a dispersão observada.</p>
+<p>A figura <a href="pca---análise-de-componentes-principais.html#fig:pca-LoadScor">6.2</a> apresenta quatro subgráficos: no gráfico 1, visualizamos a dispersão dos valores dos dados originais. O gráfico 2 exibe os <em>loadings</em> das variáveis <span class="math inline">\(\mathbf{x1}\)</span> e <span class="math inline">\(\mathbf{x2}\)</span> como vetores em azul, inseridos dentro de um círculo trigonométrico. No gráfico 3, observamos a sobreposição das informações dos gráficos 1 e 2. Por fim, o gráfico 4 ilustra a dispersão no novo sistema de componentes principais.</p>
+<p>Os resultados numéricos revelam que a variável <span class="math inline">\(\mathbf{x1}\)</span> possui um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(-0.7\)</span> em PC2. Em contraste, a variável <span class="math inline">\(\mathbf{x2}\)</span> apresenta um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(0.7\)</span> em PC2. Essa análise sugere que, neste caso particular com apenas duas variáveis correlacionadas, a contribuição de ambas para as duas componentes principais é equivalente. Essa equivalência é rapidamente percebida pela igual magnitude dos vetores que representam os <em>loadings</em>, que demonstram uma relação equilibrada entre as variáveis.</p>
+<p>Esse padrão nos <em>loadings</em> pode ser atribuído ao elevado valor da correlação, <span class="math inline">\(0.83\)</span>, entre as duas variáveis. Em outras palavras, é a interação entre essas variáveis que destaca a dispersão observada nos dados, indicando que elas contribuem de maneira conjunta para a variação nas componentes principais.</p>
+<p>As relações entre as variáveis originais e as componentes principais são estabelecidas exclusivamente pelos <em>loadings</em>. Portanto, é fundamental explorar a utilidade dos <em>loadings</em> para identificar as variáveis originais mais influentes, o que demanda a análise de mais exemplos que serão apresentados na próxima seção.</p>
 </div>
 <div id="aplicação-típica" class="section level2 hasAnchor" number="6.8">
 <h2><span class="header-section-number">6.8</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
