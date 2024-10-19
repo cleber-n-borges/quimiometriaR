@@ -1133,7 +1133,7 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 <p> </p>
 <p>Um aspecto notável do algoritmo NIPALS é sua capacidade de determinar as componentes principais em ordem decrescente, o que é um critério obrigatório. Isso não ocorre nos dois primeiros métodos discutidos anteriormente, onde todas as componentes possíveis devem ser inicialmente extraídas (sem conhecimento da ordem) e, em seguida, reordenadas. Com isso, uma característica importante do NIPALS é a capacidade de definir, a priori, o número de componentes a serem calculadas, bem como a variância que se deseja representar e considerada satisfatória. Assim, é possível economizar tempo de cálculo computacional.</p>
 <p>Outro ponto, é que o algoritmo NIPALS permite extrair componentes principais sem necessidade de imputar valores ausentes previamente (desde de que devidamente implementado) sendo uma vantagem significativa em relação a outros métodos que não lidam bem com dados faltantes. Como desvantagem, é conhecido que o algoritmo tem lenta convergência.</p>
-<p>No R, não há função nativa mas há o método em alguns pacotes. Em especial, vale mencionar o pacote <code>nipals</code> que implementa o algoritmo com opção padrão da execução da ortogonalização de Gram-Schmidt em cada iteração. Isso é necessário pois, devido ao acúmulo de erros de ponto flutuante, a ortogonalidade dos componentes principais é rapidamente perdida à medida que o número de componentes aumenta. A versão modificada do NIPALS, NIPALS-GS<a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a>, com o processo de Gram-Schmidt, re-ortogonaliza tanto os <em>scores</em> quanto os <em>loadings</em> de forma a estabilizá-los. Com a versão tradicional do NIPALS apenas as primeiras componentes devem ser consideradas e de matrizes não muito grandes.</p>
+<p>No R, não há função nativa mas há o método em alguns pacotes. Em especial, vale mencionar o pacote <code>nipals</code><a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a> que implementa o algoritmo com opção padrão da execução da ortogonalização de Gram-Schmidt em cada iteração. Isso é necessário pois, devido ao acúmulo de erros de ponto flutuante, a ortogonalidade dos componentes principais é rapidamente perdida à medida que o número de componentes aumenta. A versão modificada do NIPALS, NIPALS-GS<a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a>, com o processo de Gram-Schmidt, re-ortogonaliza tanto os <em>scores</em> quanto os <em>loadings</em> de forma a estabilizá-los. Com a versão tradicional do NIPALS apenas as primeiras componentes devem ser consideradas e de matrizes não muito grandes.</p>
 <!--
 
 4. **PCoA - Principal Coordinates Analysis**
@@ -1176,7 +1176,7 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 <h6>
 Fundamento da Abordagem:
 </h6>
-<p><em>O traço de uma matriz é invariante em uma operação de similaridade</em><a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a>.</p>
+<p><em>O traço de uma matriz é invariante em uma operação de similaridade</em><a href="#fn68" class="footnote-ref" id="fnref68"><sup>68</sup></a>.</p>
 <p>Essa é uma propriedade fundamental da álgebra matricial! Essa invariância implica que o traço, que está relacionado à soma dos autovalores de uma matriz, permanece inalterado, independentemente da representação da matriz. Essa característica é útil em diversas aplicações, como na análise de componentes principais.</p>
 <p>De uma perspectiva geométrica, podemos interpretar essa afirmação da seguinte maneira: a rotação da matriz não altera seu traço. Assim, evitamos depender da álgebra explicitamente, uma vez que as relações entre os pontos e, consequentemente, sua dispersão permanecem inalteradas.</p>
 <p>Neste ponto, não temos mais novidades, pois já abordamos a perspectiva geométrica anteriormente!</p>
@@ -1237,10 +1237,11 @@ Figure 6.2:  Dados, <em>Loadings</em> e <em>Scores</em> (Componentes Principais)
 <li id="fn63"><p><a href="https://pt.wikipedia.org/wiki/Ortonormalidade" class="uri">https://pt.wikipedia.org/wiki/Ortonormalidade</a><a href="pca---análise-de-componentes-principais.html#fnref63" class="footnote-back">↩︎</a></p></li>
 <li id="fn64"><p><a href="https://pt.wikipedia.org/wiki/M%C3%A9todo_das_pot%C3%AAncias" class="uri">https://pt.wikipedia.org/wiki/M%C3%A9todo_das_pot%C3%AAncias</a><a href="pca---análise-de-componentes-principais.html#fnref64" class="footnote-back">↩︎</a></p></li>
 <li id="fn65"><p>Richard von Mises and H. Pollaczek-Geiringer, <em>Praktische Verfahren der Gleichungsauflösung</em>, <strong>ZAMM - Zeitschrift für Angewandte Mathematik und Mechanik</strong>, 9, 152-164 (1929).<a href="pca---análise-de-componentes-principais.html#fnref65" class="footnote-back">↩︎</a></p></li>
-<li id="fn66"><p>M. Andrecut, <em>Parallel GPU Implementation of Iterative PCA Algorithms</em>,
+<li id="fn66"><p><a href="https://cran.r-project.org/web/packages/nipals/index.html" class="uri">https://cran.r-project.org/web/packages/nipals/index.html</a><a href="pca---análise-de-componentes-principais.html#fnref66" class="footnote-back">↩︎</a></p></li>
+<li id="fn67"><p>M. Andrecut, <em>Parallel GPU Implementation of Iterative PCA Algorithms</em>,
 <strong>Journal of Computational Biology</strong>, 2009 16:11, 1593-1599,
-<a href="https://www.liebertpub.com/doi/10.1089/cmb.2008.0221" class="uri">https://www.liebertpub.com/doi/10.1089/cmb.2008.0221</a><a href="pca---análise-de-componentes-principais.html#fnref66" class="footnote-back">↩︎</a></p></li>
-<li id="fn67"><p><a href="https://pt.wikipedia.org/wiki/Matrizes_semelhantes" class="uri">https://pt.wikipedia.org/wiki/Matrizes_semelhantes</a><a href="pca---análise-de-componentes-principais.html#fnref67" class="footnote-back">↩︎</a></p></li>
+<a href="https://www.liebertpub.com/doi/10.1089/cmb.2008.0221" class="uri">https://www.liebertpub.com/doi/10.1089/cmb.2008.0221</a><a href="pca---análise-de-componentes-principais.html#fnref67" class="footnote-back">↩︎</a></p></li>
+<li id="fn68"><p><a href="https://pt.wikipedia.org/wiki/Matrizes_semelhantes" class="uri">https://pt.wikipedia.org/wiki/Matrizes_semelhantes</a><a href="pca---análise-de-componentes-principais.html#fnref68" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
