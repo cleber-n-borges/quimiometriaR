@@ -270,13 +270,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li><strong>Princípios Iniciais</strong>:
 <ul>
-<li>Os princípios da PCA podem ser traçados até o trabalho de <strong>Karl Pearson</strong><a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a>, um estatístico britânico. Em 1901, ele publicou um artigo intitulado “On Lines and Planes of Closest Fit to Systems of Points in Space”<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a>, onde apresentou o conceito de “análise de fatores” e a ideia de encontrar uma linha de melhor ajuste para um conjunto de pontos em um espaço multidimensional. Este trabalho é considerado uma das primeiras referências à ideia subjacente da PCA.</li>
+<li>Os princípios da PCA podem ser traçados até o trabalho de <strong>Karl Pearson</strong><a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a>, um estatístico britânico. Em 1901, ele publicou um artigo intitulado <em>On Lines and Planes of Closest Fit to Systems of Points in Space</em><a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a>, onde apresentou o conceito de “análise de fatores” e a ideia de encontrar uma linha de melhor ajuste para um conjunto de pontos em um espaço multidimensional. Este trabalho é considerado uma das primeiras referências à ideia subjacente da PCA.</li>
 </ul></li>
 </ol>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Desenvolvimentos Posteriores</strong>:
 <ul>
-<li>Em 1933, <strong>Harold Hotelling</strong><a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a>, um estatístico americano, expandiu as ideias de Pearson e formalizou a técnica da PCA em seu trabalho <em>“Analysis of a Complex of Statistical Variables into Principal Components”</em><a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a>. Neste artigo, Hotelling descreveu um método para reduzir a dimensionalidade de dados multivariados, mantendo a maior parte da variabilidade nos dados originais. Ele introduziu a terminologia e as fórmulas que são fundamentais para a PCA moderna.</li>
+<li>Em 1933, <strong>Harold Hotelling</strong><a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a>, um estatístico americano, expandiu as ideias de Pearson e formalizou a técnica da PCA em seu trabalho <em>Analysis of a Complex of Statistical Variables into Principal Components</em><a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a>. Neste artigo, Hotelling descreveu um método para reduzir a dimensionalidade de dados multivariados, mantendo a maior parte da variabilidade nos dados originais. Ele introduziu a terminologia e as fórmulas que são fundamentais para a PCA moderna.</li>
 </ul></li>
 </ol>
 <ol start="3" style="list-style-type: decimal">
@@ -286,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><strong>Avanços Computacionais</strong>:
 <ul>
-<li>Com o advento dos computadores e o aumento do poder computacional nas décadas de 1970 e 1980, a PCA tornou-se ainda mais acessível e prática. Softwares estatísticos começaram a incorporar a PCA como uma ferramenta padrão para análise de dados, permitindo que pesquisadores e profissionais realizassem análises multivariadas com maior facilidade.</li>
+<li>Com o advento dos computadores e o aumento do poder computacional nas décadas de 1970 e 1980, a PCA tornou-se ainda mais acessível e prática. <em>Softwares</em> estatísticos começaram a incorporar a PCA como uma ferramenta padrão para análise de dados, permitindo que pesquisadores e profissionais realizassem análises multivariadas com maior facilidade.</li>
 </ul></li>
 <li><strong>Aplicações Modernas</strong>:
 <ul>
@@ -363,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="interpretação-geométrica" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Interpretação Geométrica<a href="pca---análise-de-componentes-principais.html#interpretação-geométrica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A explicação anterior tratou do PCA sob uma perspectiva algébrica. No entanto, também podemos compreendê-lo geometricamente, destacando que a transformação resultante da combinação linear pode ser vista como uma rotação dos eixos originais. Essa rotação é realizada de forma a maximizar a captura da variabilidade dos dados, mantendo a ortogonalidade das novas direções, conforme já definido. No caso de duas variáveis, essa rotação se torna facilmente visualizável e imediatamente reconhecível, permitindo uma compreensão intuitiva do processo.</p>
-<p>Para facilitar a ilustração e a visualização, consideraremos uma matriz <span class="math inline">\(\mathbf{X}_{100,2}\)</span> composta por duas variáveis, <span class="math inline">\(\mathbf{x}_1\)</span> e <span class="math inline">\(\mathbf{x}_{2}\)</span>, contendo 100 linhas de valores aleatórios. O processo de transformar as variáveis originais em duas novas componentes principais pode ser ilustrado no gráfico a seguir:</p>
+<p>Para facilitar a ilustração e a visualização, consideraremos uma matriz <span class="math inline">\(\mathbf{X}_{100,2}\)</span> composta por duas variáveis, <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>, contendo 100 linhas de valores aleatórios. O processo de transformar as variáveis originais em duas novas componentes principais pode ser ilustrado no gráfico a seguir:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-rot"></span>
 <img src="img/parte03/PCA/pca_interpreta_Geo_Rot.png" alt="PCA como rotação dos dados" width="95%" />
 <p class="caption">
@@ -608,7 +608,7 @@ Principais Algoritmos
 \]</span></p>
 <p> </p>
 <p>Uma das características intrísecas a esse método de implementação de PCA é que exige cálculo explícito tanto de <span class="math inline">\(\mathbf{A} = \mathbf{X^T} \cdot \mathbf{X}\)</span> quanto de <span class="math inline">\(\mathbf{T} = \mathbf{X} \cdot \mathbf{V}\)</span> , que são custosas computacionalmente em conjuntos de dados muito grandes (caso das conhecidas ciências “<em>ômicas</em>” e da área de <em>Big Data</em>) devido ao número de operação. O que por sua vez, acarreta em maior propagação dos erros inerentes à representação numérica na computação em ponto flutuante<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> quanto comparável à implementação a ser mostrada em sequência por SVD. Algoritmos que implementam essa decomposição não permitem dados faltantes. Caso exista na matriz de dados, o usuário deve tratar os dados perdidos previamente.</p>
-<p>No R, existe a função <code>princomp</code> que se utiliza justamente dessa forma de abordagem para PCA. Porém a leitura do manual da função declara que a mesma existe somente por compatibilidade com o <em>software</em> S-PLUS e que deve ser um método preterido. Para saber mais detalhes, digite : <code>?princomp</code> no console do R.</p>
+<p>No R, existe a função <code>princomp</code> que se utiliza justamente dessa forma de abordagem para PCA. Porém a leitura do manual da função declara que a mesma existe somente por compatibilidade com o <em>software</em> <nobr>S-PLUS</nobr> e que deve ser um método preterido. Para saber mais detalhes, digite : <code>?princomp</code> no console do R.</p>
 <p>O leitor que se sentir satisfeito ao saber que, uma vez obtida a solução da Decomposição Espectral da matriz <span class="math inline">\(\mathbf{A}\)</span>, a solução de PCA será automaticamente alcançada, pode pular os detalhes e prosseguir para o próximo algoritmo.</p>
 <p> </p>
 <details>
@@ -729,7 +729,7 @@ A = \begin{bmatrix} 1.0000000 &amp; 0.8303746 \\ 0.8303746 &amp; 1.0000000 \end{
 \lambda_2 = \frac{2.0000000 - 1.660211}{2} = \frac{0.339789}{2} \approx 0.169894
 \]</span></p>
 <p><strong>Passo 3: Encontrar os autovetores</strong></p>
-<p>Agora que temos os autovalores <span class="math inline">\(\lambda_1 = 1.830106\)</span> e <span class="math inline">\(\lambda_2 = 0.169894\)</span>, podemos encontrar os autovetores resolvendo o sistema <span class="math inline">\((A - \lambda I)v = 0\)</span> para cada autovalor.</p>
+<p>Agora que temos os autovalores <span class="math inline">\(\lambda_1 = 1.830106\)</span> e <span class="math inline">\(\lambda_2 = 0.169894\)</span>, podemos encontrar os autovetores resolvendo o sistema <span class="math inline">\(( \mathbf{A} - \mathbf{\lambda} \mathbf{I} )\mathbf{v} = 0\)</span> para cada autovalor.</p>
 <p><strong>Para <span class="math inline">\(\lambda_1 = 1.830106\)</span>:</strong></p>
 <p>A equação <span class="math inline">\(( \mathbf{A} - \lambda_1 \mathbf{I})\mathbf{v} = 0\)</span> é:</p>
 <p><span class="math display">\[
@@ -1194,8 +1194,8 @@ Fundamento da Abordagem:
 Figure 6.2:  Dados, <em>Loadings</em> e <em>Scores</em> (Componentes Principais)
 </p>
 </div>
-<p>A figura <a href="pca---análise-de-componentes-principais.html#fig:pca-LoadScor">6.2</a> apresenta quatro subgráficos: no gráfico 1, visualizamos a dispersão dos valores dos dados originais. O gráfico 2 exibe os <em>loadings</em> das variáveis <span class="math inline">\(\mathbf{x1}\)</span> e <span class="math inline">\(\mathbf{x2}\)</span> como vetores em azul, inseridos dentro de um círculo trigonométrico. No gráfico 3, observamos a sobreposição das informações dos gráficos 1 e 2. Por fim, o gráfico 4 ilustra a dispersão no novo sistema de componentes principais.</p>
-<p>Os resultados numéricos revelam que a variável <span class="math inline">\(\mathbf{x1}\)</span> possui um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(-0.7\)</span> em PC2. Em contraste, a variável <span class="math inline">\(\mathbf{x2}\)</span> apresenta um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(0.7\)</span> em PC2. Essa análise sugere que, neste caso particular com apenas duas variáveis correlacionadas, a contribuição de ambas para as duas componentes principais é equivalente. Essa equivalência é rapidamente percebida pela igual magnitude dos vetores que representam os <em>loadings</em>, que demonstram uma relação equilibrada entre as variáveis.</p>
+<p>A figura <a href="pca---análise-de-componentes-principais.html#fig:pca-LoadScor">6.2</a> apresenta quatro subgráficos: no gráfico 1, visualizamos a dispersão dos valores dos dados originais. O gráfico 2 exibe os <em>loadings</em> das variáveis <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span> como vetores em azul, inseridos dentro de um círculo trigonométrico. No gráfico 3, observamos a sobreposição das informações dos gráficos 1 e 2. Por fim, o gráfico 4 ilustra a dispersão no novo sistema de componentes principais.</p>
+<p>Os resultados numéricos revelam que a variável <span class="math inline">\(x_1\)</span> possui um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(-0.7\)</span> em PC2. Em contraste, a variável <span class="math inline">\(x_2\)</span> apresenta um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(0.7\)</span> em PC2. Essa análise sugere que, neste caso particular com apenas duas variáveis correlacionadas, a contribuição de ambas para as duas componentes principais é equivalente. Essa equivalência é rapidamente percebida pela igual magnitude dos vetores que representam os <em>loadings</em>, que demonstram uma relação equilibrada entre as variáveis.</p>
 <p>Esse padrão nos <em>loadings</em> pode ser atribuído ao elevado valor da correlação, <span class="math inline">\(0.83\)</span>, entre as duas variáveis. Em outras palavras, é a interação entre essas variáveis que destaca a dispersão observada nos dados, indicando que elas contribuem de maneira conjunta para a variação nas componentes principais.</p>
 <p>As relações entre as variáveis originais e as componentes principais são estabelecidas exclusivamente pelos <em>loadings</em>. Portanto, é fundamental explorar a utilidade dos <em>loadings</em> para identificar as variáveis originais mais influentes, o que demanda a análise de mais exemplos que serão apresentados na próxima seção.</p>
 </div>
