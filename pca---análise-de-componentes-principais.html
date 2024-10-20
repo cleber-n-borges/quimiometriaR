@@ -848,7 +848,7 @@ x2  0.707 -0.707
 &gt; v2 &lt;- c( 0.707, -0.707 )
 &gt; V &lt;- cbind( v1, v2 )
 &gt; Sigma &lt;- diag( c( 1.8301, 0.169894 ) )
-&gt; round( V %*% Sig %*% solve(V), 4 )
+&gt; round( V %*% Sigma %*% solve(V), 4 )
        [,1]   [,2]
 [1,] 1.0000 0.8301
 [2,] 0.8301 1.0000
@@ -1024,30 +1024,34 @@ pode ser facilmente determinado, pois corresponde à variância do autovetor.</p
 <ol style="list-style-type: decimal">
 <li><p><code>X</code>: matriz dos dados;</p></li>
 <li><p><code>tol</code>: a tolerância para a convergência;</p></li>
+<li><p><code>maxiter</code>: número máximo de iterações.</p></li>
 </ol>
 <p> </p>
 <p><strong>Código</strong></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="pca---análise-de-componentes-principais.html#cb41-1" tabindex="-1"></a>powIter <span class="ot">&lt;-</span> <span class="cf">function</span>( X, <span class="at">tol=</span><span class="fl">1e-10</span> ) {</span>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="pca---análise-de-componentes-principais.html#cb41-1" tabindex="-1"></a>powIter <span class="ot">&lt;-</span> <span class="cf">function</span>( X, <span class="at">tol=</span><span class="fl">1e-10</span>, <span class="at">maxiter=</span><span class="dv">500</span> ) {</span>
 <span id="cb41-2"><a href="pca---análise-de-componentes-principais.html#cb41-2" tabindex="-1"></a>    <span class="co"># Inicializa tk com a primeira coluna de X</span></span>
 <span id="cb41-3"><a href="pca---análise-de-componentes-principais.html#cb41-3" tabindex="-1"></a>    tk <span class="ot">&lt;-</span> X[, <span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
 <span id="cb41-4"><a href="pca---análise-de-componentes-principais.html#cb41-4" tabindex="-1"></a>    <span class="co"># Inicializa tk1 diferente de tk para forçar a iteração</span></span>
 <span id="cb41-5"><a href="pca---análise-de-componentes-principais.html#cb41-5" tabindex="-1"></a>    tk1 <span class="ot">&lt;-</span> tk <span class="sc">*</span> <span class="dv">10</span></span>
 <span id="cb41-6"><a href="pca---análise-de-componentes-principais.html#cb41-6" tabindex="-1"></a></span>
 <span id="cb41-7"><a href="pca---análise-de-componentes-principais.html#cb41-7" tabindex="-1"></a>    <span class="co"># Continua iterando até que a convergência seja alcançada</span></span>
-<span id="cb41-8"><a href="pca---análise-de-componentes-principais.html#cb41-8" tabindex="-1"></a>    <span class="cf">while</span> ( <span class="fu">sum</span>( <span class="fu">abs</span>( tk1 <span class="sc">-</span> tk ) ) <span class="sc">&gt;</span> tol ) {</span>
-<span id="cb41-9"><a href="pca---análise-de-componentes-principais.html#cb41-9" tabindex="-1"></a>        <span class="co"># Calcula o produto cruzado</span></span>
-<span id="cb41-10"><a href="pca---análise-de-componentes-principais.html#cb41-10" tabindex="-1"></a>        p <span class="ot">&lt;-</span> <span class="fu">crossprod</span>( X, tk )</span>
-<span id="cb41-11"><a href="pca---análise-de-componentes-principais.html#cb41-11" tabindex="-1"></a>    </span>
-<span id="cb41-12"><a href="pca---análise-de-componentes-principais.html#cb41-12" tabindex="-1"></a>        <span class="co"># Normaliza o vetor p</span></span>
-<span id="cb41-13"><a href="pca---análise-de-componentes-principais.html#cb41-13" tabindex="-1"></a>        p <span class="ot">&lt;-</span> p <span class="sc">/</span> <span class="fu">norm</span>( p, <span class="st">&#39;F&#39;</span> )</span>
-<span id="cb41-14"><a href="pca---análise-de-componentes-principais.html#cb41-14" tabindex="-1"></a>        </span>
-<span id="cb41-15"><a href="pca---análise-de-componentes-principais.html#cb41-15" tabindex="-1"></a>        <span class="co"># Atualiza tk1 e tk</span></span>
-<span id="cb41-16"><a href="pca---análise-de-componentes-principais.html#cb41-16" tabindex="-1"></a>        tk1 <span class="ot">&lt;-</span> tk</span>
-<span id="cb41-17"><a href="pca---análise-de-componentes-principais.html#cb41-17" tabindex="-1"></a>        tk <span class="ot">&lt;-</span> X <span class="sc">%*%</span> p</span>
-<span id="cb41-18"><a href="pca---análise-de-componentes-principais.html#cb41-18" tabindex="-1"></a>    }</span>
-<span id="cb41-19"><a href="pca---análise-de-componentes-principais.html#cb41-19" tabindex="-1"></a></span>
-<span id="cb41-20"><a href="pca---análise-de-componentes-principais.html#cb41-20" tabindex="-1"></a>    <span class="fu">return</span>(tk)</span>
-<span id="cb41-21"><a href="pca---análise-de-componentes-principais.html#cb41-21" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb41-8"><a href="pca---análise-de-componentes-principais.html#cb41-8" tabindex="-1"></a>    iter <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb41-9"><a href="pca---análise-de-componentes-principais.html#cb41-9" tabindex="-1"></a>    <span class="cf">while</span> ( <span class="fu">sum</span>( <span class="fu">abs</span>( tk1 <span class="sc">-</span> tk ) ) <span class="sc">&gt;</span> tol <span class="sc">&amp;&amp;</span> iter <span class="sc">&lt;</span> maxiter ) {</span>
+<span id="cb41-10"><a href="pca---análise-de-componentes-principais.html#cb41-10" tabindex="-1"></a>        <span class="co"># Calcula o produto cruzado</span></span>
+<span id="cb41-11"><a href="pca---análise-de-componentes-principais.html#cb41-11" tabindex="-1"></a>        p <span class="ot">&lt;-</span> <span class="fu">crossprod</span>( X, tk )</span>
+<span id="cb41-12"><a href="pca---análise-de-componentes-principais.html#cb41-12" tabindex="-1"></a>    </span>
+<span id="cb41-13"><a href="pca---análise-de-componentes-principais.html#cb41-13" tabindex="-1"></a>        <span class="co"># Normaliza o vetor p</span></span>
+<span id="cb41-14"><a href="pca---análise-de-componentes-principais.html#cb41-14" tabindex="-1"></a>        p <span class="ot">&lt;-</span> p <span class="sc">/</span> <span class="fu">norm</span>( p, <span class="st">&#39;F&#39;</span> )</span>
+<span id="cb41-15"><a href="pca---análise-de-componentes-principais.html#cb41-15" tabindex="-1"></a>        </span>
+<span id="cb41-16"><a href="pca---análise-de-componentes-principais.html#cb41-16" tabindex="-1"></a>        <span class="co"># Atualiza tk1 e tk</span></span>
+<span id="cb41-17"><a href="pca---análise-de-componentes-principais.html#cb41-17" tabindex="-1"></a>        tk1 <span class="ot">&lt;-</span> tk</span>
+<span id="cb41-18"><a href="pca---análise-de-componentes-principais.html#cb41-18" tabindex="-1"></a>        tk <span class="ot">&lt;-</span> X <span class="sc">%*%</span> p</span>
+<span id="cb41-19"><a href="pca---análise-de-componentes-principais.html#cb41-19" tabindex="-1"></a>        </span>
+<span id="cb41-20"><a href="pca---análise-de-componentes-principais.html#cb41-20" tabindex="-1"></a>        iter <span class="ot">&lt;-</span> iter <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb41-21"><a href="pca---análise-de-componentes-principais.html#cb41-21" tabindex="-1"></a>    }</span>
+<span id="cb41-22"><a href="pca---análise-de-componentes-principais.html#cb41-22" tabindex="-1"></a></span>
+<span id="cb41-23"><a href="pca---análise-de-componentes-principais.html#cb41-23" tabindex="-1"></a>    <span class="fu">return</span>(tk)</span>
+<span id="cb41-24"><a href="pca---análise-de-componentes-principais.html#cb41-24" tabindex="-1"></a>}</span></code></pre></div>
 <p> </p>
 <center>
 △
@@ -1065,7 +1069,7 @@ pode ser facilmente determinado, pois corresponde à variância do autovetor.</p
 😈 + <strong>NIPALS no R</strong>
 </summary>
 <p> </p>
-<p>Abaixo segue uma implementação tradicional do algoritmo NIPALS na linguagem R.
+<p>Abaixo segue uma implementação do algoritmo NIPALS, em abordagem tradicional, na linguagem R.
 A implementação tem propósito meramente didático, podendo gerar imprecisões nos <em>loadings</em> e <em>scores</em> ao requisitar a determinação de mais que duas componentes principais em matrizes grandes.</p>
 <p>A implementação tem como parâmetros:</p>
 <ol style="list-style-type: decimal">
