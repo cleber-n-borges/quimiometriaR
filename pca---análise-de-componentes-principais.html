@@ -1036,7 +1036,7 @@ pode ser facilmente determinado, pois corresponde à variância do autovetor.</p
 <span id="cb41-6"><a href="pca---análise-de-componentes-principais.html#cb41-6" tabindex="-1"></a></span>
 <span id="cb41-7"><a href="pca---análise-de-componentes-principais.html#cb41-7" tabindex="-1"></a>    <span class="co"># Continua iterando até que a convergência seja alcançada</span></span>
 <span id="cb41-8"><a href="pca---análise-de-componentes-principais.html#cb41-8" tabindex="-1"></a>    iter <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb41-9"><a href="pca---análise-de-componentes-principais.html#cb41-9" tabindex="-1"></a>    <span class="cf">while</span> ( <span class="fu">sum</span>( <span class="fu">abs</span>( tk1 <span class="sc">-</span> tk ) ) <span class="sc">&gt;</span> tol <span class="sc">&amp;&amp;</span> iter <span class="sc">&lt;</span> maxiter ) {</span>
+<span id="cb41-9"><a href="pca---análise-de-componentes-principais.html#cb41-9" tabindex="-1"></a>    <span class="cf">while</span> ( <span class="fu">sum</span>( <span class="fu">abs</span>( tk1 <span class="sc">-</span> tk ) ) <span class="sc">&gt;</span> tol <span class="sc">|</span> iter <span class="sc">&lt;</span> maxiter ) {</span>
 <span id="cb41-10"><a href="pca---análise-de-componentes-principais.html#cb41-10" tabindex="-1"></a>        <span class="co"># Calcula o produto cruzado</span></span>
 <span id="cb41-11"><a href="pca---análise-de-componentes-principais.html#cb41-11" tabindex="-1"></a>        p <span class="ot">&lt;-</span> <span class="fu">crossprod</span>( X, tk )</span>
 <span id="cb41-12"><a href="pca---análise-de-componentes-principais.html#cb41-12" tabindex="-1"></a>    </span>
@@ -1207,6 +1207,35 @@ Figure 6.2:  Dados, <em>Loadings</em> e <em>Scores</em> (Componentes Principais)
 <p>Os resultados numéricos revelam que a variável <span class="math inline">\(x_1\)</span> possui um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(-0.7\)</span> em PC2. Em contraste, a variável <span class="math inline">\(x_2\)</span> apresenta um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(0.7\)</span> em PC2. Essa análise sugere que, neste caso particular com apenas duas variáveis correlacionadas, a contribuição de ambas para as duas componentes principais é equivalente. Essa equivalência é rapidamente percebida pela igual magnitude dos vetores que representam os <em>loadings</em>, que demonstram uma relação equilibrada entre as variáveis.</p>
 <p>Esse padrão nos <em>loadings</em> pode ser atribuído ao elevado valor da correlação, <span class="math inline">\(0.83\)</span>, entre as duas variáveis. Em outras palavras, é a interação entre essas variáveis que destaca a dispersão observada nos dados, indicando que elas contribuem de maneira conjunta para a variação nas componentes principais.</p>
 <p>As relações entre as variáveis originais e as componentes principais são estabelecidas exclusivamente pelos <em>loadings</em>. Portanto, é fundamental explorar a utilidade dos <em>loadings</em> para identificar as variáveis originais mais influentes, o que demanda a análise de mais exemplos que serão apresentados na próxima seção.</p>
+<!--
+> summary( pcaX )$rotation
+          PC1        PC2
+x1 -0.7071068 -0.7071068
+x2 -0.7071068  0.7071068
+
+# https://en.wikipedia.org/wiki/Rotation_matrix
+
+# Matriz de rotação
+R = ( cos(T) ) ( -sin(T) )
+    ( sin(T) ) (  cos(T) )
+
+#Se Theta positivo -> rotação horária
+#Se Theta negativo -> rotação antihorária
+
+### Contribuição de x1 para PC1
+acos( 0.7071068 ) * 180/pi # 45 antihorario
+
+### Contribuição de x1 para PC2
+-asin( 0.7071068 ) * 180/pi # -45 antihorario
+
+### Contribuição de x2 para PC1
+asin( 0.7071068 ) * 180/pi # 45 antihorario
+
+### Contribuição de x2 para PC2
+acos( 0.7071068 ) * 180/pi #  45 horario
+
+
+-->
 </div>
 <div id="aplicação-típica" class="section level2 hasAnchor" number="6.8">
 <h2><span class="header-section-number">6.8</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
