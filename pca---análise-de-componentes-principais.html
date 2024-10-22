@@ -238,7 +238,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.6</b> Variância por PC</a></li>
 <li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#importância-das-variáveis"><i class="fa fa-check"></i><b>6.7</b> Importância das Variáveis</a></li>
-<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.8</b> Aplicação Típica</a></li>
+<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#rotação"><i class="fa fa-check"></i><b>6.8</b> Rotação</a></li>
+<li class="chapter" data-level="6.9" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.9</b> Aplicação Típica</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>7</b> HCA - Análise de Agrupamento Hierárquico</a></li>
 <li class="divider"></li>
@@ -1204,41 +1205,61 @@ Figure 6.2:  Dados, <em>Loadings</em> e <em>Scores</em> (Componentes Principais)
 </p>
 </div>
 <p>A figura <a href="pca---análise-de-componentes-principais.html#fig:pca-LoadScor">6.2</a> apresenta quatro subgráficos: no gráfico 1, visualizamos a dispersão dos valores dos dados originais. O gráfico 2 exibe os <em>loadings</em> das variáveis <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span> como vetores em azul, inseridos dentro de um círculo trigonométrico. No gráfico 3, observamos a sobreposição das informações dos gráficos 1 e 2. Por fim, o gráfico 4 ilustra a dispersão no novo sistema de componentes principais.</p>
-<p>Os resultados numéricos revelam que a variável <span class="math inline">\(x_1\)</span> possui um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(-0.7\)</span> em PC2. Em contraste, a variável <span class="math inline">\(x_2\)</span> apresenta um peso de <span class="math inline">\(-0.7\)</span> em PC1 e <span class="math inline">\(0.7\)</span> em PC2. Essa análise sugere que, neste caso particular com apenas duas variáveis correlacionadas, a contribuição de ambas para as duas componentes principais é equivalente. Essa equivalência é rapidamente percebida pela igual magnitude dos vetores que representam os <em>loadings</em>, que demonstram uma relação equilibrada entre as variáveis.</p>
-<p>Esse padrão nos <em>loadings</em> pode ser atribuído ao elevado valor da correlação, <span class="math inline">\(0.83\)</span>, entre as duas variáveis. Em outras palavras, é a interação entre essas variáveis que destaca a dispersão observada nos dados, indicando que elas contribuem de maneira conjunta para a variação nas componentes principais.</p>
-<p>As relações entre as variáveis originais e as componentes principais são estabelecidas exclusivamente pelos <em>loadings</em>. Portanto, é fundamental explorar a utilidade dos <em>loadings</em> para identificar as variáveis originais mais influentes, o que demanda a análise de mais exemplos que serão apresentados na próxima seção.</p>
-<!--
-> summary( pcaX )$rotation
-          PC1        PC2
-x1 -0.7071068 -0.7071068
-x2 -0.7071068  0.7071068
-
-# https://en.wikipedia.org/wiki/Rotation_matrix
-
-# Matriz de rotação
-R = ( cos(T) ) ( -sin(T) )
-    ( sin(T) ) (  cos(T) )
-
-#Se Theta positivo -> rotação horária
-#Se Theta negativo -> rotação antihorária
-
-### Contribuição de x1 para PC1
-acos( 0.7071068 ) * 180/pi # 45 antihorario
-
-### Contribuição de x1 para PC2
--asin( 0.7071068 ) * 180/pi # -45 antihorario
-
-### Contribuição de x2 para PC1
-asin( 0.7071068 ) * 180/pi # 45 antihorario
-
-### Contribuição de x2 para PC2
-acos( 0.7071068 ) * 180/pi #  45 horario
-
-
--->
+<p>Os resultados numéricos revelam que a variável <span class="math inline">\(x_1\)</span> possui um peso de <span class="math inline">\(-0.707\)</span> em PC1 e <span class="math inline">\(-0.707\)</span> em PC2. Em contraste, a variável <span class="math inline">\(x_2\)</span> apresenta um peso de <span class="math inline">\(-0.707\)</span> em PC1 e <span class="math inline">\(0.707\)</span> em PC2. Essa análise sugere que, neste caso particular com apenas duas variáveis correlacionadas, a contribuição de ambas para as duas componentes principais é equivalente. Essa equivalência é rapidamente percebida pela igual magnitude dos vetores que representam os <em>loadings</em>, que demonstram uma relação equilibrada entre as variáveis.</p>
+<p>Esse padrão nos <em>loadings</em> também pode ser atribuído ao elevado valor da correlação, <span class="math inline">\(0.83\)</span>, entre as duas variáveis. Em outras palavras, é a interação entre essas variáveis que destaca a dispersão observada nos dados, indicando que elas contribuem de maneira conjunta para a variação nas componentes principais.</p>
+<p>As relações entre as variáveis originais e as componentes principais são estabelecidas exclusivamente pelos <em>loadings</em>. Portanto, é fundamental explorar a utilidade dos <em>loadings</em> para identificar as variáveis originais mais influentes, o que demanda a análise de mais exemplos que serão apresentados na sessão de aplicações.</p>
 </div>
-<div id="aplicação-típica" class="section level2 hasAnchor" number="6.8">
-<h2><span class="header-section-number">6.8</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="rotação" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Rotação<a href="pca---análise-de-componentes-principais.html#rotação" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Já discutimos que a matriz de <em>loadings</em> desempenha um papel fundamental na análise de PCA, pois é uma das matrizes resultantes da decomposição dos dados e são os pesos das variáveis originais para contribuição da construção das componentes.</p>
+<p>Ela pode ser entendida como uma <em>matriz de rotação</em><span class="math inline">\(\dagger\)</span><a href="#fn69" class="footnote-ref" id="fnref69"><sup>69</sup></a>, <span class="math inline">\(R\)</span>, que reorientar o sistema de coordenadas dos dados originais. (Embora a matriz de <em>loadings</em> não se limite a uma rotação, essa simplificação no momento, nos permite uma interpretação das relações entre as variáveis originais e os novos componentes).</p>
+<p><strong><span class="math inline">\(\dagger\)</span>Nota</strong>: <em>Matriz de rotação</em> é uma matriz utilizada para realizar uma rotação de pontos em um espaço euclidiano, como no plano bidimensional (2D) ou em três dimensões (3D).</p>
+<p>A definição de uma matriz de rotação no plano é dada pela seguinte expressão:</p>
+<p><span class="math display">\[
+R = \begin{pmatrix}
+\cos(\Theta) &amp; -\sin(\Theta) \\
+\sin(\Theta) &amp; \cos(\Theta)
+\end{pmatrix}
+\]</span></p>
+<ul>
+<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> for positivo, a rotação se faz no sentido horário.</p></li>
+<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> for negativo, a rotação se faz no sentido antihorário.</p></li>
+</ul>
+<p>Para o conjunto de dados bidimensionais como é nosso exemplo, a matriz dos <em>loadings</em> equivale à matriz de rotação:</p>
+<p><span class="math display">\[
+P = \begin{pmatrix}
+\approx -0.707 &amp; \approx -0.707 \\
+\approx -0.707 &amp; \approx 0.707
+\end{pmatrix}
+\]</span></p>
+<p>Devemos interpretar os sinais como indicativos do sentido da rotação, enquanto os valores correspondem ao seno e ao cosseno do ângulo formado entre a variável original e a componente principal.</p>
+<p>Aplicando as funções inversas do seno e do cosseno, que são o arco seno (<span class="math inline">\(\arcsin\)</span>) e o arco cosseno (<span class="math inline">\(\arccos\)</span>), podemos calcular os ângulos em radianos. Para converter esses ângulos para graus, basta multiplicá-los por <span class="math inline">\(\frac{180}{\pi}\)</span>.”</p>
+<p>Desda forma, podemos saber o ângulo rotação da variável original na contribuição da formação de cada componente, como a seguir:</p>
+<p><strong>Contribuição de <span class="math inline">\(x_1\)</span> para PC1</strong></p>
+<ul>
+<li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
+<li><p><span class="math inline">\(\arccos( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
+</ul>
+<p><strong>Contribuição de <span class="math inline">\(x_1\)</span> para PC2</strong></p>
+<ul>
+<li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
+<li><p><span class="math inline">\(-\arcsin( \approx 0.707 ) \cdot 180/\pi \approx -45^\circ\)</span>.</p></li>
+<li><p><span class="math inline">\(-45^\circ\)</span> no sentido antihorário é o mesmo que <span class="math inline">\(45^\circ\)</span> no sentido horário.</p></li>
+</ul>
+<p><strong>Contribuição de <span class="math inline">\(x_2\)</span> para PC1</strong></p>
+<ul>
+<li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
+<li><p><span class="math inline">\(\arcsin( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
+</ul>
+<p><strong>Contribuição de <span class="math inline">\(x_2\)</span> para PC2</strong></p>
+<ul>
+<li><p>Como o sinal indicativo é positivo, devemos mover o eixo no sentido horário.</p></li>
+<li><p><span class="math inline">\(\arccos( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
+</ul>
+<p>Essas informações são melhores visualizadas em formato gráfico:</p>
+</div>
+<div id="aplicação-típica" class="section level2 hasAnchor" number="6.9">
+<h2><span class="header-section-number">6.9</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>TODO</strong></p>
 <p> </p>
 <p><strong>TODO</strong></p>
@@ -1280,6 +1301,7 @@ acos( 0.7071068 ) * 180/pi #  45 horario
 <strong>Journal of Computational Biology</strong>, 2009 16:11, 1593-1599,
 <a href="https://www.liebertpub.com/doi/10.1089/cmb.2008.0221" class="uri">https://www.liebertpub.com/doi/10.1089/cmb.2008.0221</a><a href="pca---análise-de-componentes-principais.html#fnref67" class="footnote-back">↩︎</a></p></li>
 <li id="fn68"><p><a href="https://pt.wikipedia.org/wiki/Matrizes_semelhantes" class="uri">https://pt.wikipedia.org/wiki/Matrizes_semelhantes</a><a href="pca---análise-de-componentes-principais.html#fnref68" class="footnote-back">↩︎</a></p></li>
+<li id="fn69"><p><a href="https://en.wikipedia.org/wiki/Rotation_matrix" class="uri">https://en.wikipedia.org/wiki/Rotation_matrix</a><a href="pca---análise-de-componentes-principais.html#fnref69" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
