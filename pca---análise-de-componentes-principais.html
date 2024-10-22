@@ -1037,7 +1037,7 @@ pode ser facilmente determinado, pois corresponde à variância do autovetor.</p
 <span id="cb41-6"><a href="pca---análise-de-componentes-principais.html#cb41-6" tabindex="-1"></a></span>
 <span id="cb41-7"><a href="pca---análise-de-componentes-principais.html#cb41-7" tabindex="-1"></a>    <span class="co"># Continua iterando até que a convergência seja alcançada</span></span>
 <span id="cb41-8"><a href="pca---análise-de-componentes-principais.html#cb41-8" tabindex="-1"></a>    iter <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb41-9"><a href="pca---análise-de-componentes-principais.html#cb41-9" tabindex="-1"></a>    <span class="cf">while</span> ( <span class="fu">sum</span>( <span class="fu">abs</span>( tk1 <span class="sc">-</span> tk ) ) <span class="sc">&gt;</span> tol <span class="sc">|</span> iter <span class="sc">&lt;</span> maxiter ) {</span>
+<span id="cb41-9"><a href="pca---análise-de-componentes-principais.html#cb41-9" tabindex="-1"></a>    <span class="cf">while</span> ( <span class="fu">sum</span>( <span class="fu">abs</span>( tk1 <span class="sc">-</span> tk ) ) <span class="sc">&gt;</span> tol <span class="sc">&amp;&amp;</span> iter <span class="sc">&lt;</span> maxiter ) {</span>
 <span id="cb41-10"><a href="pca---análise-de-componentes-principais.html#cb41-10" tabindex="-1"></a>        <span class="co"># Calcula o produto cruzado</span></span>
 <span id="cb41-11"><a href="pca---análise-de-componentes-principais.html#cb41-11" tabindex="-1"></a>        p <span class="ot">&lt;-</span> <span class="fu">crossprod</span>( X, tk )</span>
 <span id="cb41-12"><a href="pca---análise-de-componentes-principais.html#cb41-12" tabindex="-1"></a>    </span>
@@ -1061,7 +1061,7 @@ pode ser facilmente determinado, pois corresponde à variância do autovetor.</p
 <p> </p>
 <p><strong>Entendimento do NIPALS</strong></p>
 <p>Após compreender a abordagem do Método das Potências, o algoritmo NIPALS a adpta para extrair informações da primeira componente da matriz e atualizar os dados, permitindo o reinício do processo.</p>
-<p>O método decompõe a matriz de dados <span class="math inline">\(\mathbf{X}\)</span> ao gerar os vetores <span class="math inline">\(\mathbf{t_i}\)</span> e <span class="math inline">\(\mathbf{p_i^T}\)</span>.</p>
+<p>O método decompõe a matriz de dados <span class="math inline">\(\mathbf{X}\)</span> ao gerar os vetores <span class="math inline">\(\mathbf{t_i}\)</span> e <span class="math inline">\(\mathbf{p_i}\)</span>.</p>
 <p>A partir disso, é possível obter uma matriz residual <span class="math inline">\(\mathbf{E}\)</span>, que é expressa como <span class="math inline">\(\mathbf{E} = \mathbf{X} - ( \mathbf{ t_i } \cdot \mathbf{p_i^T} )\)</span>.</p>
 <p>Em seguida, essa matriz <span class="math inline">\(\mathbf{E}\)</span> é utilizada como a nova versão de <span class="math inline">\(\mathbf{X}\)</span>, permitindo que o processo seja repetido até que o número desejado de componentes seja alcançado.</p>
 <p> </p>
@@ -1222,8 +1222,8 @@ R = \begin{pmatrix}
 \end{pmatrix}
 \]</span></p>
 <ul>
-<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> for positivo, a rotação se faz no sentido horário.</p></li>
-<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> for negativo, a rotação se faz no sentido antihorário.</p></li>
+<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> tiver sinal indicativo positivo, a rotação se faz no sentido horário.</p></li>
+<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> for sinal indicativo, a rotação se faz no sentido antihorário.</p></li>
 </ul>
 <p>Para o conjunto de dados bidimensionais como é nosso exemplo, a matriz dos <em>loadings</em> equivale à matriz de rotação:</p>
 <p><span class="math display">\[
@@ -1233,30 +1233,38 @@ P = \begin{pmatrix}
 \end{pmatrix}
 \]</span></p>
 <p>Devemos interpretar os sinais como indicativos do sentido da rotação, enquanto os valores correspondem ao seno e ao cosseno do ângulo formado entre a variável original e a componente principal.</p>
-<p>Aplicando as funções inversas do seno e do cosseno, que são o arco seno (<span class="math inline">\(\arcsin\)</span>) e o arco cosseno (<span class="math inline">\(\arccos\)</span>), podemos calcular os ângulos em radianos. Para converter esses ângulos para graus, basta multiplicá-los por <span class="math inline">\(\frac{180}{\pi}\)</span>.”</p>
+<p>Aplicando as funções inversas do seno e do cosseno, que são o arco seno <nobr>(<code>arcsin()</code>)</nobr> e o arco cosseno <nobr>(<code>arccos()</code>)</nobr>, podemos calcular os ângulos em radianos. Para converter esses ângulos para graus, basta multiplicá-los por <span class="math inline">\({180}/{\pi}\)</span>.”</p>
 <p>Desda forma, podemos saber o ângulo rotação da variável original na contribuição da formação de cada componente, como a seguir:</p>
-<p><strong>Contribuição de <span class="math inline">\(x_1\)</span> para PC1</strong></p>
+<p><strong>Rotação de <span class="math inline">\(x_1\)</span> para compor PC1</strong></p>
 <ul>
 <li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
 <li><p><span class="math inline">\(\arccos( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
 </ul>
-<p><strong>Contribuição de <span class="math inline">\(x_1\)</span> para PC2</strong></p>
+<p><strong>Rotação de <span class="math inline">\(x_1\)</span> para compor PC2</strong></p>
 <ul>
 <li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
 <li><p><span class="math inline">\(-\arcsin( \approx 0.707 ) \cdot 180/\pi \approx -45^\circ\)</span>.</p></li>
 <li><p><span class="math inline">\(-45^\circ\)</span> no sentido antihorário é o mesmo que <span class="math inline">\(45^\circ\)</span> no sentido horário.</p></li>
 </ul>
-<p><strong>Contribuição de <span class="math inline">\(x_2\)</span> para PC1</strong></p>
+<p><strong>Rotação de <span class="math inline">\(x_2\)</span> para compor PC1</strong></p>
 <ul>
 <li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
 <li><p><span class="math inline">\(\arcsin( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
 </ul>
-<p><strong>Contribuição de <span class="math inline">\(x_2\)</span> para PC2</strong></p>
+<p><strong>Rotação de <span class="math inline">\(x_2\)</span> para compor PC2</strong></p>
 <ul>
 <li><p>Como o sinal indicativo é positivo, devemos mover o eixo no sentido horário.</p></li>
 <li><p><span class="math inline">\(\arccos( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
 </ul>
-<p>Essas informações são melhores visualizadas em formato gráfico:</p>
+<p> </p>
+<p>Essas informações são mostrados na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-contribuicao">6.3</a>:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-contribuicao"></span>
+<img src="img/parte03/PCA/pca_contribuicao.png" alt="Rotações de x1 e x2 para comporem PC1 e PC2" width="95%" />
+<p class="caption">
+Figure 6.3: Rotações de x1 e x2 para comporem PC1 e PC2
+</p>
+</div>
+<p>As observações a serem feitas na figura são as explicações descritas acima.</p>
 </div>
 <div id="aplicação-típica" class="section level2 hasAnchor" number="6.9">
 <h2><span class="header-section-number">6.9</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
