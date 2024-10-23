@@ -1150,7 +1150,7 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 <h3><span class="header-section-number">6.5.4</span> PCoA<a href="pca---análise-de-componentes-principais.html#pcoa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A Análise de Coordenadas Principais - PCoA (<em>Principal Coordinates Analysis</em>), é uma técnica estatística utilizada para reduzir a dimensionalidade de dados, facilitando a visualização e a interpretação das relações entre observações. É especialmente útil em contextos onde as distâncias entre os dados são mais relevantes do que suas coordenadas originais. Atualmente, o PCoA é mais comumente conhecido como Escalonamento Multidimensional Clássico<a href="#fn68" class="footnote-ref" id="fnref68"><sup>68</sup></a> (<em>Classical Multidimensional Scaling</em>).</p>
 <p>Quando a distância a ser preservada é a distância euclidiana, a PCoA se torna equivalente à PCA. No caso da PCA, as distâncias não são calculadas de modo explícito mas são preservadas pela manutenção das relações das variáveis originais, enquanto na PCoA as distâncias são calculadas a partir de uma matriz de distâncias calculada de modo explícito. Então, quando se tratando da preservação das distâncias euclidianas, ambas técnicas se equivalem.</p>
-<p>A análise de PCoA será abordada separadamente futuramente.</p>
+<p>A análise de PCoA será abordada separadamente em sessão específica.</p>
 </div>
 </div>
 <div id="variância-por-pc" class="section level2 hasAnchor" number="6.6">
@@ -1241,7 +1241,7 @@ P = \begin{pmatrix}
 \]</span></p>
 <p>Agora que temos nossa matriz <span class="math inline">\(P\)</span> preparada, podemos analisar a interpretação de rotação. Após rotação, será necessário inverter o sentido da direção do primeiro eixo para resultar no gráfico que obtivemos do <em>software</em>.</p>
 <p>Devemos interpretar os sinais como indicativos do sentido da rotação, enquanto os valores correspondem ao seno e ao cosseno do ângulo formado entre a variável original e a componente principal.</p>
-<p>Aplicando as funções inversas do seno e do cosseno, que são o arco seno <nobr>(<code>arcsin()</code>)</nobr> e o arco cosseno <nobr>(<code>arccos()</code>)</nobr>, podemos calcular os ângulos em radianos. Para converter esses ângulos para graus, basta multiplicá-los por <span class="math inline">\({180}/{\pi}\)</span>.</p>
+<p>Aplicando as funções inversas do seno e do cosseno, que são o arco seno <nobr>(<code>asin()</code>)</nobr> e o arco cosseno <nobr>(<code>acos()</code>)</nobr>, podemos calcular os ângulos em radianos. Para converter esses ângulos para graus, basta multiplicá-los por <span class="math inline">\({180}/{\pi}\)</span>.</p>
 <p>Desda forma, podemos saber o ângulo rotação da variável original na contribuição da formação de cada componente, como a seguir:</p>
 <p><strong>Rotação de <span class="math inline">\(x_1\)</span> para compor PC1</strong></p>
 <ul>
@@ -1251,7 +1251,7 @@ P = \begin{pmatrix}
 <p><strong>Rotação de <span class="math inline">\(x_1\)</span> para compor PC2</strong></p>
 <ul>
 <li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido horário.</p></li>
-<li><p><span class="math inline">\(-\arcsin( \approx -0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
+<li><p><span class="math inline">\(\arcsin( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
 </ul>
 <p><strong>Rotação de <span class="math inline">\(x_2\)</span> para compor PC1</strong></p>
 <ul>
