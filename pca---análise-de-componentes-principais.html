@@ -1253,7 +1253,7 @@ P = \begin{pmatrix}
 \]</span></p>
 <p>Agora que temos nossa matriz <span class="math inline">\(P\)</span> preparada, podemos analisar a interpretação de rotação. Após rotação, será necessário inverter o sentido da direção do primeiro eixo para resultar no gráfico que obtivemos do <em>software</em>.</p>
 <p>Devemos interpretar os sinais como indicativos do sentido da rotação, enquanto os valores correspondem ao seno e ao cosseno do ângulo formado entre a variável original e a componente principal.</p>
-<p>Aplicando as funções inversas do seno e do cosseno, que são o arco seno <nobr>(<code>arcsin()</code>)</nobr> e o arco cosseno <nobr>(<code>arccos()</code>)</nobr>, podemos calcular os ângulos em radianos. Para converter esses ângulos para graus, basta multiplicá-los por <span class="math inline">\({180}/{\pi}\)</span>.”</p>
+<p>Aplicando as funções inversas do seno e do cosseno, que são o arco seno <nobr>(<code>arcsin()</code>)</nobr> e o arco cosseno <nobr>(<code>arccos()</code>)</nobr>, podemos calcular os ângulos em radianos. Para converter esses ângulos para graus, basta multiplicá-los por <span class="math inline">\({180}/{\pi}\)</span>.</p>
 <p>Desda forma, podemos saber o ângulo rotação da variável original na contribuição da formação de cada componente, como a seguir:</p>
 <p><strong>Rotação de <span class="math inline">\(x_1\)</span> para compor PC1</strong></p>
 <ul>
@@ -1263,8 +1263,7 @@ P = \begin{pmatrix}
 <p><strong>Rotação de <span class="math inline">\(x_1\)</span> para compor PC2</strong></p>
 <ul>
 <li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido horário.</p></li>
-<li><p><span class="math inline">\(-\arcsin( \approx 0.707 ) \cdot 180/\pi \approx -45^\circ\)</span>.</p></li>
-<li><p><span class="math inline">\(-45^\circ\)</span> no sentido horário é o mesmo que <span class="math inline">\(45^\circ\)</span> no sentido anti-horário.</p></li>
+<li><p><span class="math inline">\(-\arcsin( \approx -0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
 </ul>
 <p><strong>Rotação de <span class="math inline">\(x_2\)</span> para compor PC1</strong></p>
 <ul>
@@ -1285,6 +1284,14 @@ P = \begin{pmatrix}
 <img src="img/parte03/PCA/pca_contribuicao.png" alt="Rotações de x1 e x2 para comporem PC1 e PC2" width="95%" />
 <p class="caption">
 Figure 6.3: Rotações de x1 e x2 para comporem PC1 e PC2
+</p>
+</div>
+<p> </p>
+<p>A reflexão do eixo de PC1 é mostrado na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-reflexao">6.4</a>:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-reflexao"></span>
+<img src="img/parte03/PCA/scores_Reflexao.png" alt="Reflexão de PC1" width="100%" />
+<p class="caption">
+Figure 6.4: Reflexão de PC1
 </p>
 </div>
 <p>As observações a serem feitas na figura são as explicações descritas acima.</p>
