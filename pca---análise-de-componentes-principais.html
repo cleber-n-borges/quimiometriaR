@@ -1224,15 +1224,17 @@ R_{\theta} = \begin{pmatrix}
 <ul>
 <li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> tiver sinal indicativo positivo, a rotação se faz no sentido anti-horário.</p></li>
 <li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> for sinal indicativo negativo, a rotação se faz no sentido horário.</p></li>
+<li><p>Matriz de rotação própria tem função determinante igual a <span class="math inline">\(1\)</span> enquanto matriz de rotação imprópria tem função determinante igual a <span class="math inline">\(-1\)</span>. A rotação imprópria é uma operação de rotação própria seguida da operação de reflexão.</p></li>
 </ul>
-<p>Para o conjunto de dados bidimensionais como é nosso exemplo, a matriz dos <em>loadings</em> equivale à matriz de rotação:</p>
+<p>Para o conjunto de dados bidimensionais do nosso exemplo, a matriz dos <em>loadings</em> equivale à matriz de rotação:</p>
 <p><span class="math display">\[
 P = \begin{pmatrix}
 \approx -0.707 &amp; \approx -0.707 \\
 \approx -0.707 &amp; \approx 0.707
 \end{pmatrix}
 \]</span></p>
-<p>Para o caso em 2D, é fácil perceber que a matriz <span class="math inline">\(P\)</span> apresenta sinais opostos em relação à matriz <span class="math inline">\(R_{\theta}\)</span> na primeira coluna. Para inverter os sinais dessa coluna em <span class="math inline">\(P\)</span>, podemos utilizar uma matriz diagonal, na qual substituímos o valor 1 por -1 na posição correspondente à coluna que desejamos alterar. Essa matriz é conhecida como matriz <span class="math inline">\(I\)</span> de reflexão. Essa operação efetivamente inverte os sinais dos elementos na coluna de <span class="math inline">\(P\)</span>.</p>
+<p>Para o nosso exemplo em 2D, é fácil perceber que a matriz <span class="math inline">\(P\)</span> apresenta sinais opostos em relação à matriz <span class="math inline">\(R_{\theta}\)</span> na primeira coluna, é uma matriz de rotação imprópria, então já detectamos que há ao menos uma operação de reflexão.</p>
+<p>Para inverter os sinais dessa coluna em <span class="math inline">\(P\)</span>, podemos utilizar uma matriz diagonal, na qual substituímos o valor <span class="math inline">\(1\)</span> por <span class="math inline">\(-1\)</span> na posição correspondente à coluna que desejamos alterar. Essa matriz é conhecida como matriz de reflexão, <span class="math inline">\(I\)</span>. Essa operação efetivamente inverte os sinais dos elementos na coluna de <span class="math inline">\(P\)</span>.</p>
 <p><span class="math display">\[
 \begin{bmatrix}
 -0.707 &amp; -0.707 \\
