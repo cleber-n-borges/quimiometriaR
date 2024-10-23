@@ -238,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#variância-por-pc"><i class="fa fa-check"></i><b>6.6</b> Variância por PC</a></li>
 <li class="chapter" data-level="6.7" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#importância-das-variáveis"><i class="fa fa-check"></i><b>6.7</b> Importância das Variáveis</a></li>
-<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#rotação"><i class="fa fa-check"></i><b>6.8</b> Rotação</a></li>
+<li class="chapter" data-level="6.8" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#rotação-e-reflexão"><i class="fa fa-check"></i><b>6.8</b> Rotação e Reflexão</a></li>
 <li class="chapter" data-level="6.9" data-path="pca---análise-de-componentes-principais.html"><a href="pca---análise-de-componentes-principais.html#aplicação-típica"><i class="fa fa-check"></i><b>6.9</b> Aplicação Típica</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="hca---análise-de-agrupamento-hierárquico.html"><a href="hca---análise-de-agrupamento-hierárquico.html"><i class="fa fa-check"></i><b>7</b> HCA - Análise de Agrupamento Hierárquico</a></li>
@@ -1209,21 +1209,21 @@ Figure 6.2:  Dados, <em>Loadings</em> e <em>Scores</em> (Componentes Principais)
 <p>Esse padrão nos <em>loadings</em> também pode ser atribuído ao elevado valor da correlação, <span class="math inline">\(0.83\)</span>, entre as duas variáveis. Em outras palavras, é a interação entre essas variáveis que destaca a dispersão observada nos dados, indicando que elas contribuem de maneira conjunta para a variação nas componentes principais.</p>
 <p>As relações entre as variáveis originais e as componentes principais são estabelecidas exclusivamente pelos <em>loadings</em>. Portanto, é fundamental explorar a utilidade dos <em>loadings</em> para identificar as variáveis originais mais influentes, o que demanda a análise de mais exemplos que serão apresentados na sessão de aplicações.</p>
 </div>
-<div id="rotação" class="section level2 hasAnchor" number="6.8">
-<h2><span class="header-section-number">6.8</span> Rotação<a href="pca---análise-de-componentes-principais.html#rotação" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="rotação-e-reflexão" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Rotação e Reflexão<a href="pca---análise-de-componentes-principais.html#rotação-e-reflexão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Já discutimos que a matriz de <em>loadings</em> desempenha um papel fundamental na análise de PCA, pois é uma das matrizes resultantes da decomposição dos dados e são os pesos das variáveis originais para contribuição da construção das componentes.</p>
-<p>Ela pode ser entendida como uma <em>matriz de rotação</em><span class="math inline">\(\dagger\)</span><a href="#fn69" class="footnote-ref" id="fnref69"><sup>69</sup></a>, <span class="math inline">\(R\)</span>, que reorientar o sistema de coordenadas dos dados originais. (Embora a matriz de <em>loadings</em> não se limite a uma rotação, essa simplificação no momento, nos permite uma interpretação das relações entre as variáveis originais e os novos componentes).</p>
+<p>Ela pode ser entendida como uma <em>matriz de rotação</em><span class="math inline">\(\dagger\)</span><a href="#fn69" class="footnote-ref" id="fnref69"><sup>69</sup></a>, <span class="math inline">\(R\)</span>, que reorienta o sistema de coordenadas dos dados originais. (Embora a matriz de <em>loadings</em> não se limite a uma rotação, essa simplificação no momento, nos permite uma interpretação das relações entre as variáveis originais e os novos componentes).</p>
 <p><strong><span class="math inline">\(\dagger\)</span>Nota</strong>: <em>Matriz de rotação</em> é uma matriz utilizada para realizar uma rotação de pontos em um espaço euclidiano, como no plano bidimensional (2D) ou em três dimensões (3D).</p>
-<p>A definição de uma matriz de rotação no plano é dada pela seguinte expressão:</p>
+<p>A definição de uma matriz de rotação, no sentido anti-horário, no plano é dada pela seguinte expressão:</p>
 <p><span class="math display">\[
-R = \begin{pmatrix}
+R_{\theta} = \begin{pmatrix}
 \cos(\Theta) &amp; -\sin(\Theta) \\
 \sin(\Theta) &amp; \cos(\Theta)
 \end{pmatrix}
 \]</span></p>
 <ul>
-<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> tiver sinal indicativo positivo, a rotação se faz no sentido horário.</p></li>
-<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> for sinal indicativo, a rotação se faz no sentido antihorário.</p></li>
+<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> tiver sinal indicativo positivo, a rotação se faz no sentido anti-horário.</p></li>
+<li><p>Se o ângulo <span class="math inline">\(\Theta\)</span> for sinal indicativo negativo, a rotação se faz no sentido horário.</p></li>
 </ul>
 <p>Para o conjunto de dados bidimensionais como é nosso exemplo, a matriz dos <em>loadings</em> equivale à matriz de rotação:</p>
 <p><span class="math display">\[
@@ -1232,32 +1232,53 @@ P = \begin{pmatrix}
 \approx -0.707 &amp; \approx 0.707
 \end{pmatrix}
 \]</span></p>
+<p>Para o caso em 2D, é fácil perceber que a matriz <span class="math inline">\(P\)</span> apresenta sinais opostos em relação à matriz <span class="math inline">\(R_{\theta}\)</span> na primeira coluna. Para inverter os sinais dessa coluna em <span class="math inline">\(P\)</span>, podemos utilizar uma matriz diagonal, na qual substituímos o valor 1 por -1 na posição correspondente à coluna que desejamos alterar. Essa matriz é conhecida como matriz <span class="math inline">\(I\)</span> de reflexão. Essa operação efetivamente inverte os sinais dos elementos na coluna de <span class="math inline">\(P\)</span>.</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+-0.707 &amp; -0.707 \\
+-0.707 &amp;  0.707
+\end{bmatrix}
+\times
+\begin{bmatrix}
+-1 &amp; 0 \\
+0 &amp; 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.707 &amp; -0.707 \\
+0.707 &amp;  0.707
+\end{bmatrix}
+\]</span></p>
+<p>Agora que temos nossa matriz <span class="math inline">\(P\)</span> preparada, podemos analisar a interpretação de rotação. Após rotação, será necessário inverter o sentido da direção do primeiro eixo para resultar no gráfico que obtivemos do <em>software</em>.</p>
 <p>Devemos interpretar os sinais como indicativos do sentido da rotação, enquanto os valores correspondem ao seno e ao cosseno do ângulo formado entre a variável original e a componente principal.</p>
 <p>Aplicando as funções inversas do seno e do cosseno, que são o arco seno <nobr>(<code>arcsin()</code>)</nobr> e o arco cosseno <nobr>(<code>arccos()</code>)</nobr>, podemos calcular os ângulos em radianos. Para converter esses ângulos para graus, basta multiplicá-los por <span class="math inline">\({180}/{\pi}\)</span>.”</p>
 <p>Desda forma, podemos saber o ângulo rotação da variável original na contribuição da formação de cada componente, como a seguir:</p>
 <p><strong>Rotação de <span class="math inline">\(x_1\)</span> para compor PC1</strong></p>
 <ul>
-<li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
+<li><p>Como o sinal indicativo é positivo, devemos mover o eixo no sentido anti-horário.</p></li>
 <li><p><span class="math inline">\(\arccos( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
 </ul>
 <p><strong>Rotação de <span class="math inline">\(x_1\)</span> para compor PC2</strong></p>
 <ul>
-<li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
+<li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido horário.</p></li>
 <li><p><span class="math inline">\(-\arcsin( \approx 0.707 ) \cdot 180/\pi \approx -45^\circ\)</span>.</p></li>
-<li><p><span class="math inline">\(-45^\circ\)</span> no sentido antihorário é o mesmo que <span class="math inline">\(45^\circ\)</span> no sentido horário.</p></li>
+<li><p><span class="math inline">\(-45^\circ\)</span> no sentido horário é o mesmo que <span class="math inline">\(45^\circ\)</span> no sentido anti-horário.</p></li>
 </ul>
 <p><strong>Rotação de <span class="math inline">\(x_2\)</span> para compor PC1</strong></p>
 <ul>
-<li><p>Como o sinal indicativo é negativo, devemos mover o eixo no sentido antihorário.</p></li>
+<li><p>Como o sinal indicativo é positivo, devemos mover o eixo no sentido anti-horário.</p></li>
 <li><p><span class="math inline">\(\arcsin( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
 </ul>
 <p><strong>Rotação de <span class="math inline">\(x_2\)</span> para compor PC2</strong></p>
 <ul>
-<li><p>Como o sinal indicativo é positivo, devemos mover o eixo no sentido horário.</p></li>
+<li><p>Como o sinal indicativo é positivo, devemos mover o eixo no sentido anti-horário.</p></li>
 <li><p><span class="math inline">\(\arccos( \approx 0.707 ) \cdot 180/\pi \approx 45^\circ\)</span>.</p></li>
 </ul>
-<p> </p>
-<p>Essas informações são mostrados na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-contribuicao">6.3</a>:</p>
+<p><strong>Reflexão do eixo de PC1</strong></p>
+<ul>
+<li>Ivertemos o sentido de PC1 para finalmente obtermos o gráfico mostrado no gráfico 4 da figura <a href="pca---análise-de-componentes-principais.html#fig:pca-LoadScor">6.2</a>.</li>
+</ul>
+<p>As informações sobre as rotações são mostrados na figura <a href="pca---análise-de-componentes-principais.html#fig:pca-contribuicao">6.3</a>:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pca-contribuicao"></span>
 <img src="img/parte03/PCA/pca_contribuicao.png" alt="Rotações de x1 e x2 para comporem PC1 e PC2" width="95%" />
 <p class="caption">
@@ -1265,6 +1286,7 @@ Figure 6.3: Rotações de x1 e x2 para comporem PC1 e PC2
 </p>
 </div>
 <p>As observações a serem feitas na figura são as explicações descritas acima.</p>
+<p>Sob essa perspectiva, de rotações e inversões, podemos entender a matriz de <em>loadings</em> como uma série de valores de seno e cosseno correspondentes aos ângulos pelos quais as variáveis originais devem ser rotacionadas, frequentemente seguidas por operações de reflexão. Quanto às rotações, PCA oferece solução única, o que significa que, embora as direções dos eixos principais sejam livres, isso não altera a interpretação das componentes resultantes. Essa singularidade garante que a análise permaneça consistente, independentemente da orientação dos eixos</p>
 </div>
 <div id="aplicação-típica" class="section level2 hasAnchor" number="6.9">
 <h2><span class="header-section-number">6.9</span> Aplicação Típica<a href="pca---análise-de-componentes-principais.html#aplicação-típica" class="anchor-section" aria-label="Anchor link to header"></a></h2>

@@ -48,6 +48,6 @@ decomposição-em-valores-singulares-svd
 algoritmo-nipals
 variância-por-pc
 importância-das-variáveis
-rotação
+rotação-e-reflexão
 aplicação-típica
 hca---análise-de-agrupamento-hierárquico
