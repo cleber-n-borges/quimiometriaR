@@ -47,6 +47,7 @@ pca-como-decomposição-matricial
 decomposição-espectral
 decomposição-em-valores-singulares-svd
 algoritmo-nipals
+pcoa
 variância-por-pc
 importância-das-variáveis
 rotação-e-reflexão
