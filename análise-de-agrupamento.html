@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>PARTE II - Tratamento dos Dados | Caderno de Quimiometria com R</title>
+  <title>&#8474;&#8477; 7 Análise de Agrupamento | Caderno de Quimiometria com R</title>
   <meta name="description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="PARTE II - Tratamento dos Dados | Caderno de Quimiometria com R" />
+  <meta property="og:title" content="&#8474;&#8477; 7 Análise de Agrupamento | Caderno de Quimiometria com R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
   <meta property="og:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
   <meta name="github-repo" content="cleber-n-borges/quimiometriaR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="PARTE II - Tratamento dos Dados | Caderno de Quimiometria com R" />
+  <meta name="twitter:title" content="&#8474;&#8477; 7 Análise de Agrupamento | Caderno de Quimiometria com R" />
   
   <meta name="twitter:description" content="Este caderno foi criado para ser um guia acessível para todos que desejam explorar e aplicar conceitos de quimiometria utilizando a linguagem de programação R. Foi desenvolvido com suporte do ChatGPT." />
   <meta name="twitter:image" content="https://cleber-n-borges.github.io/quimiometriaR/img/cover.jpg" />
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
-<link rel="prev" href="visualização-de-dados.html"/>
-<link rel="next" href="pré-processamento-de-variáveis.html"/>
+<link rel="prev" href="pca---análise-de-componentes-principais.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -266,72 +266,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="parte-ii---tratamento-dos-dados" class="section level1 unnumbered hasAnchor">
-<h1>PARTE II - Tratamento dos Dados<a href="parte-ii---tratamento-dos-dados.html#parte-ii---tratamento-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>No contexto de quimiometria, o tratamento dos dados é uma etapa crítica que visa preparar os dados químicos e espectroscópicos para análise e modelagem. O pré-processamento dos dados ajuda a melhorar a qualidade dos dados e a eficácia das análises subsequentes.</p>
-<p>São raros os casos em que se aplica uma técnica de análise sem antes realizar a etapa de pré-processamento dos dados. O pré-processamento é essencial porque dados brutos frequentemente contêm ruído, variabilidade indesejada e outras imperfeições que podem comprometer a qualidade dos modelos analíticos. Técnicas adequadas de pré-processamento melhoram a precisão dos modelos, facilitam a interpretação dos resultados e ajudam a obter conclusões mais confiáveis a partir dos dados químicos e espectroscópicos.</p>
-<p>A seguir estão listadas algumas das principais técnicas de pré-processamento usadas em quimiometria.</p>
-<h3>
-Pré-Processamento de Variáveis
-</h3>
+<div id="análise-de-agrupamento" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">&#8474;&#8477; 7</span> Análise de Agrupamento<a href="análise-de-agrupamento.html#análise-de-agrupamento" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>A Análise de Agrupamentos, comumente referida como Análise de <em>Clusters</em>, visa identificar grupos ou <em>clusters</em> em um conjunto de dados, com base em características semelhantes. O objetivo é identificar padrões ou estruturas nos dados, permitindo que objetos ou pontos de dados que são mais semelhantes entre si sejam agrupados, enquanto aqueles que são diferentes são colocados em grupos distintos.</p>
+<p>Existem várias abordagens para a Análise de Clusters, incluindo:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Autoescalamento</strong></li>
+<li><p><strong>Métodos Hierárquicos</strong>: Criam uma árvore de agrupamento (dendrograma) que mostra como os clusters estão relacionados uns aos outros.</p></li>
+<li><p><strong>Métodos Baseados em Partição</strong>: Como o k-means, onde os dados são divididos em um número predefinido de clusters.</p></li>
+<li><p><strong>Métodos Baseados em Densidade</strong>: Como DBSCAN, que identifica clusters com base na densidade de pontos em uma região.</p></li>
+<li><p><strong>Métodos de Modelagem</strong>: Que assumem que os dados vêm de uma distribuição específica (como Gaussian Mixture Models).</p></li>
 </ol>
-<p>O autoescalamento visa transformar os dados de modo que suas características (como escala e variância) sejam ajustadas para que diferentes variáveis possam ser comparadas de maneira mais uniforme.</p>
-<p>A normalização pelo <em>Z-score</em>, também conhecida como padronização, é uma técnica específica de autoescalamento.</p>
-<p>A padronização transforma os dados para ter uma média de zero e um desvio padrão de um. Isso é útil quando os dados com diferentes distribuições precisam ser comparados ou quando a distribuição das variáveis devam ser mais uniformizadas, o que é essencial para evitar que variáveis com diferentes magnitudes dominem a análise.</p>
-<p>É comum os termos: Autoescalamento, Padronização e Normalização <em>Z-score</em> serem usados de forma intercambiáveis</p>
-<ol start="2" style="list-style-type: decimal">
-<li><strong>Normalização Mínimo-Máximo:</strong></li>
-</ol>
-<p>A normalização ‘Min-Max’ escala os dados para um intervalo específico, como por exemplo [0, 1]. Isto é, O procedimento assegura que todos os valores estejam dentro do mesmo intervalo.</p>
-<h3>
-Pré-Processamento de Amostras
-</h3>
-<ol style="list-style-type: decimal">
-<li><strong>Smoothing (Suavização)</strong></li>
-</ol>
-<p>A suavização é usada para reduzir o ruído em dados espectroscópicos e melhorar a qualidade dos sinais. Métodos comuns incluem o filtro de Savitzky-Golay e a suavização por média móvel.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><strong>Correção de Base</strong></li>
-</ol>
-<p>Correção de base ajusta os dados espectroscópicos para remover qualquer linha de base ou fundo que possa ter sido introduzido durante a coleta dos dados. Isso é crucial para obter um espectro limpo e preciso.</p>
-<ol start="3" style="list-style-type: decimal">
-<li><strong>Remoção de Ruído</strong></li>
-</ol>
-<p>Reduz o ruído nos dados para melhorar a clareza dos sinais químicos. Técnicas incluem filtros de mediana e algoritmos de redução de ruído baseados em wavelets.</p>
-<ol start="4" style="list-style-type: decimal">
-<li><strong>Transformações Matemáticas</strong></li>
-</ol>
-<ul>
-<li><strong>Transformações de Fourier:</strong> Convertem os dados do domínio do tempo para o domínio da frequência, frequentemente usadas em espectroscopia.</li>
-<li><strong>Transformações de Derivada:</strong> Calculam derivadas dos dados espectroscópicos para melhorar a resolução de picos e identificar características importantes.</li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
-<li><strong>Correção de Deslocamento Espectral</strong></li>
-</ol>
-<p>Ajusta os dados para corrigir deslocamentos ou variações sistemáticas no espectro, garantindo que comparações entre diferentes amostras ou experimentos sejam precisas.</p>
-<ol start="6" style="list-style-type: decimal">
-<li><strong>Interpolação e Amostragem</strong></li>
-</ol>
-<p>Interpolação é usada para preencher lacunas nos dados espectroscópicos, enquanto a amostragem pode ser ajustada para uniformizar os pontos de dados e melhorar a resolução.</p>
-<ol start="7" style="list-style-type: decimal">
-<li><strong>Eliminação de Outliers</strong></li>
-</ol>
-<p>Identifica e remove outliers que podem distorcer a análise. Isso é feito através de métodos estatísticos ou gráficos de dispersão.</p>
-<ol start="8" style="list-style-type: decimal">
-<li><strong>Seleção de Características</strong></li>
-</ol>
-<p>Escolhe as variáveis mais relevantes para a análise, reduzindo a dimensionalidade dos dados e focando apenas nas características que contribuem significativamente para os modelos.</p>
+<p>A Análise de Clusters é amplamente utilizada em diversas áreas, como marketing, biologia, e análise de dados, para identificar grupos de comportamento, espécies, ou padrões em grandes conjuntos de dados.</p>
+<div id="hca---análise-de-agrupamento-hierárquico" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> HCA - Análise de Agrupamento Hierárquico<a href="análise-de-agrupamento.html#hca---análise-de-agrupamento-hierárquico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>x</p>
+<p>x</p>
+<p>x</p>
+<p>x</p>
+<p><a href="https://en.wikipedia.org/wiki/Robert_Tryon" class="uri">https://en.wikipedia.org/wiki/Robert_Tryon</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Cluster_analysis" class="uri">https://en.wikipedia.org/wiki/Cluster_analysis</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Hierarchical_clustering" class="uri">https://en.wikipedia.org/wiki/Hierarchical_clustering</a></p>
+<p><a href="https://pt.wikipedia.org/wiki/Agrupamento_hier%C3%A1rquico" class="uri">https://pt.wikipedia.org/wiki/Agrupamento_hier%C3%A1rquico</a></p>
+<!--
+Cluster analysis originated in anthropology by Driver and Kroeber in 1932[1]
+ and introduced to psychology by Joseph Zubin in 1938[2]
+ and Robert Tryon in 1939[3] and famously used by Cattell beginning in 1943[4]
+ for trait theory classification in personality psychology. 
+
+https://en.wikipedia.org/wiki/Cluster_analysis
+-->
+<!--
+††††††††††††††††††††††
+<a href="#tip1" title="Uma modo de colocar anotações">*</a>
+
+-->
 
 </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="visualização-de-dados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="pré-processamento-de-variáveis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="pca---análise-de-componentes-principais.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -52,4 +52,5 @@ variância-por-pc
 importância-das-variáveis
 rotação-e-reflexão
 aplicação-típica
+análise-de-agrupamento
 hca---análise-de-agrupamento-hierárquico
