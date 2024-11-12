@@ -1170,7 +1170,7 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 <pre><code>VarExpl = colSums(T^2) / sum(x^2)</code></pre>
 <p>Onde:</p>
 <ul>
-<li><p><code>sum(x^2)</code> representa o traço da matriz de covariância de <span class="math inline">\(\mathbf{X}\)</span>, que equivale à soma quadrática de <span class="math inline">\(\mathbf{X}\)</span> e é proporcional à variância total de <span class="math inline">\(\mathbf{X}\)</span>.</p></li>
+<li><p><code>sum(x^2)</code> representa a soma quadrática total de <span class="math inline">\(\mathbf{X}\)</span> (soma de todas as variáveis de <span class="math inline">\(\mathbf{X}\)</span>). É proporcional à variância total.</p></li>
 <li><p><code>colSums(T^2)</code> representa a soma quadrática de cada componente, proporcional à variância de cada componente.</p></li>
 <li><p>A razão entre essas duas quantidades corresponde à variância explicada por cada componente.</p></li>
 </ul>
