@@ -1168,11 +1168,20 @@ A implementação tem propósito meramente didático, podendo gerar imprecisões
 <p>No entanto, não podemos utilizar a estratégia mencionada anteriormente, pois ela se baseia na soma de todos os autovalores (o que não está disponível nesses dois casos). Portanto, em ambas as situações, precisamos obrigatoriamente adotar uma abordagem alternativa.</p>
 <p>A abordagem alternativa está refletida na seguinte linha do código <em>Nipals no R</em>:</p>
 <pre><code>VarExpl = colSums(T^2) / sum(x^2)</code></pre>
-<p>Onde:</p>
+<p>       onde:</p>
 <ul>
-<li><p><code>sum(x^2)</code> representa a soma quadrática total de <span class="math inline">\(\mathbf{X}\)</span> (soma de todas as variáveis de <span class="math inline">\(\mathbf{X}\)</span>). É proporcional à variância total.</p></li>
-<li><p><code>colSums(T^2)</code> representa a soma quadrática de cada componente, proporcional à variância de cada componente.</p></li>
-<li><p>A razão entre essas duas quantidades corresponde à variância explicada por cada componente.</p></li>
+<ul>
+<li>
+<code>sum(x^2)</code><span class="math inline">\(\dagger\)</span> representa a soma quadrática total de <span class="math inline">\(\mathbf{X}\)</span> (soma de todas as variáveis de <span class="math inline">\(\mathbf{X}\)</span>). É proporcional à variância total.
+</li>
+<li>
+<code>colSums(T^2)</code><span class="math inline">\(\dagger\)</span> representa a soma quadrática de cada componente, proporcional à variância de cada componente.
+</li>
+<li>
+A razão entre essas duas quantidades corresponde à variância explicada por cada componente.
+</li>
+<p><strong><span class="math inline">\(\dagger\)</span>Nota</strong>: <code>sum(x^2)</code> é o mesmo que <code>sum( diag( crossprod( x ) ) )</code> e <code>crossprod( T )</code> é diagonal.</p>
+</ul>
 </ul>
 <h6>
 Fundamento da Abordagem:
